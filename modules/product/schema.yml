@@ -1,0 +1,36 @@
+product:
+  pk: id
+  fields:
+    id: INT NOT NULL AUTO_INCREMENT
+    title: VARCHAR(512) NOT NULL
+    thumbnail: VARCHAR(256)
+    description: VARCHAR(1024)
+    price: VARCHAR(10) NOT NULL
+
+  form:
+    fields:
+      title:
+        widget: text
+        widget_conf:
+          required: 1
+      thumbnail:
+        widget: image
+        widget_conf:
+          required: 0
+          multiple: 1
+          upload_dir: files/product/thumbnail
+          transform:
+            dimension: 200x200
+            refill: "255,255,255"
+      description:
+        widget: textarea
+        widget_conf:
+          required: 1
+          wysiwyg: 0
+      price:
+        widget: text
+        widget_conf:
+          required: 1
+    names:
+      en: Product
+      zh: 产品

@@ -1,0 +1,61 @@
+routing:
+  index:
+    path: ^\/?$
+    isSecure: 0
+    i18n: 0
+    controller: site/index
+  user:
+    path: ^\/user\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/index
+    
+
+
+assets:
+  frontend:
+    css:
+      bootstrap:
+        path: .?
+        position: top
+        weight: 10
+        source: //maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css
+      fontawesome:
+        path: .?
+        position: top
+        weight: 20
+        source: https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css
+      owlcarousel:
+        path: .?
+        position: top
+        weight: 30
+        source: ../../libraries/owlcarousel/assets/owl.carousel.css
+      owlcarousel_theme:
+        path: .?
+        position: top
+        weight: 30
+        source: ../../libraries/owlcarousel/assets/owl.theme.default.css
+      
+      site:
+        path: .?
+        position: top
+        weight: 40
+        source: site/assets/css/style.css
+        
+    js:
+      bootstrap:
+        path: .?
+        position: bottom
+        weight: 10
+        source: https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js
+      owlcarousel:
+        path: .?
+        position: bottom
+        weight: 20
+        source: ../../libraries/owlcarousel/owl.carousel.min.js
+        
+#      site:
+#        path: .?
+#        position: bottom
+#        weight: 30
+#        source: site/assets/js/script.js

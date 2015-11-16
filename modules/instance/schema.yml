@@ -1,0 +1,12 @@
+instance:
+  pk: id
+  fields:
+    id: INT NOT NULL AUTO_INCREMENT
+    slug: VARCHAR(24) NOT NULL UNIQUE
+    email: VARCHAR(128) NOT NULL UNIQUE
+    salt: VARCHAR(16) NOT NULL
+    password: VARCHAR(32)
+    active: TINYINT(1) DEFAULT 1
+    email_activated: TINYINT(1) DEFAULT 1
+    created_at: INT NOT NULL
+    last_login: INT

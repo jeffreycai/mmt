@@ -1,0 +1,22 @@
+routing:
+
+  admin_product_list:
+    path: ^\/admin\/product\/list\/?$
+    isSecure: 1
+    i18n: 1
+    controller: product/backend/product_list
+  admin_product_edit:
+    path: ^\/admin\/product\/edit\/(\d+)\/?$
+    isSecure: 1
+    i18n: 1
+    controller: product/backend/product_edit
+  admin_product_create:
+    path: ^\/admin\/product\/create\/?$
+    isSecure: 1
+    i18n: 1
+    controller: product/backend/product_create
+  admin_product_delete:
+    path: ^\/admin\/product\/delete\/(\d+)\/?$
+    isSecure: 1
+    i18n: 0
+    controller: product/backend/product_delete

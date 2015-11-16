@@ -1,0 +1,51 @@
+/** user theme style **/
+body {
+  background: url(../images/bg-1.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.bg-red {background-color: #EE4136;}
+.bg-cyan {background-color: #42BDC2;}
+
+
+#mainnav {
+  text-align: center;
+}
+.nav-button {
+  display: inline-block;
+  zoom: 1;
+  *display: inline; 
+  color: #FFF;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  width: 150px;
+  height: 150px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.nav-button:hover {
+  text-decoration: none;
+}
+.nav-button * {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.nav-button i {
+  font-size: 3em;
+  margin-top: 15px;
+}
+.nav-button span {
+  font-size: 2em;
+  margin-top: 20px;
+}
+
+
+.home h1 {
+  color: #FFF;
+  font-weight: 3em;
+  text-align: center;
+  margin: 50px auto 30px auto;
+}

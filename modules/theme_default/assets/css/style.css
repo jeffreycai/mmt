@@ -1,0 +1,105 @@
+
+
+/** theme styles **/
+#header {
+  height: 120px;
+  position: relative;
+  color: #FFF;
+}
+#header .profile {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+#header .profile * {
+  float: left;
+  display: block;
+}
+#header .profile h1 {
+  font-size: 1.3em;
+  margin-left: 15px;
+  margin-top: 40px;
+  font-weight: bold;
+}
+#header .badgets {
+  position: absolute;
+  right: 0px;
+  bottom: 15px;
+  list-style: none;
+}
+#header .badgets li {
+  display: block;
+  float: left;
+  background-color: #D0021B;
+  text-align: center;
+  padding: 6px 10px;
+}
+#mainnav {
+  text-align: center;
+  text-transform: uppercase;
+}
+#mainnav .row {
+  background-color: #FFF;
+}
+#mainnav a {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #111;
+  font-weight: bold;
+}
+#mainnav a.active,
+#mainnav a:hover {
+  color: #DD2727;
+  text-decoration: none;
+  border-bottom: 3px solid #DD2727;
+}
+#mainnav a span {
+  font-size: 1.2em;
+}
+#cards {
+  background-color: #FFF;
+  border: 1px solid #E0E0E0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.card {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+.card h3 {
+  margin-top: 0px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.card .img-responsive {
+  display: inline-block;
+}
+.card p {
+  max-height: 152px;
+  overflow: hidden;
+}
+.card .btn-default {
+  border-radius: 0px;
+  border-color: #DD2727;
+  color: #DD2727;
+  float: right;
+}
+.card .btn-default:hover {
+  background-color: #DD2727;
+  color: #FFF;
+}
+.card .price {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 5px;
+  color: #DD2727;
+}
+#footer {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 0.9em;
+  text-shadow: 2px 2px 1px #FFFFFF;
+}
