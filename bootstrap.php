@@ -20,6 +20,7 @@ if (isset($custom_modules)) {
       'siteuser_profile',
       'user',
       'product',
+'project',
       'mail',
       'log',
       'theme_default'

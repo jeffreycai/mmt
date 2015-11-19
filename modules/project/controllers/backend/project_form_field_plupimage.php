@@ -9,7 +9,7 @@ if (!User::getInstance()->isLogin()) {
   exit;
 }
 
-$upload_dir = "files/product/thumbnail";
+$upload_dir = "files/plupfiletest";
 
 if (isset($_FILES)) {
   $files = array();
@@ -44,27 +44,10 @@ if (isset($_FILES)) {
       load_library_wide_image();
       $dest_location = WEBROOT . DS . $upload_dir . DS . $name;
       
-      try {
-        $image = WideImage::load($tmp_location);
-        unlink($tmp_location);
-        $refill = "255,255,255";
-        $watermark = false;
-        if ($refill) {
-          $bgcolor = $image->allocateColor(255,255,255);
-          $image = $image->resize(300, 300, 'inside')->resizeCanvas(300, 300, 'center', 'center', $bgcolor);
-        } else {
-          $image = $image->resize(300, 300, 'outside')->resizeCanvas(300, 300, 'center', 'center');
-        }
-
-        if ($watermark) {
-          $watermark = WideImage::load(WEBROOT . DS . "0");
-          $image = $image->merge($watermark, 'right-10', 'bottom-10', 50);
-        }
-        $image->saveToFile($dest_location);
-
+      if (move_uploaded_file($tmp_location, $dest_location)) {
         $rtn->uri = "$upload_dir/" . $name;
-      } catch (Exception $e) {
-        $rtn->error = 'WideImage error: ' . $e->getMessage();
+      } else {
+        $rtn->error = i18n(array('en' => 'Failed to move upload file', 'zh' => '移动上传文件失败'));
       }
     }
     

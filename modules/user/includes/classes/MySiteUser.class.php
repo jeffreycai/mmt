@@ -9,4 +9,8 @@ class MySiteUser extends SiteUser {
   public function init_user_data() {
     
   }
+  
+  public function getProducts() {
+    return array();
+  }
 }

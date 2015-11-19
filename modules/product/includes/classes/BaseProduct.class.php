@@ -4,10 +4,12 @@ include_once MODULESROOT . DS . 'core' . DS . 'includes' . DS . 'classes' . DS .
 /**
  * DB fields
  * - id
+ * - user_id
  * - title
  * - thumbnail
  * - description
  * - price
+ * - created_at
  */
 class BaseProduct extends DBObject {
   /**
@@ -34,6 +36,12 @@ class BaseProduct extends DBObject {
    public function getId() {
      return $this->getDbFieldId();
    }
+   public function setUserId($var) {
+     $this->setDbFieldUser_id($var);
+   }
+   public function getUserId() {
+     return $this->getDbFieldUser_id();
+   }
    public function setTitle($var) {
      $this->setDbFieldTitle($var);
    }
@@ -58,6 +66,12 @@ class BaseProduct extends DBObject {
    public function getPrice() {
      return $this->getDbFieldPrice();
    }
+   public function setCreatedAt($var) {
+     $this->setDbFieldCreated_at($var);
+   }
+   public function getCreatedAt() {
+     return $this->getDbFieldCreated_at();
+   }
 
   
   
@@ -79,12 +93,20 @@ class BaseProduct extends DBObject {
       return $mysqli->query('
 CREATE TABLE IF NOT EXISTS `product` (
   `id` INT NOT NULL AUTO_INCREMENT ,
+  `user_id` INT NOT NULL ,
   `title` VARCHAR(512) NOT NULL ,
   `thumbnail` VARCHAR(256) ,
-  `description` VARCHAR(1024) ,
+  `description` TEXT ,
   `price` VARCHAR(10) NOT NULL ,
+  `created_at` INT ,
   PRIMARY KEY (`id`)
-)
+ ,
+INDEX `fk-product-user_id-idx` (`user_id` ASC),
+CONSTRAINT `fk-product-user_id`
+  FOREIGN KEY (`user_id`)
+  REFERENCES `site_user` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;

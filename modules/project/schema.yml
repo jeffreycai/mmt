@@ -12,6 +12,7 @@ project:
     images: VARCHAR(800)
     thumbnail: VARCHAR(100)
     attachment: VARCHAR(1000)
+    plupimage: VARCHAR(1000)
     application: VARCHAR(1000)
     date: INT
   form:
@@ -96,6 +97,19 @@ project:
           max_file_size: 4
           max_file_number: 3
           extensions: jpg,png,gif,zip
+      plupimage:
+        widget: plupfile
+        widget_conf:
+          required: 1
+          upload_dir: files/plupfiletest
+          # max_file_size in mb
+          max_file_size: 4
+          max_file_number: 3
+          extensions: jpg,png,gif
+          transform:
+            dimension: 500x320
+            refill: "0,0,0"
+            watermark: modules/site/assets/images/favicon.png
       application:
         widget: plupfile
         widget_conf:

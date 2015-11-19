@@ -468,7 +468,7 @@ tr.html(addImageRow(false, true));
   }
 ?>
 
-<div id='OQl24' class='form-group'>
+<div id='MLDYi' class='form-group'>
   <label class='col-sm-2 control-label' for='date'>date <span style="color: rgb(185,2,0); font-weight: bold;">*</span></label>
   <div class='col-sm-10'>
     <div class='input-group'>
@@ -481,15 +481,15 @@ tr.html(addImageRow(false, true));
 <div class='hr-line-dashed'></div>
 
     <script type='text/javascript'>
-      $('#OQl24 .datepicker').datepicker({
+      $('#MLDYi .datepicker').datepicker({
         dateFormat: '@'
-        ,altField: "#OQl24 .altFormat", altFormat: "yy-mm-dd"
+        ,altField: "#MLDYi .altFormat", altFormat: "yy-mm-dd"
         ,changeMonth: 1
         ,changeYear: 1
         ,yearRange: 'c-5:c+10'
       });
-      $('#OQl24 .input-group-addon').css('cursor', 'pointer').on('click', function(){
-        $('#OQl24 .datepicker').datepicker('show');
+      $('#MLDYi .input-group-addon').css('cursor', 'pointer').on('click', function(){
+        $('#MLDYi .datepicker').datepicker('show');
       });
     </script>
   
@@ -525,7 +525,7 @@ $(function() {
       furi: $(this).data('furi')
     }, function(data){
       if (data.error !== undefined) {
-        alert("Failed to delete file. Error: "+data.error);
+        alert("删除文件失败。错误："+data.error);
       }
       
       filelist = $('#'+data.fid).parents('.file-container');
@@ -597,9 +597,112 @@ $(function() {
 <!-- END OF js code for #attachment_uploader -->
   
     <div class="form-group">
-      <label for="application" class="col-sm-2 control-label">application <span style="color: rgb(185,2,0); font-weight: bold;">*</span></label>
+      <label for="plupimage" class="col-sm-2 control-label">plupimage <span style="color: rgb(185,2,0); font-weight: bold;">*</span></label>
       <div class="col-sm-10">
-        <textarea required="" name="application" id="application" rows="5" class="form-control"><?php echo isset($_POST["application"]) ? htmlentities($_POST["application"]) : htmlentities($object->getApplication()); ?></textarea>
+        <textarea required="" name="plupimage" id="plupimage" rows="5" class="form-control"><?php echo isset($_POST["plupimage"]) ? htmlentities($_POST["plupimage"]) : htmlentities($object->getPlupimage()); ?></textarea>
+
+        <div id="plupimage_uploader" class="uploader" style="display: none;">
+            <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+        </div>
+
+      </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+
+  
+<!-- js code for #plupimage_uploader -->
+<script type="text/javascript">
+$(function() {
+  /** define var **/
+  var max_file_number = 3;
+  
+  /** build file list from textarea **/
+  textareaToFilelist($('#plupimage'), max_file_number);
+  
+  /** bind file delete action **/
+  $('#plupimage').parents('.form-group').first().on('click', '.delete', function(){
+    $(this).prop('disabled', true);
+    var filelist = $(this).parents('.file-container').first();
+    $.post('/modules/project/controllers/backend/project_form_field_plupimage_remove.php', {
+      fid: $(this).parents('li').first().attr('id'),
+      furi: $(this).data('furi')
+    }, function(data){
+      if (data.error !== undefined) {
+        alert("删除文件失败。错误："+data.error);
+      }
+      
+      filelist = $('#'+data.fid).parents('.file-container');
+      $('#'+data.fid).remove();
+      filelistToTextarea(filelist, max_file_number);
+    }, 'json');
+    return false;
+  });
+  
+  /** plupload Queue initialization **/
+  
+  $("#plupimage_uploader").pluploadQueue({
+      // General settings
+      runtimes : 'html5,flash,silverlight,html4',
+      url : "/modules/project/controllers/backend/project_form_field_plupimage_upload.php",
+      chunk_size : '1mb',
+      rename : false,
+      dragdrop: true,
+
+      filters : {
+          max_file_size : '4mb',
+          mime_types: [
+              {title : "Allowed files", extensions : "jpg,png,gif"}
+          ]
+      },
+      flash_swf_url : '/libraries/plupload/js/Moxie.swf',
+      silverlight_xap_url : '/libraries/plupload/js/Moxie.xap',
+      unique_names : true, // generate an unique file name for the uploaded file and send it as an additional argument - name, to server handling script
+      multiple_queues : true // Re-activate the widget after each upload procedure.
+      ,multi_selection : true
+  });
+  var uploader = $('#plupimage_uploader').pluploadQueue();
+
+  // when upload complete
+  uploader.bind('UploadComplete', function(uploader, files){
+    // append plup file list to textarea
+    while (files[0] !== undefined) {
+      if (files[0].status == plupload.DONE) {
+        var existing_content = jQuery.trim($('#plupimage').val());
+        var to_be_added = (existing_content == '' ? '' : "\n") + 'files/cache/' + files[0].target_name.toLowerCase();
+        $('#plupimage').val(existing_content + to_be_added);
+      }
+      // and remove it from plup file list
+      uploader.removeFile(files[0]);
+    }
+    // refresh file list
+    textareaToFilelist($('#plupimage'), max_file_number);
+  });
+
+  // when file(s) added
+  uploader.bind('FilesAdded', function(uploader, files){
+    var content = jQuery.trim($('#plupimage').val());
+    if (content == '') {
+      var existing_files = [];
+    } else {
+      var existing_files = content.split("\n");
+    }
+    var added_files = uploader.files;
+    if (existing_files.length + added_files.length > max_file_number) {
+      alert('<?php echo i18n(array("en" => "Too many files selected. Max allowed upload limit is ","zh" => "您选择的文件过多了，最大允许的上传数为")) ?> ' + max_file_number + ' <?php echo i18n(array("en" => "files", "zh" => "")); ?>.' + ' <?php echo i18n(array("en" => "Only ", "zh" => "您上传的文件仅有")) ?>' + (max_file_number - existing_files.length) + ' <?php echo i18n(array("en" => "of your selected files are accepted", "zh" => "个文件被接受")) ?>.');
+      for (i=uploader.files.length-1; i>(max_file_number - existing_files.length - 1); i--) {
+        uploader.removeFile(uploader.files[i]);
+      }
+    }
+  });
+
+});
+</script>
+<!-- END OF js code for #plupimage_uploader -->
+  
+    <div class="form-group">
+      <label for="application" class="col-sm-2 control-label">application </label>
+      <div class="col-sm-10">
+        <textarea name="application" id="application" rows="5" class="form-control"><?php echo isset($_POST["application"]) ? htmlentities($_POST["application"]) : htmlentities($object->getApplication()); ?></textarea>
 
         <div id="application_uploader" class="uploader" style="display: none;">
             <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
@@ -628,7 +731,7 @@ $(function() {
       furi: $(this).data('furi')
     }, function(data){
       if (data.error !== undefined) {
-        alert("Failed to delete file. Error: "+data.error);
+        alert("删除文件失败。错误："+data.error);
       }
       
       filelist = $('#'+data.fid).parents('.file-container');

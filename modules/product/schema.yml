@@ -2,10 +2,18 @@ product:
   pk: id
   fields:
     id: INT NOT NULL AUTO_INCREMENT
+    user_id: INT NOT NULL
     title: VARCHAR(512) NOT NULL
     thumbnail: VARCHAR(256)
-    description: VARCHAR(1024)
+    description: TEXT
     price: VARCHAR(10) NOT NULL
+    created_at: INT
+  fks:
+    user_id:
+      foreign_key: user_id
+      references: site_user.id
+      on_delete: CASCADE
+      on_update: CASCADE
 
   form:
     fields:
@@ -14,14 +22,18 @@ product:
         widget_conf:
           required: 1
       thumbnail:
-        widget: image
+        widget: plupfile
         widget_conf:
           required: 0
-          multiple: 1
-          upload_dir: files/product/thumbnail
+          upload_dir: files/user/1
+          # max_file_size in mb
+          max_file_size: 4
+          max_file_number: 8
+          extensions: jpg,png,gif
           transform:
-            dimension: 200x200
+            dimension: 175x175
             refill: "255,255,255"
+#            watermark: modules/user/assets/images/test.png
       description:
         widget: textarea
         widget_conf:

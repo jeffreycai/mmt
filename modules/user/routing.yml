@@ -1,0 +1,11 @@
+routing:
+  user_products:
+    path: ^\/user\/products\/?$
+    isSecure: 0
+    i18n: 1
+    controller: user/products
+  user_products_add:
+    path: ^\/user\/products\/add\/?$
+    isSecure: 0
+    i18n: 1
+    controller: user/products_add

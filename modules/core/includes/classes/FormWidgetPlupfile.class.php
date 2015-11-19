@@ -8,6 +8,7 @@ class FormWidgetPlupfile extends FormWidget {
   private $max_file_size;
   private $extensions;
   private $upload_dir;
+  private $transform;
   
   public function __construct($name, $conf) {
     parent::__construct($conf);
@@ -18,6 +19,7 @@ class FormWidgetPlupfile extends FormWidget {
     $this->extensions = isset($conf['extensions']) ? $conf['extensions'] : 'jpg,png,gif';
     $this->extensions_quoted = explode(',', $this->extensions);
     $this->upload_dir = isset($conf['upload_dir']) ? $conf['upload_dir'] : 'files';
+    $this->transform = isset($conf['transform']) ? $conf['transform'] : false;
     $quoted = array();
     foreach ($this->extensions_quoted as $ext) {
       $quoted[] = "'$ext'";

@@ -143,7 +143,7 @@ class Asset {
   
   static function getAllDynamicAssets($type, $whichend) {
     global $dynamic_assets;
-    return is_array($dynamic_assets[$whichend][$type]) ? $dynamic_assets[$whichend][$type] : array();
+    return (isset($dynamic_assets[$whichend][$type]) && is_array($dynamic_assets[$whichend][$type])) ? $dynamic_assets[$whichend][$type] : array();
   }
   
   static function renderAllDynamicAssets($type, $whichend) {

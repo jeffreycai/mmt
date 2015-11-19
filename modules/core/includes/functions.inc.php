@@ -748,10 +748,13 @@ function build_form($model, $override = false) {
             
             /** plupfile field controllers **/
             if ($field['widget'] == 'plupfile') {
-              // plupfile submission controller
+              
               $upload_dir = $widget_conf['upload_dir'];
               $file_extensions = $widget_conf['extensions'];
+              $transform = isset($widget_conf['transform']) ? $widget_conf['transform'] : false;
 
+              // plupfile submission controller
+              /*
               if ($override || !is_file($module_path . DS . 'controllers' . DS . 'backend' . DS . $model."_form_field_$name.php")) {
                 echo " + module $module: create form field controller '".$model."_form_field_$name.php'\n";
 
@@ -762,6 +765,7 @@ function build_form($model, $override = false) {
               } else {
                 echo " > module $module: controller '".$model."_form_field_$name.php' exists. skip\n";
               }
+               */
               
               // plupfile remove controller
               if ($override || !is_file($module_path . DS . 'controllers' . DS . 'backend' . DS . $model."_form_field_$name"."_remove.php")) {

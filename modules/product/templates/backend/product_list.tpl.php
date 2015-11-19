@@ -19,10 +19,12 @@
   <thead>
       <tr role="row">
                 <th>id</th>
+                <th>user_id</th>
                 <th>title</th>
                 <th>thumbnail</th>
                 <th>description</th>
                 <th>price</th>
+                <th>created_at</th>
                 <th>Actions</th>
       </tr>
   </thead>
@@ -30,10 +32,12 @@
     <?php foreach ($objects as $object): ?>
     <tr>
             <td><?php echo $object->getId() ?></td>
+            <td><?php echo $object->getUserId() ?></td>
             <td><?php echo $object->getTitle() ?></td>
             <td><?php echo $object->getThumbnail() ?></td>
             <td><?php echo $object->getDescription() ?></td>
             <td><?php echo $object->getPrice() ?></td>
+            <td><?php echo $object->getCreatedAt() ?></td>
             <td>
         <div class="btn-group">
           <a class="btn btn-default btn-sm" href="<?php echo uri('admin/product/edit/' . $object->getId()); ?>"><i class="fa fa-edit"></i></a>

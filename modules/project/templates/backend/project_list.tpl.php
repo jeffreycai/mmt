@@ -29,6 +29,7 @@
                 <th>images</th>
                 <th>thumbnail</th>
                 <th>attachment</th>
+                <th>plupimage</th>
                 <th>application</th>
                 <th>date</th>
                 <th>Actions</th>
@@ -48,6 +49,7 @@
             <td><?php echo $object->getImages() ?></td>
             <td><?php echo $object->getThumbnail() ?></td>
             <td><?php echo $object->getAttachment() ?></td>
+            <td><?php echo $object->getPlupimage() ?></td>
             <td><?php echo $object->getApplication() ?></td>
             <td><?php echo $object->getDate() ?></td>
             <td>

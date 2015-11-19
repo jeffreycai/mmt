@@ -7,6 +7,7 @@ FormWidgetImage::bootstrap('images');
 FormWidgetImage::bootstrap('thumbnail');
 FormWidgetDatepicker::bootstrap('date');
 FormWidgetPlupfile::bootstrap('attachment');
+FormWidgetPlupfile::bootstrap('plupimage');
 FormWidgetPlupfile::bootstrap('application');
   
 // handle form submission
@@ -117,10 +118,51 @@ if (isset($_POST['submit'])) {
     // check file extension
     foreach ($files as $file) {
       $file = trim($file);
+      if (sizeof($files) == 1 && $file == "") {
+        break;
+      }
       $tokens = explode(".", $file);
       $extension = array_pop($tokens);
       if (!in_array(strtolower($extension), array('jpg','png','gif','zip'))) {
         Message::register(new Message(Message::DANGER, i18n(array("en" => "Only file with extension jpg,png,gif,zip is allowed. Please restrict your files with these types.", "zh" => "上传文件仅支持jpg,png,gif,zip，请检查您的上传文件"))));
+        $error_flag = true;
+        break;
+      }
+    }
+  }
+  
+  // validation for $plupimage
+  $plupimage = isset($_POST["plupimage"]) ? strip_tags(trim($_POST["plupimage"])) : null;
+  // check not empty
+  if (empty($plupimage)) {
+    Message::register(new Message(Message::DANGER, i18n(array("en" => "plupimage is required.", "zh" => "请填写plupimage"))));
+    $error_flag = true;
+  }
+
+  // check upload_dir
+  if (!is_dir(WEBROOT . DS . "files/plupfiletest")) {
+    mkdir(WEBROOT . DS . "files/plupfiletest");
+  }
+  if (!is_writable(WEBROOT . DS . "files/plupfiletest")) {
+    $error_flag = true;
+    Message::register(new Message(Message::DANGER, i18n(array("en" => "Upload dir is not writable.", "zh" => "上传文件夹不可写"))));
+  } else {
+    $files = explode("\n", trim($plupimage));
+    // check max_file_number
+    if (sizeof($files) > 3) {
+      Message::register(new Message(Message::DANGER, i18n(array("en" => "Max file allowed to be uploed is 3. Please reduce uploaed files.", "zh" => "您最多可以上传3个文件，请减少上传的文件数量"))));
+      $error_flag = true;
+    }
+    // check file extension
+    foreach ($files as $file) {
+      $file = trim($file);
+      if (sizeof($files) == 1 && $file == "") {
+        break;
+      }
+      $tokens = explode(".", $file);
+      $extension = array_pop($tokens);
+      if (!in_array(strtolower($extension), array('jpg','png','gif'))) {
+        Message::register(new Message(Message::DANGER, i18n(array("en" => "Only file with extension jpg,png,gif is allowed. Please restrict your files with these types.", "zh" => "上传文件仅支持jpg,png,gif，请检查您的上传文件"))));
         $error_flag = true;
         break;
       }
@@ -146,6 +188,9 @@ if (isset($_POST['submit'])) {
     // check file extension
     foreach ($files as $file) {
       $file = trim($file);
+      if (sizeof($files) == 1 && $file == "") {
+        break;
+      }
       $tokens = explode(".", $file);
       $extension = array_pop($tokens);
       if (!in_array(strtolower($extension), array('jpg','png','gif','zip'))) {
@@ -204,6 +249,22 @@ if (isset($_POST['submit'])) {
     $rtn[] = $file;
   }
   $object->setAttachment(implode("\n", $rtn));
+  
+  // proceed for $plupimage
+  $files = explode("\n", trim($plupimage));
+  $rtn = array();
+  foreach ($files as $file) {
+    $file = trim($file);
+    // for cache file, we move it to its proper location 
+    if (strpos($file, str_replace(WEBROOT . DS, "", CACHE_DIR)) === 0) {
+      $oldname = WEBROOT . DS . $file;
+      $newname = WEBROOT . DS . "files/plupfiletest" . str_replace(CACHE_DIR, "", WEBROOT . DS . $file);
+      rename($oldname, $newname);
+      $file = str_replace(WEBROOT . DS, "", $newname);
+    }
+    $rtn[] = $file;
+  }
+  $object->setPlupimage(implode("\n", $rtn));
   
   // proceed for $application
   $files = explode("\n", trim($application));

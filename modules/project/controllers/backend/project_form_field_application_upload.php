@@ -39,6 +39,9 @@ if (!User::getInstance()->isLogin()) {
 }
 
 // we check if the target folder exists and writable
+if (!is_dir(WEBROOT . DS . 'files/plupfiletest')) {
+  mkdir(WEBROOT . DS . 'files/plupfiletest');
+}
 if (!is_writable(WEBROOT . DS . 'files/plupfiletest')) {
   $rtn->error = i18n(array(
     'en' => 'File upload error: File upload folder needs to be writable.',

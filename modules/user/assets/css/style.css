@@ -1,5 +1,5 @@
 /** user theme style **/
-body {
+body.home {
   background: url(../images/bg-1.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -14,7 +14,7 @@ body {
   text-align: center;
 }
 .nav-button {
-  display: inline-block;
+  display: block;
   zoom: 1;
   *display: inline; 
   color: #FFF;
@@ -24,6 +24,7 @@ body {
   height: 150px;
   padding-top: 20px;
   padding-bottom: 20px;
+  margin: 0 auto;
 }
 .nav-button:hover {
   text-decoration: none;
@@ -48,4 +49,112 @@ body {
   font-weight: 3em;
   text-align: center;
   margin: 50px auto 30px auto;
+}
+
+/** header styles **/
+header {
+  background-color: #C60A1E;
+  color: #FFF;
+  position: relative;
+  height: 55px;
+}
+header .goback {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 25px;
+  color: #FFF;
+  padding-top: 6px;
+}
+header h1 {
+  text-align: center;
+  margin: 0;
+  padding-top: 13px;
+  font-size: 25px;
+  font-weight: bold;
+}
+header .right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.2em;
+  margin-top: 5px;
+}
+header .right a {
+  color: #FFF;
+}
+header .right a:hover {
+  text-decoration: none;
+}
+
+.product_filter {
+  background: #FFF;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #AAA;
+}
+.product_filter a {
+  display: block;
+  text-align: center;
+  color: #222;
+  font-size: 1.2em;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+.product_filter a.active,
+.product_filter a:hover {
+  color: #C60A1E;
+  text-decoration: none;
+}
+
+/** footer style **/
+footer.sticky {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  height: 45px;
+  width: 100%;
+  z-index: 1;
+  text-align: center;
+}
+footer.sticky .container {
+  background-color: #F5F5F5;
+}
+footer.sticky.addmore a {
+  display: block;
+  font-size: 16px;
+  color: #222;
+  width: 100%;
+  padding: 11px 0;
+  text-decoration: none;
+}
+footer.sticky.addmore a:hover {
+  color: #C60A1E;
+  text-decoration: none;
+}
+footer.sticky.addmore a i {
+  font-size: 22px;
+  color: #C60A1E;
+  position: relative;
+  top: 2px;
+}
+.body .empty a {
+  display: block;
+  text-align: center;
+  color: #999;
+  margin-top: 140px;
+}
+.body .empty a:hover {
+  text-decoration: none;
+}
+.body .empty a i {
+  font-size: 70px;
+  color: #DDD;
+}
+
+/** products add page **/
+body.products_add .body {
+  background-color: #FFF;
+  padding-top: 15px;
+  margin-bottom: 46px;
 }

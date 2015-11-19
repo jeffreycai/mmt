@@ -14,6 +14,7 @@ include_once MODULESROOT . DS . 'core' . DS . 'includes' . DS . 'classes' . DS .
  * - images
  * - thumbnail
  * - attachment
+ * - plupimage
  * - application
  * - date
  */
@@ -114,6 +115,12 @@ class BaseProject extends DBObject {
    public function getAttachment() {
      return $this->getDbFieldAttachment();
    }
+   public function setPlupimage($var) {
+     $this->setDbFieldPlupimage($var);
+   }
+   public function getPlupimage() {
+     return $this->getDbFieldPlupimage();
+   }
    public function setApplication($var) {
      $this->setDbFieldApplication($var);
    }
@@ -157,6 +164,7 @@ CREATE TABLE IF NOT EXISTS `project` (
   `images` VARCHAR(800) ,
   `thumbnail` VARCHAR(100) ,
   `attachment` VARCHAR(1000) ,
+  `plupimage` VARCHAR(1000) ,
   `application` VARCHAR(1000) ,
   `date` INT ,
   PRIMARY KEY (`id`)

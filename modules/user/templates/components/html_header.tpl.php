@@ -12,11 +12,21 @@
 
   <title><?php echo isset($title) ? $title : ''; ?></title>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+  var site = jQuery();
+  site.settings = <?php echo HTML::renderSettingsInJson() ?>;
+  site.settings.subroot = '<?php echo get_sub_root(); ?>';
+</script>
+
 <?php HTML::renderOutHeaderUpperRegistry(); ?>  
 <?php Asset::printTopAssets('frontend'); ?>
 <?php HTML::renderOutHeaderLowerRegistry(); ?>
 
 <?php echo Asset::getDynamicAsset('user', 'css', 'frontend') ?>
+
+<?php Asset::renderAllDynamicAssets('js', 'frontend') ?>
+<?php Asset::renderAllDynamicAssets('css', 'frontend') ?>
 
 </head>
 

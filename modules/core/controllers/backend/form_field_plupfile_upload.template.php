@@ -38,6 +38,9 @@ if (!User::getInstance()->isLogin()) {
 }
 
 // we check if the target folder exists and writable
+if (!is_dir(WEBROOT . DS . '<?php echo $upload_dir ?>')) {
+  mkdir(WEBROOT . DS . '<?php echo $upload_dir ?>');
+}
 if (!is_writable(WEBROOT . DS . '<?php echo $upload_dir ?>')) {
   $rtn->error = i18n(array(
     'en' => 'File upload error: File upload folder needs to be writable.',
@@ -198,11 +201,52 @@ if (!$chunks || $chunk == $chunks - 1) {
 	rename("{$filePath}.part", $filePath);
 }
 
+<?php
+$t = $transform ? 'true' : 'false';
+$dimension = isset($transform['dimension']) ? explode('x', $transform['dimension']) : false;
+$refill = isset($transform['refill']) ? $transform['refill'] : false;
+$watermark = isset($transform['watermark']) ? $transform['watermark'] : false;
+?>
+// transform if required
+$transform = "<?php echo $t; ?>";
+if ($transform) {
+  // we only do this on image file
+  if (preg_match("/\.(jpg|JPG|png|PNG)$/", $fileName)) {
+    load_library_wide_image();
+
+    $dimension_x = <?php echo $dimension ? $dimension[0] : "false" ?>;
+    $dimension_y = <?php echo $dimension ? $dimension[1] : "false" ?>;
+    $refill = <?php echo $refill ? "'$refill'" : 'false' ?>;
+    $watermark = <?php echo $watermark ? "'$watermark'" : 'false' ?>;
+
+    try {
+      $image = WideImage::load($filePath);
+      unlink($filePath);
+
+      if ($refill) {
+        $refill = explode(",", $refill);
+        $bgcolor = $image->allocateColor(intval($refill[0]), intval($refill[1]), intval($refill[2]));
+        $image = $image->resize($dimension_x, $dimension_y, "inside")->resizeCanvas($dimension_x, $dimension_y, "center", "center", $bgcolor);
+      } else {
+        $image = $image->resize($dimension_x, $dimension_y, "outside")->resizeCanvas($dimension_x, $dimension_y, "center", "center");
+      }
+
+      if ($watermark) {
+        $watermark = WideImage::load(WEBROOT . DS . $watermark);
+        $image = $image->merge($watermark, "right-10", "bottom-10", 50);
+      }
+      $image->saveToFile($filePath);
+
+    } catch (Exception $e) {
+      throw $e;
+    }
+  }
+}
+
+
+
 // Return Success JSON-RPC response
-$rtn->success = i18n(array(
-  'en' => 'File upload success.',
-  'zh' => '文件上传成功'
-));
+$rtn->success = 'File upload success.';
 $rtn->filepath = str_replace(WEBROOT . DS , '', $filePath);
 echo json_encode($rtn);
 exit;
