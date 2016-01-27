@@ -23,7 +23,8 @@ if (isset($custom_modules)) {
 'project',
       'mail',
       'log',
-      'theme_default'
+      'theme_default',
+      'theme_weidian'
   );
 
 }

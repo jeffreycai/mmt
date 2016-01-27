@@ -147,6 +147,24 @@ $(function() {
   </div>
 </div>
 <div class='hr-line-dashed'></div>
+  
+<div class='form-group'>
+  <label class='col-sm-2 control-label' for='stock'>stock </label>
+  <div class='col-sm-10'>
+    <input value='<?php echo htmlentities(str_replace('\'', '"', ($object->isNew() ? (isset($_POST['stock']) ? strip_tags($_POST['stock']) : '') : $object->getStock()))) ?>' type='text' class='form-control' id='stock' name='stock' />
+  </div>
+</div>
+<div class='hr-line-dashed'></div>
+  
+<div class='form-group'>
+  <label class='col-sm-2 control-label'>
+    onshelf
+  </label>
+  <div class='col-sm-10'>
+    <input type='checkbox' <?php echo ($object->isNew() ? (isset($_POST['onshelf']) ? ($_POST['onshelf'] ? 'checked="checked"' : '') : '') : ($object->getOnshelf() ? "checked='checked'" : "")) ?> id='onshelf' name='onshelf' value='1' />
+  </div>
+</div>
+<div class='hr-line-dashed'></div>
 
   <input type="submit" name="submit" value="<?php i18n_echo(array(
       'en' => 'Edit', 

@@ -1,3 +1,5 @@
 <?php
 
-dispatch('theme_default/index');
+$user = MySiteUser::getCurrentUser();
+
+HTML::forward('shop/'.$user->getId());

@@ -258,14 +258,14 @@ class SiteUser extends BaseSiteUser {
     $class = class_exists('MySiteUser') ? 'MySiteUser' : 'SiteUser';
     
     // try to get user from global var
-    global $siteuser;
-    if (isset($siteuser)) {
-      return $siteuser;
-    }
+//    global $siteuser;
+//    if (isset($siteuser)) {
+//      return $siteuser;
+//    }
     
     // try to get user from session
     $uid = isset($_SESSION['siteuser_id']) ? $_SESSION['siteuser_id'] : null;
-    if ($uid && $user = $class::findById($uid)) {
+    if ($uid && $user = $class::findById($uid, $class)) {
       $password = isset($_SESSION['siteuser_password']) ? $_SESSION['siteuser_password'] : 0;
       if ($user->getPassword() == $password) {
         $siteuser = $user;
@@ -275,7 +275,7 @@ class SiteUser extends BaseSiteUser {
     
     // try to get user from cookie
     $uid = isset($_COOKIE['siteuser_id']) ? $_COOKIE['siteuser_id'] : null;
-    if ($uid && $user = $class::findById($uid)) {
+    if ($uid && $user = $class::findById($uid, $class)) {
       $password = isset($_COOKIE['siteuser_password']) ? $_COOKIE['siteuser_password'] : 0;
       if ($user->getPassword() == $password) {
         $siteuser = $user;

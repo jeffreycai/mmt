@@ -24,6 +24,9 @@
                 <th>thumbnail</th>
                 <th>description</th>
                 <th>price</th>
+                <th>onshelf</th>
+                <th>sales</th>
+                <th>stock</th>
                 <th>created_at</th>
                 <th>Actions</th>
       </tr>
@@ -37,6 +40,9 @@
             <td><?php echo $object->getThumbnail() ?></td>
             <td><?php echo $object->getDescription() ?></td>
             <td><?php echo $object->getPrice() ?></td>
+            <td><?php echo $object->getOnshelf() ?></td>
+            <td><?php echo $object->getSales() ?></td>
+            <td><?php echo $object->getStock() ?></td>
             <td><?php echo $object->getCreatedAt() ?></td>
             <td>
         <div class="btn-group">

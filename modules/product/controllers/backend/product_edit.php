@@ -67,7 +67,11 @@ if (isset($_POST['submit'])) {
     Message::register(new Message(Message::DANGER, i18n(array("en" => "price is required.", "zh" => "请填写price"))));
     $error_flag = true;
   }
-  /// proceed submission
+  
+  // validation for $stock
+  $stock = isset($_POST["stock"]) ? strip_tags($_POST["stock"]) : null;  
+  // validation for $onshelf
+  $onshelf = isset($_POST["onshelf"]) ? 1 : 0;  /// proceed submission
   
   // proceed for $title
   $object->setTitle($title);
@@ -93,6 +97,12 @@ if (isset($_POST['submit'])) {
   
   // proceed for $price
   $object->setPrice($price);
+  
+  // proceed for $stock
+  $object->setStock($stock);
+  
+  // proceed for $onshelf
+  $object->setOnshelf($onshelf);
   if ($error_flag == false) {
     if ($object->save()) {
       Message::register(new Message(Message::SUCCESS, i18n(array("en" => "Record saved", "zh" => "记录保存成功"))));

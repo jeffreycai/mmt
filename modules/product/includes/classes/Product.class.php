@@ -16,4 +16,37 @@ class Product extends BaseProduct {
     
     return parent::delete();
   }
+  
+  public function getFirstThumbnail() {
+    $thumbnail = $this->getThumbnail();
+    $tokens = explode("\n", trim($thumbnail));
+    return $tokens[0];
+  }
+  
+  public function getUser() {
+    return MySiteUser::findById($this->getUserId());
+  }
+  
+  static function findAllByUserId($uid, $onshelf = false) {
+    global $mysqli;
+    $query = "SELECT * FROM product";
+    
+    $where = array();
+    $where[] = "user_id=" . intval($uid);
+    if ($onshelf !== false) {
+      $where[] = "onshelf=" . DBObject::prepare_val_for_sql($onshelf);
+    }
+    $where = " WHERE " . implode(" AND ", $where);
+
+    $result = $mysqli->query($query . $where);
+    
+    $rtn = array();
+    while ($result && $b = $result->fetch_object()) {
+      $obj= new Product();
+      DBObject::importQueryResultToDbObject($b, $obj);
+      $rtn[] = $obj;
+    }
+
+    return $rtn;
+  }
 }

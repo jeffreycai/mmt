@@ -2,15 +2,17 @@
 require_login();
 $user = MySiteUser::getCurrentUser();
 
-
+$pid = isset($vars[1]) ? $vars[1] : null;
+$object = Product::findById($pid);
+if ($object == null || $object->getUserId() != $user->getId()) {
+  access_denied();
+}
 
 /** --------------------------------------- **/
 
 
 
 
-
-$object = new Product();
 
 // bootstrap field widgets
 FormWidgetPlupfile::bootstrap('thumbnail');
@@ -127,10 +129,10 @@ if (isset($_POST['submit'])) {
   
   if ($error_flag == false) {
     if ($object->save()) {
-      Message::register(new Message(Message::SUCCESS, i18n(array("en" => "Product has been successfully added. You can continue to add new product.", "zh" => "商品添加成功！您可以继续添加新的商品"))));
+      Message::register(new Message(Message::SUCCESS, i18n(array("en" => "Product has been successfully edited.", "zh" => "商品修改成功！"))));
       HTML::forwardBackToReferer();
     } else {
-      Message::register(new Message(Message::DANGER, i18n(array("en" => "Product failed to save", "zh" => "记录产品失败"))));
+      Message::register(new Message(Message::DANGER, i18n(array("en" => "Product failed to be edited", "zh" => "修改商品失败"))));
     }
   }
 }
@@ -151,14 +153,14 @@ $html->output('<div class="container">');
 $html->renderOut('user/components/html_header', array(
     'body_class' => 'products_add',
     'title' => i18n(array(
-        'en' => 'Add product',
-        'zh' => '添加商品'
+        'en' => 'Edit product',
+        'zh' => '修改商品'
     ))
 ));
 $html->renderOut('user/components/header_general', array(
     'title' => i18n(array(
-        'en' => 'Add product',
-        'zh' => '添加商品'
+        'en' => 'Edit product',
+        'zh' => '修改商品'
     )),
     'gobackuri' => uri('user/products'),
     'right' => '<a class="addFormSubmit" href="#">'.i18n(array(
@@ -166,8 +168,8 @@ $html->renderOut('user/components/header_general', array(
         'zh' => '完成'
     )).'</a>'
 ));
-$html->renderOut('user/products_add', array(
-    'object' => new Product()
+$html->renderOut('user/products_edit', array(
+    'object' => $object
 ));
 
 $html->output('</div>');

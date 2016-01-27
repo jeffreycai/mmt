@@ -9,6 +9,11 @@ routing:
     isSecure: 0
     i18n: 0
     controller: user/index
+  shop:
+    path: ^\/shop\/(.+)\/?$
+    isSecure: 0
+    i18n: 0
+    controller: theme_weidian/index
     
 
 

@@ -89,7 +89,7 @@ class Message {
   static function renderMessages($type = null) {
     $rtn = '';
     foreach (self::getMessages() as $type => $messages) {
-      $rtn .= "<div id='msg' class='alert alert-$type'>";
+      $rtn .= "<div id='msg' class='alert alert-$type'> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
       
       if (sizeof($messages) == 1) {
         $rtn .= $messages[0]->getContent();

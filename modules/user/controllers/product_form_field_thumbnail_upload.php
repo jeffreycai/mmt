@@ -209,8 +209,8 @@ if ($transform) {
   if (preg_match("/\.(jpg|JPG|png|PNG)$/", $fileName)) {
     load_library_wide_image();
 
-    $dimension_x = 175;
-    $dimension_y = 175;
+    $dimension_x = 414;
+    $dimension_y = 414;
     $refill = '255,255,255';
     $watermark = false;
 

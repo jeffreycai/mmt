@@ -6,7 +6,7 @@
     
     <div class="col-xs-12">
 
-<form class="form-horizontal" role="form" method="POST" action="<?php echo uri('user/products/add') ?>">
+<form class="form-horizontal" role="form" method="POST" action="<?php echo uri('user/products/edit/' . $object->getId()) ?>">
   
 <div class='form-group'>
   <label class='col-sm-2 control-label' for='title'><?php echo i18n(array(
@@ -201,6 +201,7 @@ $(function() {
   jQuery(function(){
     $(".addFormSubmit").click(function(){
       $(".body form input[type=submit]").click();
+      return false;
     });
   });
 </script>

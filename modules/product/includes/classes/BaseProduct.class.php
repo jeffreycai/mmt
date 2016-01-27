@@ -9,6 +9,9 @@ include_once MODULESROOT . DS . 'core' . DS . 'includes' . DS . 'classes' . DS .
  * - thumbnail
  * - description
  * - price
+ * - onshelf
+ * - sales
+ * - stock
  * - created_at
  */
 class BaseProduct extends DBObject {
@@ -66,6 +69,24 @@ class BaseProduct extends DBObject {
    public function getPrice() {
      return $this->getDbFieldPrice();
    }
+   public function setOnshelf($var) {
+     $this->setDbFieldOnshelf($var);
+   }
+   public function getOnshelf() {
+     return $this->getDbFieldOnshelf();
+   }
+   public function setSales($var) {
+     $this->setDbFieldSales($var);
+   }
+   public function getSales() {
+     return $this->getDbFieldSales();
+   }
+   public function setStock($var) {
+     $this->setDbFieldStock($var);
+   }
+   public function getStock() {
+     return $this->getDbFieldStock();
+   }
    public function setCreatedAt($var) {
      $this->setDbFieldCreated_at($var);
    }
@@ -98,6 +119,9 @@ CREATE TABLE IF NOT EXISTS `product` (
   `thumbnail` VARCHAR(256) ,
   `description` TEXT ,
   `price` VARCHAR(10) NOT NULL ,
+  `onshelf` TINYINT(1) DEFAULT 1 ,
+  `sales` INT DEFAULT 0 ,
+  `stock` INT DEFAULT 0 ,
   `created_at` INT ,
   PRIMARY KEY (`id`)
  ,

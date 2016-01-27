@@ -10,7 +10,7 @@ class MySiteUser extends SiteUser {
     
   }
   
-  public function getProducts() {
-    return array();
+  public function getProducts($onshelf = false) {
+    return Product::findAllByUserId($this->getId(), $onshelf);
   }
 }

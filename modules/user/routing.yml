@@ -9,3 +9,8 @@ routing:
     isSecure: 0
     i18n: 1
     controller: user/products_add
+  user_products_edit:
+    path: ^\/user\/products\/edit\/(\d+)\/?$
+    isSecure: 0
+    i18n: 1
+    controller: user/products_edit

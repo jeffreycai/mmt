@@ -53,19 +53,28 @@ body.home {
 
 /** header styles **/
 header {
-  background-color: #C60A1E;
   color: #FFF;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 100;
+}
+header .container {
   position: relative;
+  background-color: #C60A1E;
   height: 55px;
 }
 header .goback {
   display: block;
+  width: 2em;
   position: absolute;
   top: 10px;
   left: 10px;
   font-size: 25px;
   color: #FFF;
   padding-top: 6px;
+  text-align: left;
 }
 header h1 {
   text-align: center;
@@ -87,10 +96,29 @@ header .right a {
 header .right a:hover {
   text-decoration: none;
 }
+header .row {
+  text-align: center;
+}
+header .btn-group {
+  margin-top: 10px;
+  display: inline-block;
+}
+header a.btn {
+  border-color: #FFF;
+  background-color: #C60A1E;
+  color: #FFF;
+}
+header a.btn.active,
+header a.btn:hover,
+header a.btn.active:hover {
+  box-shadow: none;
+  background-color: #FFF;
+  color: #C60A1E;
+}
 
 .product_filter {
   background: #FFF;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   border-bottom: 1px solid #AAA;
 }
 .product_filter a {
@@ -118,6 +146,7 @@ footer.sticky {
   text-align: center;
 }
 footer.sticky .container {
+  border-top: 1px solid #E5E5E5;
   background-color: #F5F5F5;
 }
 footer.sticky.addmore a {
@@ -153,8 +182,77 @@ footer.sticky.addmore a i {
 }
 
 /** products add page **/
+body.products_add {
+  margin-top: 55px;
+}
 body.products_add .body {
   background-color: #FFF;
   padding-top: 15px;
   margin-bottom: 46px;
+}
+
+/** products list page **/
+body.products {
+  margin-top: 55px;
+  margin-bottom: 48px;
+}
+body.products .product {
+  background-color: #FFF;
+  border-top: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E5E5E5;
+  margin-bottom: 6px;
+}
+body.products .product .upper {
+  position: relative;
+  border-bottom: 1px solid #ECECEC;
+}
+body.products .product .upper .left {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 80px;
+  height: 80px;
+}
+body.products .product .upper .left img {
+  width: 80px;
+}
+body.products .product .upper .right {
+  padding: 15px 15px 15px 110px;
+}
+body.products .product .upper .right h2 {
+  font-size: 1.2em;
+  margin: 0 0 11px 0px;
+}
+body.products .product .price {
+  color: #C60A1E;
+  font-size: 1.2em;
+  margin-bottom: 4px;
+}
+body.products .product .entry {
+  width: 110px;
+  float: left;
+}
+body.products .product .lower {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+body.products .product .lower a {
+  color: #6B6B6B;
+}
+body.products .product .lower a:hover {
+  text-decoration: none;
+  color: #C60A1E;
+}
+
+/** product list page **/
+.product .upper:hover {
+  cursor: pointer;
+}
+.product .upper:hover h2 a {
+  color: #C60A1E;
+}
+.product h2 a {
+  color: inherit;
+  text-decoration: none;
 }

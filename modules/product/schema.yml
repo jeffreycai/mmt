@@ -7,6 +7,9 @@ product:
     thumbnail: VARCHAR(256)
     description: TEXT
     price: VARCHAR(10) NOT NULL
+    onshelf: TINYINT(1) DEFAULT 1
+    sales: INT DEFAULT 0
+    stock: INT DEFAULT 0
     created_at: INT
   fks:
     user_id:
@@ -31,7 +34,7 @@ product:
           max_file_number: 8
           extensions: jpg,png,gif
           transform:
-            dimension: 175x175
+            dimension: 414x414
             refill: "255,255,255"
 #            watermark: modules/user/assets/images/test.png
       description:
@@ -43,6 +46,13 @@ product:
         widget: text
         widget_conf:
           required: 1
+      stock:
+        widget: text
+        widget_conf:
+          required: 0
+      onshelf:
+        widget: checkbox_single
+        widget_conf: 
     names:
       en: Product
       zh: 产品
