@@ -2,4 +2,7 @@
 
 $user = MySiteUser::getCurrentUser();
 
-HTML::forward('shop/'.$user->getId());
+$html = new HTML();
+$html->renderOut('site/index', array(
+    'user' => $user
+));

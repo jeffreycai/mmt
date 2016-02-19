@@ -1,3 +1,6 @@
-sitename: Century 21 Studuent Service
+sitename: 买买提澳洲在线电子商务平台
+siteemail: maimaitionline@gmail.com
 
-news_per_page: 10
+product_limit_AUTHENTICATED: 5
+product_limit_SILVERMEMBER: 20
+product_limit_GOLDMEMBER: 999999

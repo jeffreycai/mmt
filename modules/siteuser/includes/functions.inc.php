@@ -44,3 +44,7 @@ function is_login() {
 function unauthorised_action() {
   HTML::forward('users/unauthorised');
 }
+
+function is_useradmin() {
+  return (preg_match('/^\/user/', get_request_uri_relative()) && !is_cli());
+}

@@ -27,14 +27,21 @@ class Product extends BaseProduct {
     return MySiteUser::findById($this->getUserId());
   }
   
-  static function findAllByUserId($uid, $onshelf = false) {
+  public function getDescriptionFormatted() {
+    return "<p>" . str_replace("\n", "<br />", $this->getDescription()) . "</p>";
+  }
+  
+  static function findAllByUserId($uid, $onshelf = null, $stock_larger_than = null) {
     global $mysqli;
     $query = "SELECT * FROM product";
     
     $where = array();
     $where[] = "user_id=" . intval($uid);
-    if ($onshelf !== false) {
+    if ($onshelf !== null) {
       $where[] = "onshelf=" . DBObject::prepare_val_for_sql($onshelf);
+    }
+    if ($stock_larger_than !== null) {
+      $where[] = "stock>" . $stock_larger_than;
     }
     $where = " WHERE " . implode(" AND ", $where);
 
@@ -48,5 +55,25 @@ class Product extends BaseProduct {
     }
 
     return $rtn;
+  }
+  
+  static function countAllByUserId($uid, $onshelf = null, $stock_larger_than = null) {
+    global $mysqli;
+    $query = "SELECT count(*) as total FROM product";
+    
+    $where = array();
+    $where[] = "user_id=" . intval($uid);
+    if ($onshelf !== null) {
+      $where[] = "onshelf=" . DBObject::prepare_val_for_sql($onshelf);
+    }
+    if ($only_show_the_ones_with_stock !== null) {
+      $where[] = "stock>" . $stock_larger_than;
+    }
+    $where = " WHERE " . implode(" AND ", $where);
+
+    $result = $mysqli->query($query . $where);
+    $b = $result->fetch_object();
+    
+    return $b->total;
   }
 }

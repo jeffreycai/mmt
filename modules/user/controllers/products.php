@@ -32,8 +32,6 @@ if (!in_array($sorting['onshelf'], array(
 
 $html = new HTML();
 
-$html->output('<div class="container">');
-
 $html->renderOut('user/components/html_header', array(
     'body_class' => 'products',
     'title' => i18n(array(
@@ -41,6 +39,7 @@ $html->renderOut('user/components/html_header', array(
         'zh' => '管理商品'
     ))
 ));
+$html->output('<div class="container">');
 $html->renderOut('user/components/header_filter', array(
     'sorting' => $sorting,
     'gobackuri' => uri('user')

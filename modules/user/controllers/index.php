@@ -9,5 +9,7 @@ $html->renderOut('user/components/html_header', array(
         'zh' => '平台管理'
     ))
 ));
-$html->renderOut('user/index');
+$html->renderOut('user/index', array(
+  'user' => MySiteUser::getCurrentUser()
+));
 $html->renderOut('user/components/html_footer');

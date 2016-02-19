@@ -1,15 +1,15 @@
 mail:
   # conf for email sending to amdin
   admin:
-    to: george@ct21.com.au
-#    to: jeffreycaizhenyuan@gmail.com
-    from: jeffreycaizhenyuan@gmail.com
+#    to: george@ct21.com.au
+    to: jeffreycaizhenyuan@gmail.com
+    from: jeffrey.cai@rms.nsw.gov.au
     mailer: smtp
     SMTPSecure: tls
     host: smtp.mandrillapp.com
     port: 587
     username: HFDT0EEMN12bj5yM2EDQ2gTMsJXan5WYlp2T
-    nickname: ct21 website
+    nickname: Maimaiti Online
     password: GRTQpVjb3cmZtkVWJFXTyFFNitUOYhnWqBzdIJGN
     
   ticket:
@@ -20,3 +20,14 @@ mail:
     port: 587
     username: HFDT0EEMN12bj5yM2EDQ2gTMsJXan5WYlp2T
     password: GRTQpVjb3cmZtkVWJFXTyFFNitUOYhnWqBzdIJGN
+    
+
+  public:
+    mailer: smtp
+    SMTPSecure: tls
+    host: smtp.mandrillapp.com
+    port: 587
+    username: HFDT0EEMN12bj5yM2EDQ2gTMsJXan5WYlp2T
+    password: GRTQpVjb3cmZtkVWJFXTyFFNitUOYhnWqBzdIJGN
+    reply_to: maimaitionline@gmail.com
+    from: maimaitionline@gmail.com

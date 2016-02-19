@@ -1,6 +1,6 @@
 
 <div class="container">
-  <div class="row">
+  <div class="row" style="position: relative;">
     <div id="slideshow">
     <?php foreach ($sliders as $slide): ?>
       <img class="owl-lazy" data-src="<?php echo $slide ?>" />

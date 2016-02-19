@@ -185,22 +185,15 @@ $(function() {
 <!-- END OF js code for #thumbnail_uploader -->
 
 
-  <input class="hide" type="submit" name="submit" value="<?php i18n_echo(array(
-      'en' => 'Create', 
-      'zh' => '创建'
-  )) ?>" class="btn btn-default">
 </form>
       
     </div>
+    
+    <div class="col-xs-12">
+      <input style="float: right; margin-bottom: 20px;" type="submit" name="submit" value="<?php i18n_echo(array(
+            'en' => 'Create', 
+            'zh' => '创建'
+      )) ?>" class="btn btn-success">
+      <div class="clearfix"></div>
+    </div>
   </div>
-
-
-
-
-<script type="text/javascript">
-  jQuery(function(){
-    $(".addFormSubmit").click(function(){
-      $(".body form input[type=submit]").click();
-    });
-  });
-</script>

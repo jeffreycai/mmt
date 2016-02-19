@@ -76,17 +76,50 @@ site_permission:
   1:
     id: 1
     name: 'manage products'
+  2:
+    id: 2
+    name: 'use payment function'
+  3:
+    id: 3
+    name: 'no ads'
+  4:
+    id: 4
+    name: 'use sms'
+  5:
+    id: 5
+    name: 'permium support'
+  6:
+    id: 6
+    name: 'unlimited products'
 site_role:
   1:
     id: 1
     name: 'AUTHENTICATED'
+  2:
+    id: 2
+    name: 'SILVERMEMBER'
+  3:
+    id: 3
+    name: 'GOLDMEMBER'
 site_permission_role:
   1:
     id: 1
     permission_id: 1
     role_id: 1
+  2:
+    id: 2
+    permission_id: 2
+    role_id: 2
+  3:
+    id: 3
+    permission_id: 2
+    role_id: 3
 site_user_role:
   1:
     id: 1
     user_id: 1
     role_id: 1
+  2:
+    id: 2
+    user_id: 1
+    role_id: 2

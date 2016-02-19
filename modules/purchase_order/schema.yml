@@ -1,0 +1,50 @@
+purchase_order:
+  pk: id
+  fields:
+    id: INT NOT NULL AUTO_INCREMENT
+    public_id: VARCHAR(6) UNIQUE
+    user_id: INT NOT NULL
+    name: VARCHAR(32)
+    email: VARCHAR(256)
+    phone: VARCHAR(128)
+    wechat: VARCHAR(128)
+    state: VARCHAR(4)
+    suburb: VARCHAR(32)
+    postcode: VARCHAR(4)
+    address: VARCHAR(512)
+    comment: TEXT
+    confirmed: TINYINT DEFAULT 0
+    paid: TINYINT DEFAULT 0
+    created_at: INT
+    confirmed_at: INT
+    paid_at: INT
+  indexes:
+    - `purchase_order_public_id` (`public_id` ASC)
+  fks:
+    user_id:
+      foreign_key: user_id
+      references: site_user.id
+      on_delete: CASCADE
+      on_update: CASCADE
+      
+cart_item:
+  pk: id
+  fields:
+    id: INT NOT NULL AUTO_INCREMENT
+    product_id: INT NOT NULL
+    purchase_order_id: INT NOT NULL
+    number: INT(4)
+    single_price: VARCHAR(10) NOT NULL
+    title: VARCHAR(512)
+  fks:
+    product_id:
+      foreign_key: product_id
+      references: product.id
+      on_delete: CASCADE
+      on_update: CASCADE
+    purchase_order_id:
+      foreign_key: purchase_order_id
+      references: purchase_order.id
+      on_delete: CASCADE
+      on_update: CASCADE
+    

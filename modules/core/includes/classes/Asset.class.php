@@ -136,9 +136,20 @@ class Asset {
     $dynamic_assets[$whichend][$type][$key] = $content;
   }
   
+  static function removeDynamicAsset($key, $type, $whichend) {
+    global $dynamic_assets;
+    
+    if (isset($dynamic_assets) && isset($dynamic_assets[$whichend]) && isset($dynamic_assets[$whichend][$type]) && isset($dynamic_assets[$whichend][$type][$key])) {
+      unset($dynamic_assets[$whichend][$type][$key]);
+    }
+  }
+  
   static function getDynamicAsset($key, $type, $whichend) {
     global $dynamic_assets;
-    return $dynamic_assets[$whichend][$type][$key];
+    if (isset($dynamic_assets) && isset($dynamic_assets[$whichend]) && isset($dynamic_assets[$whichend][$type]) && isset($dynamic_assets[$whichend][$type][$key])) {
+      return $dynamic_assets[$whichend][$type][$key];
+    }
+    return false;
   }
   
   static function getAllDynamicAssets($type, $whichend) {

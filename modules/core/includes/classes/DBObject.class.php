@@ -116,7 +116,7 @@ abstract class DBObject {
       }
       $query .= " (" . implode(',', $insert_fields) . ") VALUES (" . implode(',', $insert_vals) . ");";
     }
-//if ($this->getTableName() == 'user_5_account') {
+//if ($this->getTableName() == 'shopsettings') {
 //  die($query);
 //}
 //die("<meta charset='utf-8'>".$query);

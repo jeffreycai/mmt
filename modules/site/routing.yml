@@ -10,12 +10,51 @@ routing:
     i18n: 0
     controller: user/index
   shop:
-    path: ^\/shop\/(.+)\/?$
+    path: ^\/shop\/([^\/]+)\/?$
     isSecure: 0
     i18n: 0
-    controller: theme_weidian/index
-    
-
+#    controller: theme_weidian/index
+    controller: theme_default/index
+  product:
+    path: ^\/shop\/([^\/]+)\/(\d+)\/?$
+    isSecure: 0
+    i18n: 0
+    controller: theme_default/product
+  cart_add:
+    path: ^\/shop\/([^\/]+)\/cart\-add\/(\d+)\/?$
+    isSecure: 0
+    i18n: 0
+    controller: theme_default/cart_add
+  checkout:
+    path: ^\/shop\/([^\/]+)\/checkout\/?$
+    isSecure: 0
+    i18n: 0
+    controller: theme_default/checkout
+  order_confirm:
+    path: ^\/order\/confirm\/([^\/]+)\/?$
+    isSecure: 0
+    i18n: 0
+    controller: theme_default/order_confirm
+  order_confirmed:
+    path: ^\/order\/confirmed\/([^\/]+)\/?$
+    isSecure: 0
+    i18n: 0
+    controller: theme_default/order_confirmed
+  order_payment:
+    path: ^\/order\/payment\/([^\/]+)\/?$
+    isSecure: 0
+    i18n: 0
+    controller: theme_default/order_payment
+  order_paid:
+    path: ^\/order\/paid\/([^\/]+)\/?$
+    isSecure: 0
+    i18n: 0
+    controller: theme_default/order_paid
+  order_payment_confirmed:
+    path: ^\/order\/payment_confirmed\/([^\/]+)\/?$
+    isSecure: 0
+    i18n: 0
+    controller: theme_default/order_payment_confirmed
 
 assets:
   frontend:
@@ -29,7 +68,7 @@ assets:
         path: .?
         position: top
         weight: 20
-        source: https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css
+        source: https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css
       owlcarousel:
         path: .?
         position: top
@@ -40,6 +79,11 @@ assets:
         position: top
         weight: 30
         source: ../../libraries/owlcarousel/assets/owl.theme.default.css
+      sweet_alert:
+        path: .?
+        position: top
+        weight: 40
+        source: ../../libraries/bootstrap-sweetalert/lib/sweet-alert.css
       
       site:
         path: .?
@@ -58,6 +102,11 @@ assets:
         position: bottom
         weight: 20
         source: ../../libraries/owlcarousel/owl.carousel.min.js
+      sweet_alert:
+        path: .?
+        position: bottom
+        weight: 40
+        source: ../../libraries/bootstrap-sweetalert/lib/sweet-alert.min.js
         
 #      site:
 #        path: .?

@@ -2,15 +2,50 @@ routing:
   user_products:
     path: ^\/user\/products\/?$
     isSecure: 0
-    i18n: 1
+    i18n: 0
     controller: user/products
   user_products_add:
     path: ^\/user\/products\/add\/?$
     isSecure: 0
-    i18n: 1
+    i18n: 0
     controller: user/products_add
   user_products_edit:
     path: ^\/user\/products\/edit\/(\d+)\/?$
     isSecure: 0
-    i18n: 1
+    i18n: 0
     controller: user/products_edit
+  user_shop_index:
+    path: ^\/user\/shop\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/shop
+  user_shop_settings:
+    path: ^\/user\/shop\/settings\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/shop_settings
+  user_shop_payment:
+    path: ^\/user\/shop\/payment\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/shop_payment
+  user_shop_announcement:
+    path: ^\/user\/shop\/announcement\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/shop_announcement
+  user_platform_contact:
+    path: ^\/user\/platform_contact\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/platform_contact
+  user_orders:
+    path: ^\/user\/orders\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/orders
+  user_order_mark_paid:
+    path: ^\/user\/order_mark_paid\/(\d+)\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/order_mark_paid

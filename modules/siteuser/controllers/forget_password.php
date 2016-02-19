@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
   if (empty($email)) {
     $messages[] = new Message(Message::DANGER, i18n(array(
         'en' => 'Please enter the e-mail address you registered with us',
-        'zh' => '请填写您注册是使用的电子邮箱'
+        'zh' => '请填写您注册时使用的电子邮箱'
     )));
   } else {
     $user = SiteUser::findByEmail($email);

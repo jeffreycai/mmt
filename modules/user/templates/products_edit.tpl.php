@@ -3,10 +3,10 @@
     <div class="col-xs-12">
       <?php echo Message::renderMessages() ?>
     </div>
-    
+    <form class="form-horizontal" role="form" method="POST" action="<?php echo uri('user/products/edit/' . $object->getId()) ?>">
+      
     <div class="col-xs-12">
 
-<form class="form-horizontal" role="form" method="POST" action="<?php echo uri('user/products/edit/' . $object->getId()) ?>">
   
 <div class='form-group'>
   <label class='col-sm-2 control-label' for='title'><?php echo i18n(array(
@@ -185,23 +185,17 @@ $(function() {
 <!-- END OF js code for #thumbnail_uploader -->
 
 
-  <input class="hide" type="submit" name="submit" value="<?php i18n_echo(array(
-      'en' => 'Create', 
-      'zh' => '创建'
-  )) ?>" class="btn btn-default">
-</form>
+
       
     </div>
+    
+    <div class="col-xs-12" >
+      <input style="float: right; margin-bottom: 20px;" type="submit" name="submit" value="<?php i18n_echo(array(
+          'en' => 'Update', 
+          'zh' => '更新'
+      )) ?>" class="btn btn-success">
+      <div class="clearfix"></div>
+    </div>
+    </form>
   </div>
 
-
-
-
-<script type="text/javascript">
-  jQuery(function(){
-    $(".addFormSubmit").click(function(){
-      $(".body form input[type=submit]").click();
-      return false;
-    });
-  });
-</script>

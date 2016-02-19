@@ -59,7 +59,7 @@ class SiteProfile extends BaseSiteProfile {
   }
   
   public function getThumbnailUrl() {
-    if ($this->getThumbnail()) {
+    if (!empty($this->getThumbnail())) {
       return get_sub_root() . "/files/avatars/" . $this->getThumbnail();
     }
     $settings = Vars::getSettings();

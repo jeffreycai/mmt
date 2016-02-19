@@ -148,8 +148,6 @@ if (isset($_POST['submit'])) {
 
 $html = new HTML();
 
-$html->output('<div class="container">');
-
 $html->renderOut('user/components/html_header', array(
     'body_class' => 'products_add',
     'title' => i18n(array(
@@ -157,16 +155,17 @@ $html->renderOut('user/components/html_header', array(
         'zh' => '修改商品'
     ))
 ));
+$html->output('<div class="container">');
 $html->renderOut('user/components/header_general', array(
     'title' => i18n(array(
         'en' => 'Edit product',
         'zh' => '修改商品'
     )),
     'gobackuri' => uri('user/products'),
-    'right' => '<a class="addFormSubmit" href="#">'.i18n(array(
-        'en' => 'Complete',
-        'zh' => '完成'
-    )).'</a>'
+//    'right' => '<a class="addFormSubmit" href="#">'.i18n(array(
+//        'en' => 'Complete',
+//        'zh' => '完成'
+//    )).'</a>'
 ));
 $html->renderOut('user/products_edit', array(
     'object' => $object

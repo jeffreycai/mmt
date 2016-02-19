@@ -945,3 +945,8 @@ function gobackurl($url_to_skip = false, $no_history_goto = false) {
   
   return $rtn ? $rtn : $no_history_goto;
 }
+
+/** function to check if a string is a valid email address **/
+function is_email_address($str) {
+  return preg_match('/[a-zA-Z0-9\-_\+\.]+@[a-zA-Z0-9\-_\+]+\.[a-zA-Z0-9\-_\+\.]+/', $str);
+}

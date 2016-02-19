@@ -7,6 +7,7 @@ product:
     thumbnail: VARCHAR(256)
     description: TEXT
     price: VARCHAR(10) NOT NULL
+    original_price: VARCHAR(10)
     onshelf: TINYINT(1) DEFAULT 1
     sales: INT DEFAULT 0
     stock: INT DEFAULT 0

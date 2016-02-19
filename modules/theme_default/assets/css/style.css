@@ -1,4 +1,21 @@
-
+body.checkout,
+body.order_confirm,
+body.order_confirmed,
+body.order_payment,
+body.order_payment_confirmed {
+  padding-top: 40px;
+}
+.section {
+  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
+  margin-bottom: 10px;
+  background-color: #FFF;
+}
+.section h2 {
+  font-size: 1.2em;
+  padding-bottom: 0.8em;
+  border-bottom: 1px solid #DDD;
+}
 
 /** theme styles **/
 #header {
@@ -57,44 +74,121 @@
 #mainnav a span {
   font-size: 1.2em;
 }
-#cards {
-  background-color: #FFF;
+#slideshow {
+  position: relative;
+}
+.tiles {
+  background: #FFF;
   border: 1px solid #E0E0E0;
   padding-top: 15px;
   padding-bottom: 15px;
 }
-.card {
-  padding-bottom: 15px;
-  margin-bottom: 15px;
+a.tile {
+  text-decoration: none;
+  display: block;
 }
-.card h3 {
-  margin-top: 0px;
-  font-size: 1.2em;
-  font-weight: bold;
+.tile .thumb {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-.card .img-responsive {
-  display: inline-block;
-}
-.card p {
-  max-height: 152px;
+.tile h3 {
+  font-size: 1em;
+  color: #999;
+  height: 2.1em;
   overflow: hidden;
+  margin-bottom: 0px;
+  margin-top: 8px;
 }
-.card .btn-default {
-  border-radius: 0px;
-  border-color: #DD2727;
+.tile .price {
   color: #DD2727;
-  float: right;
 }
-.card .btn-default:hover {
-  background-color: #DD2727;
-  color: #FFF;
+.tile .price span {
+  color: #999;
 }
-.card .price {
+.page-body .container .row {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #DDD;
+  background-color: #FFF;
+  padding-top: 10px;
+}
+.page-body h2 {
   font-size: 1.2em;
   font-weight: bold;
-  margin-top: 5px;
-  color: #DD2727;
+  margin-top: 0px;
+  margin-bottom: 8px;
 }
+.page-body h3 {
+  font-size: 1.1em;
+  margin-top: 0px;
+}
+.page-body .price {
+  color: #FF442F;
+  font-weight: bold;
+}
+.page-body .price span {
+  color: #999;
+}
+.page-body .description {
+  color: #888;
+}
+#product {
+  position: relative;
+  top: -25px;
+}
+.subcontent {
+  background-color: #F9F9F9;
+  color: #AAA;
+  border-top: 1px solid #EEE;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+}
+.subcontent .btn {
+  width: 100%;
+}
+#navback {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 888;
+}
+#navback .row {
+  color: #454A57;
+  height: 40px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+#navback.transparent .row {
+  color: #FFF;
+  background-color: transparent;
+}
+#navback a.backbtn {
+  display: block;
+  font-size: 30px;
+  margin-top: 7px;
+  float: left;
+  color: #454A57;
+}
+/*#navback.transparent a.backbtn {
+  color: #FFF;
+}*/
+#navback a.cart {
+  display: block;
+  font-size: 30px;
+  margin-top: 7px;
+  float: right;
+  color: #454A57;
+}
+/*#navback.transparent a.cart {
+  color: #FFF;
+}*/
+#navback span {
+  display: block;
+  margin-top: 8px;
+}
+
 #footer {
   text-align: center;
   margin-top: 20px;
@@ -102,4 +196,94 @@
   color: #555;
   font-size: 0.9em;
   text-shadow: 2px 2px 1px #FFFFFF;
+}
+#bottom_nav {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 888;
+}
+#bottom_nav .row {
+  border-top: 1px solid #DDD;
+}
+#bottom_nav .row .col-xs-12 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#bottom_nav a {
+  display: inline-block;
+  height: 45px;
+  background-color: #FFF;
+  border-right: 1px solid #DDD;
+  text-align: center;
+  float: left;
+  line-height: 20px;
+}
+#bottom_nav a,
+#bottom_nav a:hover {
+  text-decoration: none;
+}
+#bottom_nav a.contact {
+  width: 20%;
+  padding-top: 2px;
+  color: inherit;
+  font-size: 0.9em;
+}
+#bottom_nav a.contact i {
+  font-size: 1.1em;
+}
+#bottom_nav a.buynow, #bottom_nav a.addtocart {
+  width: 40%;
+  color: #FFF;
+  font-size: 1em;
+  padding-top: 13px;
+}
+#bottom_nav a.buynow {
+  background-color: #FF4400;
+}
+#bottom_nav a.addtocart {
+  background-color: #FF9402;
+}
+
+/** cart style **/
+#cart .item {
+  position: relative;
+  height: 100px;
+  border-bottom: 1px solid #DDD;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+#cart .left {
+  position: absolute;
+  top: 0px;
+  left: 15px;
+}
+#cart .left img {
+  width: 80px;
+}
+#cart .center {
+  padding-left: 100px;
+  padding-right: 135px;
+}
+#cart .right {
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  width: 115px;
+}
+#cart .plus, #cart .minus {
+  background-color: #E6E6E6;
+}
+
+/** delivery form styles **/
+#delivery fieldset {
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 3px solid #DDD;
+}
+#delivery fieldset legend {
+  font-size: 1.1em;
+  color: #568FDF;
+  position: relative;
 }

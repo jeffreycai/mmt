@@ -21,7 +21,7 @@ function sendemailAdmin($subject, $msg) {
   $mail->IsSMTP(); // telling the class to use SMTP
 
   try {
-//    $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+    $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
     $mail->Mailer = $settings['mail']['admin']['mailer'];
     $mail->SMTPAuth   = true;                  // enable SMTP authentication
     $mail->CharSet = 'UTF-8';
@@ -98,4 +98,68 @@ function sendTicketToClient($subject, $msg, Array $attachements, $to) {
     return false;
   }
   return true;
+}
+
+
+function sendMailViaLocal($to, $to_nickname = false, $reply_to, $reply_to_nickname = false, $from, $from_nickname = false, $subject, $body, $attachments = array(), $wordwrap = 78) {
+  
+  load_library_phpmailer();
+  
+  $mail = new PHPMailer(true);
+  $mail->CharSet = 'utf-8';
+
+  try {
+    if(!PHPMailer::validateAddress($to)) {
+      throw new Exception("Email address " . $to . " is invalid -- aborting!");
+    }
+    $mail->isMail();
+    $mail->addReplyTo($reply_to, $reply_to_nickname);
+    $mail->From       = $from;
+    if ($from_nickname) {$mail->FromName   = $from_nickname;}
+    $mail->addAddress($to, $to_nickname);
+    $mail->Subject  = $subject;
+
+    if ($wordwrap) {$mail->WordWrap = 78;};
+    $mail->msgHTML($body, dirname(__FILE__), true); //Create message bodies and embed images
+    
+    // add attachments
+    foreach ($attachments as $key => $val) {
+      if (is_int($key)) {
+        $mail->addAttachment($val);
+      } else {
+        $mail->addAttachment($val, $key);
+      }
+    }
+
+
+    try {
+      $result = $mail->send();
+      return $result;
+    }
+    catch (Exception $e) {
+      throw new Exception('Unable to send to: ' . $to. ': '.$e->getMessage());
+    }
+  }
+  catch (Exception $e) {
+    if (class_exists('Log')) {
+      $log = new Log('PHPMailer', Log::ERROR, $e->errorMessage());
+      $log->save();
+    }
+    return false;
+  }
+}
+
+function sendMailViaSMTP() {
+  
+}
+
+function loadEmailTemplate($template_name, $vars = array()) {
+  foreach ($vars as $key => $val) {
+    $$key = $val;
+  }
+  
+  ob_start();
+  include(MODULESROOT . DS . 'mail' . DS . 'templates' . DS . $template_name . '.tpl.php');
+  $content = ob_get_clean(); 
+  return $content;
 }

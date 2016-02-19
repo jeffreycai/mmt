@@ -18,13 +18,16 @@ if (isset($custom_modules)) {
       'site',
       'siteuser',
       'siteuser_profile',
-      'user',
       'product',
-'project',
+      'purchase_order',
+//'project',
+      'shopsettings',
       'mail',
+      'sms',
       'log',
       'theme_default',
-      'theme_weidian'
+      'user',
+      'crawler'
   );
 
 }

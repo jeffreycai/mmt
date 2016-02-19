@@ -6,9 +6,28 @@ body.home {
   -o-background-size: cover;
   background-size: cover;
 }
+body.shop, 
+body.shop_settings,
+body.orders,
+body.platform_contact {
+  padding-top: 55px;
+}
 .bg-red {background-color: #EE4136;}
 .bg-cyan {background-color: #42BDC2;}
+.bg-yellow {background-color: #FFD800;}
+.section {
+  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
+  margin-bottom: 10px;
+  background-color: #FFF;
+}
 
+.pagination {
+  margin-top: 0px;
+}
+.modal-body {
+  font-size: 12px;
+}
 
 #mainnav {
   text-align: center;
@@ -17,17 +36,18 @@ body.home {
   display: block;
   zoom: 1;
   *display: inline; 
-  color: #FFF;
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
   width: 150px;
   height: 150px;
   padding-top: 20px;
   padding-bottom: 20px;
-  margin: 0 auto;
+  margin: 0 auto 25px auto;
+  color: #111;
 }
 .nav-button:hover {
   text-decoration: none;
+  color: #FFF !important;
 }
 .nav-button * {
   display: block;
@@ -39,7 +59,7 @@ body.home {
   margin-top: 15px;
 }
 .nav-button span {
-  font-size: 2em;
+  font-size: 1.5em;
   margin-top: 20px;
 }
 
@@ -255,4 +275,93 @@ body.products .product .lower a:hover {
 .product h2 a {
   color: inherit;
   text-decoration: none;
+}
+
+/** hero style **/
+.hero {
+  background-color: #FFFFFF;
+  border-bottom: #DDD;
+  height: 120px;
+  font-size: 1.2em;
+}
+.hero a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  
+  color: #333;
+  float: left;
+  position: relative;
+}
+.hero img,
+.hero i.logo {
+  display: block;
+  width: 56px;
+  height: 56px;
+  float: left;
+  margin-top: 30px;
+  font-size: 56px;
+}
+.hero span {
+  display: block;
+  margin-left: 20px;
+  margin-top: 48px;
+  float: left;
+}
+.hero i.arrow {
+  display: block;
+  position: absolute;
+  right: 5px;
+  top: 50px;
+  color: #DDD;
+  font-size: 1.2em;
+}
+
+/** list styles **/
+.list {
+  background-color: #FFF;
+  padding-bottom: 10px;
+}
+.list a {
+  margin-left: 10px;
+  color: #444;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  padding: 10px 0px 10px 0px;
+  border-bottom: 1px solid #DDD;
+}
+.list div:last-child a {
+  border-bottom: none;
+}
+.list a i {
+  display: block;
+  position: absolute;
+  right: 10px;
+  color: #DDD;
+  top: 15px;
+}
+.list a span {
+  display: block;
+  position: absolute;
+  right: 50px;
+  color: #C4C4C4;
+  top: 10px;
+  font-size: 0.9em;
+}
+
+/** orders styles **/
+#orders_table {
+  font-size: 12px;
+}
+#orders_table th,
+#orders_table td {
+  vertical-align: middle;
+}
+#orders_table .fa-check {
+  color: #449D44;
+}
+#orders_table .fa-times {
+  color: #C9302C;
 }
