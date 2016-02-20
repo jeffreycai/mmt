@@ -5,6 +5,7 @@ product:
     user_id: INT NOT NULL
     title: VARCHAR(512) NOT NULL
     thumbnail: VARCHAR(256)
+    images: VARCHAR(1024)
     description: TEXT
     price: VARCHAR(10) NOT NULL
     original_price: VARCHAR(10)
@@ -32,12 +33,24 @@ product:
           upload_dir: files/user/1
           # max_file_size in mb
           max_file_size: 4
-          max_file_number: 8
-          extensions: jpg,png,gif
+          max_file_number: 1
+          extensions: jpg,jpeg,png,gif
           transform:
-            dimension: 414x414
+            dimension: 250x250
             refill: "255,255,255"
 #            watermark: modules/user/assets/images/test.png
+      images:
+        widget: plupfile
+        widget_conf:
+          required: 0
+          upload_dir: files/user/1
+          # max_file_size in mb
+          max_file_size: 4
+          max_file_number: 8
+          extensions: jpg,jpeg,png,gif
+          transform:
+            dimension: 600x320
+            refill: "255,255,255"
       description:
         widget: textarea
         widget_conf:
@@ -47,6 +60,10 @@ product:
         widget: text
         widget_conf:
           required: 1
+      original_price:
+        widget: text
+        widget_conf:
+          required: 0
       stock:
         widget: text
         widget_conf:

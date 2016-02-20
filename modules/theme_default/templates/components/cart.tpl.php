@@ -13,7 +13,7 @@ if (sizeof($items)): $i = -1; ?>
     <div class="col-xs-12">
       <div class="item">
         <div class="left">
-          <img src="<?php echo uri($product->getFirstThumbnail(), false) ?>" />
+          <img src="<?php echo uri($product->getThumbnail(), false) ?>" />
         </div>
         <div class="center">
           <?php echo $product->getTitle() ?>

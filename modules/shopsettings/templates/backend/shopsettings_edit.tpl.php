@@ -1,42 +1,40 @@
-<div class="body">
-  <div class="row section">
-    <form action="<?php echo uri('user/shop/settings') ?>" method="POST">
+<div id="page-wrapper">
+  <div class="row">
     <div class="col-xs-12">
-      <br />
-      
-      <?php echo Message::renderMessages(); ?>
-      
-      
-        <div class="form-group">
-          <label for="name" class="control-label"><?php echo i18n(array(
-            'en' => 'Shop name',
-            'zh' => '微店名称'
-          )) ?> <span style="color:red">*</span></label>
-          <input type="text" name="name" id="thumbnail" required class="form-control" placeholder="<?php echo i18n(array(
-            'en' => 'Your shop\'s name that is shown to public',
-            'zh' => '买家看到的微店名称'
-          )) ?>" value="<?php echo (isset($_POST['name']) ? $_POST['name'] : ($settings ? $settings->getShopName() : '')) ?>" />
+      <h1 class="page-header"><?php i18n_echo(array(
+        'en' => 'Shop settings',
+        'zh' => '微店设置',
+      )); ?></h1>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading"><?php i18n_echo(array(
+            'en' => 'Edit', 
+            'zh' => '编辑'
+        )) ?></div>
+        <div class="panel-body">
+          
+        <?php echo Message::renderMessages(); ?>
+          
+<form class="form-horizontal" role="form" method="POST" action="<?php echo uri('admin/shopsettings/edit/' . $object->getId()) ?>">
+  
+    <div class="form-group">
+      <label for="shop_logo" class="col-sm-2 control-label">shop_logo </label>
+      <div class="col-sm-10">
+        <textarea name="shop_logo" id="shop_logo" rows="5" class="form-control"><?php echo isset($_POST["shop_logo"]) ? htmlentities($_POST["shop_logo"]) : htmlentities($object->getShopLogo()); ?></textarea>
+
+        <div id="shop_logo_uploader" class="uploader" style="display: none;">
+            <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
         </div>
-        <div class="form-group">
-          <label for="introduction" class="control-label"><?php echo i18n(array(
-            'en' => 'Shop introduction',
-            'zh' => '微店简介'
-          )) ?></label>
-          <textarea name="introduction" id="introduction" class="form-control" placeholder="<?php echo i18n(array(
-            'en' => 'Your shop\'s introduction that is shown to public',
-            'zh' => '买家看到的微店简介'
-          )) ?>" rows="10"><?php echo (isset($_POST['introduction']) ? htmlentities($_POST['introduction']) : (($settings && !empty(trim($settings->getShopIntroduction()))) ? htmlentities($settings->getShopIntroduction()) : '')) ?></textarea>
-        </div>
-        <div class="form-group">
-          <label for="shop_logo" class="control-label"><?php echo i18n(array(
-              'en' => 'Shop logo',
-              'zh' => '微店logo'
-          )); ?><small>&nbsp;&nbsp;(建议上传图片尺寸80x80)</small></label>
-          <textarea name="shop_logo" id="shop_logo" rows="5" class="form-control"><?php echo isset($_POST["shop_logo"]) ? htmlentities($_POST["shop_logo"]) : htmlentities($settings->getShopLogo()); ?></textarea>
-          <div id="shop_logo_uploader" class="uploader" style="display: none;">
-              <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
-          </div>
-        </div>
+
+      </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+
+  
 <!-- js code for #shop_logo_uploader -->
 <script type="text/javascript">
 $(function() {
@@ -50,7 +48,7 @@ $(function() {
   $('#shop_logo').parents('.form-group').first().on('click', '.delete', function(){
     $(this).prop('disabled', true);
     var filelist = $(this).parents('.file-container').first();
-    $.post("<?php echo uri('modules/user/controllers/shopsettings_form_field_shop_logo_remove.php', false) ?>", {
+    $.post('/modules/shopsettings/controllers/backend/shopsettings_form_field_shop_logo_remove.php', {
       fid: $(this).parents('li').first().attr('id'),
       furi: $(this).data('furi')
     }, function(data){
@@ -70,8 +68,8 @@ $(function() {
   $("#shop_logo_uploader").pluploadQueue({
       // General settings
       runtimes : 'html5,flash,silverlight,html4',
-      url : "<?php echo uri('modules/user/controllers/shopsettings_form_field_shop_logo_upload.php', false); ?>",
-//      chunk_size : '1mb',
+      url : "/modules/shopsettings/controllers/backend/shopsettings_form_field_shop_logo_upload.php",
+      chunk_size : '1mb',
       rename : false,
       dragdrop: true,
 
@@ -90,7 +88,7 @@ $(function() {
   var uploader = $('#shop_logo_uploader').pluploadQueue();
 
   // when upload complete
-  uploader.bind('UploadComplete', function(uploader, files){alert(JSON.stringify(files[0]));
+  uploader.bind('UploadComplete', function(uploader, files){
     // append plup file list to textarea
     while (files[0] !== undefined) {
       if (files[0].status == plupload.DONE) {
@@ -125,16 +123,16 @@ $(function() {
 });
 </script>
 <!-- END OF js code for #shop_logo_uploader -->
-    </div>
-    
-    <div class="col-xs-12">
-      <input class="btn btn-success" style="float: right; margin-bottom: 20px;" type="submit" name="submit" value="<?php echo i18n(array(
-        'en' => 'Submit',
-        'zh' => '提交'
-      )) ?>" />
-      <div class="clearfix"></div>
-    </div>
-      </form>
-  </div>
 
+  <input type="submit" name="submit" value="<?php i18n_echo(array(
+      'en' => 'Edit', 
+      'zh' => '编辑'
+  )) ?>" class="btn btn-default">
+</form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+

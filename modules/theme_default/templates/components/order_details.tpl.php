@@ -32,7 +32,7 @@
         $total += $subtotal;
         ?>
         <tr>
-          <td><?php if ($product): ?><img width="60" src="<?php echo  uri($product->getFirstThumbnail(), false) ?>" /><?php endif; ?></td>
+          <td><?php if ($product): ?><img width="60" src="<?php echo  uri($product->getThumbnail(), false) ?>" /><?php endif; ?></td>
           <td><?php echo $item->getTitle() ?></td>
           <td style="text-align: right;">$<?php echo $item->getSinglePrice() ?></td>
           <td style="text-align: right;"><?php echo $item->getNumber() ?></td>

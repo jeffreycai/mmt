@@ -28,7 +28,9 @@ header("Pragma: no-cache");
 
 $rtn = new stdClass();
 ///// validation
+
 $user = MySiteUser::getCurrentUser();
+
 if (!is_login()) {
   $rtn->error = i18n(array(
     'en' => 'Authorisation required.',
@@ -209,8 +211,8 @@ if ($transform) {
   if (preg_match("/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/", $fileName)) {
     load_library_wide_image();
 
-    $dimension_x = 250;
-    $dimension_y = 250;
+    $dimension_x = 600;
+    $dimension_y = 320;
     $refill = '255,255,255';
     $watermark = false;
 
@@ -238,11 +240,10 @@ if ($transform) {
   }
 }
 
+
+
 // Return Success JSON-RPC response
-$rtn->success = i18n(array(
-  'en' => 'File upload success.',
-  'zh' => '文件上传成功'
-));
+$rtn->success = 'File upload success.';
 $rtn->filepath = str_replace(WEBROOT . DS , '', $filePath);
 echo json_encode($rtn);
 exit;

@@ -19,6 +19,7 @@ if (is_cli()) {
 婴儿有机奶是母乳断奶的首选。贝拉米有机幼儿奶粉通过澳大利亚和新西兰食品标准局（FSANZ）的非常严格的测试。配方牛奶经过澳大利亚农业部的全国协会（NASAA有机认证）-澳大利亚领先的国家认证机构认证。也通过了维多利亚伊斯兰统筹委员会（ICCV）的认证。 ');
   $product->setPrice('19.99');
   $product->setOriginalPrice('22.00');
+  $product->setCreatedAt(time() - rand(0, 9999));
   $product->save();
   
   $product = new Product();
@@ -34,6 +35,7 @@ if (is_cli()) {
 提供抗氧化保护。 ');
   $product->setPrice('25.99');
   $product->setOriginalPrice('29.99');
+  $product->setCreatedAt(time() - rand(0, 9999));
   $product->save();
   
   
@@ -51,6 +53,7 @@ if (is_cli()) {
 让我们 10年之后和同龄人比的时候，能昂首挺胸的微笑！
 别 忘了给家里妈妈多带一罐哦！！');
   $product->setPrice('21.5');
+  $product->setCreatedAt(time() - rand(0, 9999));
   $product->save();
   
   
@@ -66,5 +69,6 @@ if (is_cli()) {
 
 3. 相较于葡萄糖酸钙等形式，羟基磷酸钙由于与人体骨钙成份相同，因此补钙效果会更加持久；碳酸钙进入人体后会产生二氧化碳，而二氧化碳会影响消化功能。羟基磷酸钙不会释放二氧化碳。');
   $product->setPrice('29.35');
+  $product->setCreatedAt(time() - rand(0, 9999));
   $product->save();
 }

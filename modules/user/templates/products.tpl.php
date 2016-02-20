@@ -33,7 +33,7 @@
   <div class="row product">
     <div class="col-xs-12 upper">
       <div class="left">
-        <a href="<?php echo uri('user/products/edit/' . $product->getId()) ?>"><img src="<?php echo uri($product->getFirstThumbnail()) ?>" /></a>
+        <a href="<?php echo uri('user/products/edit/' . $product->getId()) ?>"><img src="<?php echo uri($product->getThumbnail()) ?>" /></a>
       </div>
       <div class="right">
         <h2 class="title"><a href="<?php echo uri('user/products/edit/' . $product->getId()) ?>"><?php echo $product->getTitle() ?></a></h2>

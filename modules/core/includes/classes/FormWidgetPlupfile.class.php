@@ -241,7 +241,7 @@ $(function() {
       // General settings
       runtimes : \'html5,flash,silverlight,html4\',
       url : "'.uri("modules/$module/controllers/backend/".$module."_form_field_".$this->name."_upload.php", false).'",
-      chunk_size : \'1mb\',
+      //chunk_size : \'1mb\',
       rename : false,
       dragdrop: true,
 

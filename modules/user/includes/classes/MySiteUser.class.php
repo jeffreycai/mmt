@@ -32,7 +32,7 @@ class MySiteUser extends SiteUser {
   }
   
   public function getShopLogo() {
-    return empty($this->getProfile()->getThumbnail()) ? uri('modules/user/assets/images/logo.png', false) : $this->getProfile()->getThumbnailUrl();
+    return empty($this->getShopSettings()->getShopLogo()) ? uri('modules/user/assets/images/logo.png', false) : uri($this->getShopSettings()->getShopLogo(), false);
   }
   
   public function getShopSettings() {

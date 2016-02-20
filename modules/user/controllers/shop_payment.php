@@ -37,6 +37,7 @@ if (isset($_POST['submit'])) {
         'en' => 'Your shop settings have been successfully updated!',
         'zh' => '您的微店设置已成功更新！'
       ))));
+      HTML::forwardBackToReferer();
     } else {
       Message::register(new Message(Message::DANGER, i18n(array(
         'en' => 'Shop settings failed to be saved',

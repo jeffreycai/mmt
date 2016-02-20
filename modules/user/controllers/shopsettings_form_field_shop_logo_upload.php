@@ -28,7 +28,7 @@ header("Pragma: no-cache");
 
 $rtn = new stdClass();
 ///// validation
-$user = MySiteUser::getCurrentUser();
+
 if (!is_login()) {
   $rtn->error = i18n(array(
     'en' => 'Authorisation required.',
@@ -38,11 +38,13 @@ if (!is_login()) {
   exit;
 }
 
+$user = MySiteUser::getCurrentUser();
+
 // we check if the target folder exists and writable
-if (!is_dir(WEBROOT . DS . 'files/user/' . $user->getId())) {
-  mkdir(WEBROOT . DS . 'files/user/' . $user->getId());
+if (!is_dir(WEBROOT . DS . 'files/user/'.$user->getId())) {
+  mkdir(WEBROOT . DS . 'files/user/'.$user->getId());
 }
-if (!is_writable(WEBROOT . DS . 'files/user/' . $user->getId())) {
+if (!is_writable(WEBROOT . DS . 'files/user/'.$user->getId())) {
   $rtn->error = i18n(array(
     'en' => 'File upload error: File upload folder needs to be writable.',
     'zh' => '文件上传出错： 文件上传目录必须为可写'
@@ -104,7 +106,7 @@ if (isset($_REQUEST["name"])) {
 $tokens = explode('.', $fileName);
 $extension = array_pop($tokens);
 $extension = strtolower($extension);
-$extensions = explode(',', 'jpg,jpeg,png,gif');
+$extensions = explode(',', 'jpg,png,gif,jpeg');
 if (!in_array($extension, $extensions)) {
     $rtn->error = i18n(array(
       'en' => 'File upload error: File type not allowed.',
@@ -209,9 +211,9 @@ if ($transform) {
   if (preg_match("/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/", $fileName)) {
     load_library_wide_image();
 
-    $dimension_x = 250;
-    $dimension_y = 250;
-    $refill = '255,255,255';
+    $dimension_x = 80;
+    $dimension_y = 80;
+    $refill = false;
     $watermark = false;
 
     try {
@@ -238,11 +240,10 @@ if ($transform) {
   }
 }
 
+
+
 // Return Success JSON-RPC response
-$rtn->success = i18n(array(
-  'en' => 'File upload success.',
-  'zh' => '文件上传成功'
-));
+$rtn->success = 'File upload success.';
 $rtn->filepath = str_replace(WEBROOT . DS , '', $filePath);
 echo json_encode($rtn);
 exit;

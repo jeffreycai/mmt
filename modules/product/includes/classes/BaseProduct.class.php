@@ -7,6 +7,7 @@ include_once MODULESROOT . DS . 'core' . DS . 'includes' . DS . 'classes' . DS .
  * - user_id
  * - title
  * - thumbnail
+ * - images
  * - description
  * - price
  * - original_price
@@ -57,6 +58,12 @@ class BaseProduct extends DBObject {
    }
    public function getThumbnail() {
      return $this->getDbFieldThumbnail();
+   }
+   public function setImages($var) {
+     $this->setDbFieldImages($var);
+   }
+   public function getImages() {
+     return $this->getDbFieldImages();
    }
    public function setDescription($var) {
      $this->setDbFieldDescription($var);
@@ -124,6 +131,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `user_id` INT NOT NULL ,
   `title` VARCHAR(512) NOT NULL ,
   `thumbnail` VARCHAR(256) ,
+  `images` VARCHAR(1024) ,
   `description` TEXT ,
   `price` VARCHAR(10) NOT NULL ,
   `original_price` VARCHAR(10) ,

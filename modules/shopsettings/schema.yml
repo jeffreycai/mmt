@@ -25,8 +25,11 @@ shopsettings:
           # max_file_size in mb
           max_file_size: 4
           max_file_number: 1
-          extensions: jpg,png,gif
+          extensions: jpg,png,gif,jpeg
           transform:
             dimension: 80x80
 #            refill: "0,0,0"
 #            watermark: modules/site/assets/images/favicon.png
+    names:
+      en: Shop settings
+      zh: 微店设置

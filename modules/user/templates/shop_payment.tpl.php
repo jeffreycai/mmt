@@ -6,7 +6,7 @@
         <br />
 
         <div class="alert alert-info" id="iknow"> <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button>请谨慎更改支付设置,如果您不清楚它们是做什么的,请不要更改!<br />
-          <p style="text-align: center;"><a class="btn btn-sm btn-info" href="#"><strong>没关系,我知道自己在做什么</strong></a></p></div>
+          <p style="text-align: center;"><a class="btn btn-sm btn-info" href="#"><strong>我知道自己在做什么</strong></a></p></div>
 
         <br />
 

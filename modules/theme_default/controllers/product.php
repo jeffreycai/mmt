@@ -8,6 +8,14 @@ if (!$user || !$product) {
   exit;
 }
 
+// get sliders
+$sliders = empty(trim($product->getImages())) ? explode("\n", trim($product->getThumbnail())) : explode("\n", trim($product->getImages()));
+for ($i = 0; $i < sizeof($sliders); $i++) {
+  $sliders[$i] = uri($sliders[$i], false);
+}
+
+
+/** presentation **/
 $html = new HTML();
 $html->renderOut('theme_default/components/html_header', array(
     'body_class' => 'theme_default product',
@@ -18,13 +26,7 @@ $html->renderOut('theme_default/components/navback_transparent', array(
   'user' => $user
 ));
 $html->renderOut('theme_default/components/slideshow', array(
-    'sliders' => array(
-      'http://placehold.it/600x320',
-      'http://placehold.it/600x320',
-      'http://placehold.it/600x320',
-      'http://placehold.it/600x320',
-      'http://placehold.it/600x320'
-    )
+    'sliders' => $sliders
 ));
 $html->renderOut('theme_default/product', array(
     'user' => $user,

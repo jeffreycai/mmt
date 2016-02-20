@@ -22,8 +22,10 @@
                 <th>user_id</th>
                 <th>title</th>
                 <th>thumbnail</th>
+                <th>images</th>
                 <th>description</th>
                 <th>price</th>
+                <th>original_price</th>
                 <th>onshelf</th>
                 <th>sales</th>
                 <th>stock</th>
@@ -38,8 +40,10 @@
             <td><?php echo $object->getUserId() ?></td>
             <td><?php echo $object->getTitle() ?></td>
             <td><?php echo $object->getThumbnail() ?></td>
+            <td><?php echo $object->getImages() ?></td>
             <td><?php echo $object->getDescription() ?></td>
             <td><?php echo $object->getPrice() ?></td>
+            <td><?php echo $object->getOriginalPrice() ?></td>
             <td><?php echo $object->getOnshelf() ?></td>
             <td><?php echo $object->getSales() ?></td>
             <td><?php echo $object->getStock() ?></td>

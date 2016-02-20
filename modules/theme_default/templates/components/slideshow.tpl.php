@@ -13,7 +13,7 @@
   jQuery(function($){
     $('#slideshow').owlCarousel({
       items:1,
-      lazyLoad:true,
+//      lazyLoad:true,
       loop:true,
       autoplay:true,
       autoplayTimeout:2500

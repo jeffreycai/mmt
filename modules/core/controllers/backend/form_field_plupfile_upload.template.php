@@ -208,10 +208,10 @@ $refill = isset($transform['refill']) ? $transform['refill'] : false;
 $watermark = isset($transform['watermark']) ? $transform['watermark'] : false;
 ?>
 // transform if required
-$transform = "<?php echo $t; ?>";
+$transform = <?php echo $t; ?>;
 if ($transform) {
   // we only do this on image file
-  if (preg_match("/\.(jpg|JPG|png|PNG)$/", $fileName)) {
+  if (preg_match("/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/", $fileName)) {
     load_library_wide_image();
 
     $dimension_x = <?php echo $dimension ? $dimension[0] : "false" ?>;

@@ -17,12 +17,6 @@ class Product extends BaseProduct {
     return parent::delete();
   }
   
-  public function getFirstThumbnail() {
-    $thumbnail = $this->getThumbnail();
-    $tokens = explode("\n", trim($thumbnail));
-    return $tokens[0];
-  }
-  
   public function getUser() {
     return MySiteUser::findById($this->getUserId());
   }
