@@ -13,10 +13,10 @@
   jQuery(function($){
     $('#slideshow').owlCarousel({
       items:1,
-//      lazyLoad:true,
-      loop:true,
+      lazyLoad:true,
+      loop:<?php echo sizeof($sliders) == 1 ? 'false' : 'true' ?>,
       autoplay:true,
-      autoplayTimeout:2500
+      autoplayTimeout:3000
 //      margin:10
     });
   });

@@ -4,31 +4,44 @@
     <a href="<?php echo uri('user/products') . "?" . build_sorting_uri_vars($s) ?>" class="col-xs-4 <?php echo $sorting['column'] == 'created_at' ? 'active' : '' ?>"><?php echo i18n(array(
         'en' => 'Time added',
         'zh' => '添加时间'
-    )) ?> <?php if ($sorting['column'] == 'created_at'): ?><i class="fa fa-sort-amount-<?php echo $s['order'] ?>"></i><?php endif; ?></a>
+    )) ?> <?php if ($sorting['column'] == 'created_at'): ?><i class="fa fa-sort-amount-<?php echo $s['order'] == 'desc' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a>
     <?php $s = $sorting; $s['column'] = 'sales'; $s['order'] = $sorting['column'] == 'sales' ? ($sorting['order'] == 'desc' ? 'asc' : 'desc') : 'desc'; ?>
     <a href="<?php echo uri('user/products') . "?" . build_sorting_uri_vars($s) ?>" class="col-xs-4 <?php echo $sorting['column'] == 'sales' ? 'active' : '' ?>"><?php echo i18n(array(
         'en' => 'Sales',
         'zh' => '销量'
-    )) ?> <?php if ($sorting['column'] == 'sales'): ?><i class="fa fa-sort-amount-<?php echo $s['order'] ?>"></i><?php endif; ?></a>
+    )) ?> <?php if ($sorting['column'] == 'sales'): ?><i class="fa fa-sort-amount-<?php echo $s['order'] == 'desc' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a>
     <?php $s = $sorting; $s['column'] = 'stock'; $s['order'] = $sorting['column'] == 'stock' ? ($sorting['order'] == 'desc' ? 'asc' : 'desc') : 'desc'; ?>
     <a href="<?php echo uri('user/products') . "?" . build_sorting_uri_vars($s) ?>" class="col-xs-4 <?php echo $sorting['column'] == 'stock' ? 'active' : '' ?>"><?php echo i18n(array(
         'en' => 'Stock',
         'zh' => '库存'
-    )) ?> <?php if ($sorting['column'] == 'stock'): ?><i class="fa fa-sort-amount-<?php echo $s['order'] ?>"></i><?php endif; ?></a>
+    )) ?> <?php if ($sorting['column'] == 'stock'): ?><i class="fa fa-sort-amount-<?php echo $s['order'] == 'desc' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a>
   </nav>
 
 
 <?php if (sizeof($products) == 0): ?>
-<div class="body">
-  <div class="row">
-    <div class="col-xs-12 empty">
-      <a href="<?php echo uri('user/products/add') ?>"><i class="fa fa-plus-circle"></i><br /><?php echo i18n(array(
-          'en' => 'There\'s a sale every minute!<br />Add your product NOW ~',
-          'zh' => '每秒都有新商品成交<br />快来添加商品吧 ~'
-      )) ?></a>
+  <?php if ($sorting['onshelf'] == 1): ?>
+  <div class="body">
+    <div class="row">
+      <div class="col-xs-12 empty">
+        <a href="<?php echo uri('user/products/add') ?>"><i class="fa fa-plus-circle"></i><br /><?php echo i18n(array(
+            'en' => 'There\'s a sale every minute!<br />Add your product NOW ~',
+            'zh' => '每秒都有新商品成交<br />快来添加商品吧 ~'
+        )) ?></a>
+      </div>
     </div>
   </div>
-</div>
+  <?php else: ?>
+  <div class="body">
+    <div class="row">
+      <div class="col-xs-12 empty">
+        <a href="#" style="cursor: default;"><i class="fa fa-circle-o"></i><br /><?php echo i18n(array(
+            'en' => 'There\'s currently no off-shelf products',
+            'zh' => '目前没有下架商品'
+        )) ?></a>
+      </div>
+    </div>
+  </div>
+  <?php endif; ?>
 <?php else: foreach ($products as $product): ?>
   <div class="row product">
     <div class="col-xs-12 upper">

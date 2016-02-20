@@ -25,10 +25,11 @@ class Product extends BaseProduct {
     return "<p>" . str_replace("\n", "<br />", $this->getDescription()) . "</p>";
   }
   
-  static function findAllByUserId($uid, $onshelf = null, $stock_larger_than = null) {
+  static function findAllByUserId($uid, $onshelf = null, $stock_larger_than = null, $sort_column = null, $sort_order = 'ASC') {
     global $mysqli;
     $query = "SELECT * FROM product";
     
+    // where
     $where = array();
     $where[] = "user_id=" . intval($uid);
     if ($onshelf !== null) {
@@ -38,8 +39,14 @@ class Product extends BaseProduct {
       $where[] = "stock>" . $stock_larger_than;
     }
     $where = " WHERE " . implode(" AND ", $where);
+    
+    // order
+    $order = "";
+    if (!is_null($sort_column)) {
+      $order = " ORDER BY $sort_column $sort_order ";
+    }
 
-    $result = $mysqli->query($query . $where);
+    $result = $mysqli->query($query . $where . $order);
     
     $rtn = array();
     while ($result && $b = $result->fetch_object()) {

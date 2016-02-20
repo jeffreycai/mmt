@@ -90,7 +90,7 @@ $(function() {
   var uploader = $('#shop_logo_uploader').pluploadQueue();
 
   // when upload complete
-  uploader.bind('UploadComplete', function(uploader, files){alert(JSON.stringify(files[0]));
+  uploader.bind('UploadComplete', function(uploader, files){
     // append plup file list to textarea
     while (files[0] !== undefined) {
       if (files[0].status == plupload.DONE) {

@@ -7,6 +7,10 @@ shopsettings:
     shop_introduction: TEXT
     shop_announcement: TEXT
     shop_logo: VARCHAR(255)
+    shop_wechat: VARCHAR(25)
+    shop_phone: VARCHAR(15)
+    shop_address: VARCHAR(512)
+    shop_email: VARCHAR(32)
     stripe_public_key: VARCHAR(48)
     stripe_private_key: VARCHAR(48)
   fks:
@@ -30,6 +34,24 @@ shopsettings:
             dimension: 80x80
 #            refill: "0,0,0"
 #            watermark: modules/site/assets/images/favicon.png
+      shop_wechat:
+        widget: text
+        widget_conf:
+          required: 0
+      shop_phone:
+        widget: text
+        widget_conf:
+          required: 0
+      shop_address:
+        widget: textarea
+        widget_conf:
+          required: 0
+          wysiwyg: 0
+#          wysiwyg_toolbar: standard
+      shop_email:
+        widget: text
+        widget_conf:
+          required: 0
     names:
       en: Shop settings
       zh: 微店设置

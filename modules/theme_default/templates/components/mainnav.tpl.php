@@ -1,7 +1,7 @@
 <nav id="mainnav" class="container">
   <div class="row">
     <div class="col-xs-3">
-      <a href="<?php echo $user->getShopUri() ?>" class="<?php echo_link_active_class('//', get_cur_page_url()) ?>">
+      <a href="<?php echo $user->getShopUri() ?>" class="<?php echo_link_active_class('/^shop\/[^\/]+$/', get_cur_page_url()) ?>">
         <span class="fa fa-home"></span><br />
         <?php echo i18n(array(
           'en' => 'Home',
@@ -10,7 +10,7 @@
       </a>
     </div>
     <div class="col-xs-3">
-      <a href="<?php echo $user->getShopUir() ?>/contact" class="<?php echo_link_active_class('/contact$/', get_cur_page_url()) ?>">
+      <a href="<?php echo $user->getShopUri() ?>/contact" class="<?php echo_link_active_class('/contact$/', get_cur_page_url()) ?>">
         <span class="fa fa-envelope-o"></span><br />
         <?php echo i18n(array(
           'en' => 'Contact',

@@ -29,7 +29,11 @@ if (!in_array($sorting['onshelf'], array(
   $sorting['onshelf'] = '1';
 }
 
+// prepare vars
+$user = MySiteUser::getCurrentUser();
+$products = Product::findAllByUserId($user->getId(), intval($sorting['onshelf']), null, $sorting['column'], $sorting['order']);
 
+/** presentation **/
 $html = new HTML();
 
 $html->renderOut('user/components/html_header', array(
@@ -46,7 +50,7 @@ $html->renderOut('user/components/header_filter', array(
 ));
 $html->renderOut('user/products', array(
     'sorting' => $sorting,
-    'products' => MySiteUser::getCurrentUser()->getProducts(1)
+    'products' => $products
 ));
 
 $html->output('</div>');

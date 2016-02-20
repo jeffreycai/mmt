@@ -9,6 +9,10 @@ include_once MODULESROOT . DS . 'core' . DS . 'includes' . DS . 'classes' . DS .
  * - shop_introduction
  * - shop_announcement
  * - shop_logo
+ * - shop_wechat
+ * - shop_phone
+ * - shop_address
+ * - shop_email
  * - stripe_public_key
  * - stripe_private_key
  */
@@ -67,6 +71,30 @@ class BaseShopsettings extends DBObject {
    public function getShopLogo() {
      return $this->getDbFieldShop_logo();
    }
+   public function setShopWechat($var) {
+     $this->setDbFieldShop_wechat($var);
+   }
+   public function getShopWechat() {
+     return $this->getDbFieldShop_wechat();
+   }
+   public function setShopPhone($var) {
+     $this->setDbFieldShop_phone($var);
+   }
+   public function getShopPhone() {
+     return $this->getDbFieldShop_phone();
+   }
+   public function setShopAddress($var) {
+     $this->setDbFieldShop_address($var);
+   }
+   public function getShopAddress() {
+     return $this->getDbFieldShop_address();
+   }
+   public function setShopEmail($var) {
+     $this->setDbFieldShop_email($var);
+   }
+   public function getShopEmail() {
+     return $this->getDbFieldShop_email();
+   }
    public function setStripePublicKey($var) {
      $this->setDbFieldStripe_public_key($var);
    }
@@ -105,6 +133,10 @@ CREATE TABLE IF NOT EXISTS `shopsettings` (
   `shop_introduction` TEXT ,
   `shop_announcement` TEXT ,
   `shop_logo` VARCHAR(255) ,
+  `shop_wechat` VARCHAR(25) ,
+  `shop_phone` VARCHAR(15) ,
+  `shop_address` VARCHAR(512) ,
+  `shop_email` VARCHAR(32) ,
   `stripe_public_key` VARCHAR(48) ,
   `stripe_private_key` VARCHAR(48) ,
   PRIMARY KEY (`id`)

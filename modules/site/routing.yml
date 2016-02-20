@@ -15,6 +15,11 @@ routing:
     i18n: 0
 #    controller: theme_weidian/index
     controller: theme_default/index
+  contact:
+    path: ^\/shop\/([^\/]+)\/contact\/?$
+    isSecure: 0
+    i18n: 0
+    controller: theme_default/contact
   product:
     path: ^\/shop\/([^\/]+)\/(\d+)\/?$
     isSecure: 0

@@ -59,14 +59,14 @@ class MySiteUser extends SiteUser {
   }
   
   public function getTotalProductsOnSale() {
-    $products = Product::findAllByUserId($this->getId(), 1, 0);
+    $products = Product::findAllByUserId($this->getId(), 1);
     $limit = $this->getProductLimit();
     $products = array_slice($products, 0, $limit);
     return $products;
   }
   
   public function getTotalProductsOnSaleNumber() {
-    $products = Product::countAllByUserId($this->getId(), 1, 0);
+    $products = Product::countAllByUserId($this->getId(), 1);
   }
   
   public function getProductLimit() {
@@ -88,5 +88,21 @@ class MySiteUser extends SiteUser {
   
   public function getAnnouncementFormatted() {
     return str_replace("\n", "<br />", $this->getAnnouncement());
+  }
+  
+  public function getShopWechat() {
+    return Shopsettings::findByUserid($this->getId())->getShopWechat();
+  }
+  
+  public function getShopPhone() {
+    return Shopsettings::findByUserid($this->getId())->getShopPhone();
+  }
+  
+  public function getShopAddress() {
+    return Shopsettings::findByUserid($this->getId())->getShopAddress();
+  }
+  
+  public function getShopEmail() {
+    return Shopsettings::findByUserid($this->getId())->getShopEmail();
   }
 }

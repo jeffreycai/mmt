@@ -16,6 +16,9 @@ body.order_payment_confirmed {
   padding-bottom: 0.8em;
   border-bottom: 1px solid #DDD;
 }
+.content h2 {
+  border-bottom: none;
+}
 
 /** theme styles **/
 #header {
