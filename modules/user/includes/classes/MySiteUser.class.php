@@ -72,12 +72,12 @@ class MySiteUser extends SiteUser {
   public function getProductLimit() {
     $settings = Vars::getSettings();
     $limit;
-    if ($this->hasRole('GOLDMEMBER')) {
-      $limit = $settings['product_limit_GOLDMEMBER'];
-    } else if ($this->hasRole('SILVERMEMBER')) {
-      $limit = $settings['product_limit_SILVERMEMBER'];
+    if ($this->hasRole('PLATINUM')) {
+      $limit = $settings['member']['PLATINUM']['product_limit'];
+    } else if ($this->hasRole('GOLD')) {
+      $limit = $settings['member']['GOLD']['product_limit'];
     } else {
-      $limit = $settings['product_limit_AUTHENTICATED'];
+      $limit = $settings['member']['NORMAL']['product_limit'];
     }
     return $limit;
   }

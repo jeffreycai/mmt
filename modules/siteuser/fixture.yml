@@ -94,13 +94,13 @@ site_permission:
 site_role:
   1:
     id: 1
-    name: 'AUTHENTICATED'
+    name: 'NORMAL'
   2:
     id: 2
-    name: 'SILVERMEMBER'
+    name: 'GOLD'
   3:
     id: 3
-    name: 'GOLDMEMBER'
+    name: 'PLATINUM'
 site_permission_role:
   1:
     id: 1

@@ -1,6 +1,13 @@
-sitename: 买买提澳洲在线电子商务平台
-siteemail: maimaitionline@gmail.com
+sitename: 松果澳洲在线电子商务平台
+sitename_short: 松果电商
+siteemail: songguo.com.au@gmail.com
 
-product_limit_AUTHENTICATED: 5
-product_limit_SILVERMEMBER: 20
-product_limit_GOLDMEMBER: 999999
+
+member:
+  NORMAL:
+    product_limit: 5
+  GOLD:
+    product_limit: 25
+  PLATINUM:
+    product_limit: 999999
+
