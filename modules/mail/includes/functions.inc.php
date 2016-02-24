@@ -163,3 +163,9 @@ function loadEmailTemplate($template_name, $vars = array()) {
   $content = ob_get_clean(); 
   return $content;
 }
+
+
+function sendmail($subject, $body, $to) {
+  $settings = Vars::getSettings();
+  return sendMailViaLocal($to, '', $settings['siteemail'], $settings['sitename'], $settings['siteemail'], $settings['sitename'], $subject, $body);
+}

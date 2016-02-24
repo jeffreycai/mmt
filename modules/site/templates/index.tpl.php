@@ -28,15 +28,6 @@
             </ul>
         </div>
 
-        <div id="video">
-            <a href="#" id="closevideo">&#215;</a>
-            <video preload="auto">
-                <source src="//d1eyfpoxvx2l26.cloudfront.net/ab4a891e9e60eed4fb693d4f4be09d24_289360_146871156.mp4" type="video/mp4" />
-                <source src="//d1eyfpoxvx2l26.cloudfront.net/ab4a891e9e60eed4fb693d4f4be09d24_289360_146871157.webm" type="video/webm" />
-                <source src="//d1eyfpoxvx2l26.cloudfront.net/ab4a891e9e60eed4fb693d4f4be09d24_289360_146871158.ogv" type="video/ogg" />
-            </video>
-        </div>
-
         <a href="<?php echo uri('users/signup') ?>" class=" button" id="header_signup">注册帐号</a>
         <a href="<?php echo uri('users') ?>" class=" button" id="header_login">登录</a>
         <a href="#" id="mobiletoggle" rel="mobile">导航菜单</a>
@@ -49,8 +40,11 @@
                 <div id="sub">
                     <h2>支持澳元在线支付功能的电子商务平台</h2>
                     <h3>低门槛把您的生意电商化！</h3>
-                    <a href="#" id="play">播放简介视频</a>
-                    <a href="/<?php echo uri('users/signup') ?>" class=" button">马上免费注册！</a>
+                    <!--<a href="#" id="play">播放简介视频</a>-->
+                    <br /><br />
+                    <!--<a href="#" id="check" data-toggle="modal" data-target="#checkModal">查看演示站</a>-->
+
+                    <a href="<?php echo uri('users/signup') ?>" class=" button">马上免费注册！</a>
                     <p>
                         已经注册帐号了? <a href="<?php echo uri('users') ?>" class="">登录后台</a>
                     </p>
@@ -156,6 +150,8 @@
                     <li><i class="fa fa-times"></i> 在线支付 - 无</li>
                     <li><i class="fa fa-times"></i> 短信提醒 - 无</li>
                   </ul>
+                  <br />
+                  <a class="signuplink button" href="<?php echo uri('users/signup?member_type=NORMAL') ?>">选择注册！</a>
                 </div>
                 </div>
                 
@@ -163,7 +159,7 @@
                 <div class="plan">
                   <div class="ribbon"><span>最 热 卖 会员！</span></div>
                   <h3><small>*</small> 黄金会员</h3>
-                  <p>一次性$26.66<br />+<br />$0.66/笔订单</p>
+                  <p>一次性$<?php echo $settings['member']['GOLD']['setup_fee'] ?><br />+<br />$<?php echo $settings['member']['GOLD']['transaction_fee'] ?>/笔订单</p>
                   <ul>
                     <li><i class="fa fa-check"></i> 完整的微店功能 - 有</li>
                     <li><i class="fa fa-check"></i> 订单管理系统 - 有</li>
@@ -172,13 +168,15 @@
                     <li><i class="fa fa-check"></i> 在线支付 - 有</li>
                     <li><i class="fa fa-times"></i> 短信提醒 - 无</li>
                   </ul>
+                  <br />
+                  <a class="signuplink button" href="<?php echo uri('users/signup?member_type=GOLD') ?>">选择注册！</a>
                 </div>
                 </div>
                 
                 <div class="planwrapper">
                 <div class="plan">
                   <h3><small>*</small> 白金会员</h3>
-                  <p>一次性$38.88<br />+<br />$0.88/笔订单</p>
+                  <p>一次性$<?php echo $settings['member']['PLATINUM']['setup_fee'] ?><br />+<br />$<?php echo $settings['member']['PLATINUM']['transaction_fee'] ?>/笔订单</p>
                   <ul>
                     <li><i class="fa fa-check"></i> 完整的微店功能 - 有</li>
                     <li><i class="fa fa-check"></i> 订单管理系统 - 有</li>
@@ -187,12 +185,14 @@
                     <li><i class="fa fa-check"></i> 在线支付 - 有</li>
                     <li><i class="fa fa-check"></i> 短信提醒 - 有</li>
                   </ul>
+                  <br />
+                  <a class="signuplink button" href="<?php echo uri('users/signup?member_type=PLATINUM') ?>">选择注册！</a>
                 </div>
                 </div>
                 
                 <div class="clearfix"></div>
 
-                <small class="footnote">* 支付平台Stripe每笔交易会<a href="https://stripe.com/au/pricing">收取一定手续费</a><br />会员费用每月月初结算.</small>
+                <small class="footnote">* 支付平台Stripe每笔交易会<a href="https://stripe.com/au/pricing">收取一定手续费</a><br />黄金和白金会员订单产生的费用每月月初结算.</small>
                 
                 <span>按您收到的订单多少收费 <span>只有您卖的好，我们才收取您小部分的会员费用</span></span>
             </div>
@@ -212,7 +212,7 @@
                         <p><?php echo $settings['sitename_short'] ?>开放普通的会员注册，不需要您花一分钱。但是如果您需要在线支付等高级功能，<?php $settings['sitename_short'] ?>只收取您一次性的少量初始设置费用，随后的费用是由您的订单多少决定的，只有您挣钱，我们才会收您费用。</p>
 
                         <h3>会员费多少时间一交？</h3>
-                        <p>普通会员不收取任何费用，对黄金和白金会员而言，会员费每月月初结算</p>
+                        <p>普通会员不收取任何费用，对黄金和白金会员而言，有效订单产生的费用会在每月初结算。</p>
                     </div>
                     <div class="col6">
                         <h3>我开的微店客户客服是由谁完成的？</h3>
@@ -241,7 +241,14 @@
         </section>
 
         <section id="final">
-            <a href="/auth/register" class="signuplink button">Sign up now!</a>
+            <a href="<?php echo uri('users/signup') ?>" class="signuplink button">马上免费注册！</a>
+            <br /><br /><br />
+            <p style="color: #AAA;">或者查看演示微店</p>
+            <br />
+            <div style="text-align: center; margin-bottom: 15px;">
+              <a href="#" class="btn btn-lg btn-success">演示微店前台</a>
+              <a href="#" class="btn btn-lg btn-warning">演示微店后台</a>
+            </div>
         </section>
 
         <footer>

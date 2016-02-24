@@ -950,3 +950,11 @@ function gobackurl($url_to_skip = false, $no_history_goto = false) {
 function is_email_address($str) {
   return preg_match('/[a-zA-Z0-9\-_\+\.]+@[a-zA-Z0-9\-_\+]+\.[a-zA-Z0-9\-_\+\.]+/', $str);
 }
+
+function delFolder($dir) {
+  $files = array_diff(scandir($dir), array('.','..')); 
+   foreach ($files as $file) { 
+     (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file"); 
+   } 
+   return rmdir($dir); 
+ } 

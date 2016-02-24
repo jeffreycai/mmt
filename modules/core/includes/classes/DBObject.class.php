@@ -116,7 +116,11 @@ abstract class DBObject {
       }
       $query .= " (" . implode(',', $insert_fields) . ") VALUES (" . implode(',', $insert_vals) . ");";
     }
-//if ($this->getTableName() == 'shopsettings') {
+//if ($this->getTableName() != 'log') {
+//$log = new Log('DBObject', Log::NOTICE, $query);
+//$log->save();
+//}
+//if ($this->getTableName() == 'site_user') {
 //  die($query);
 //}
 //die("<meta charset='utf-8'>".$query);

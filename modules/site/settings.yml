@@ -2,12 +2,27 @@ sitename: 松果澳洲在线电子商务平台
 sitename_short: 松果电商
 siteemail: songguo.com.au@gmail.com
 
+demo_account: demo
+
+admin_stripe_secret_key_dev: hB1U==wcN5WewlGcwpXZUlkNGV1MMJlW1YUa3xUZwxUWfR3clR3XrN3N
+admin_stripe_public_key_dev: xpkY==Ae0hmYl92ZTBnZwEDc2UHdCJTYxZkQYZGc0YVWfR3clR3XrBXe
+admin_stripe_secret_key_prod: 0J3Q==AUTVnTW1UdFhDboNXUO5Ga6xWb2EEOwBHR5dFRfVmdpx2XrN3Q
+admin_stripe_public_key_prod: IxEc==AaxVnS5UDSORjc5FTatRTc1Y0alxkQkZHTOdDafVmdpx2XrBHU
 
 member:
   NORMAL:
     product_limit: 5
+    name: 普通会员
+    setup_fee: 0
+    trasaction_fee: 0
   GOLD:
     product_limit: 25
+    name: 黄金会员
+    setup_fee: 22.22
+    transaction_fee: 0.66
   PLATINUM:
     product_limit: 999999
+    name: 白金会员
+    setup_fee: 38.88
+    transaction_fee: 0.88
 

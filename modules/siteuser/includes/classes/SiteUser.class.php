@@ -432,7 +432,9 @@ class SiteUser extends BaseSiteUser {
     // we delete profile as well
     if (module_enabled('siteuser_profile')) {
       $profile = $this->getProfile();
-      $profile->delete();
+      if ($profile) {
+        $profile->delete();
+      }
     }
     
     return parent::delete();

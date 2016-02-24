@@ -132,3 +132,16 @@ section#pricing .fa-times {
 section#pricing .fa-check-circle-o {
   color: #31B0D5;
 }
+header #check {
+  background: #fff none repeat scroll 0 0;
+  color: #4a90e2;
+  display: block;
+  font-size: 30px;
+  margin: 0 auto 20px;
+  padding: 20px 0;
+  transition: all 0.2s ease 0s;
+  width: 340px;
+}
+#final .btn {
+  border-radius: 0px;
+}

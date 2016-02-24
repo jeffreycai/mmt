@@ -4,6 +4,7 @@
  */
 $uid = isset($uid) ? $uid : null;
 $user = isset($user) ? $user : null;
+$user_class = class_exists('MySiteUser') ? 'MySiteUser' : 'SiteUser';
 
 if (isset($_POST['submit'])) {
   $username = isset($_POST['username']) ? strip_tags(trim($_POST['username'])) : null;
@@ -40,7 +41,7 @@ if (isset($_POST['submit'])) {
         'en' => 'Username needs to be composed by alphabetically letters or underscore',
         'zh' => '用户名必须为英文字母或者下划线'
     )));
-  } else if ($user = SiteUser::findByUsername($username)) {
+  } else if ($user = $user_class::findByUsername($username, $user_class)) {
     // when create new user, we check if there is an existing one
     if (empty($uid)) {
       $messages[] = new Message(Message::DANGER, i18n(array(
@@ -68,7 +69,7 @@ if (isset($_POST['submit'])) {
         'en' => 'Please enter a valid email address',
         'zh' => '请填写合法的邮箱地址'
     )));
-  } else if ($user = SiteUser::findByEmail($email)) {
+  } else if ($user = $user_class::findByEmail($email, $user_class)) {
     // when create new user, we check if there is an existing one
     if (empty($uid)) {
       $messages[] = new Message(Message::DANGER, i18n(array(
@@ -116,7 +117,7 @@ if (isset($_POST['submit'])) {
     
   // if success
   } else {
-    $user = empty($uid) ? new SiteUser() : SiteUser::findById($uid);
+    $user = empty($uid) ? new $user_class() : $user_class::findById($uid, $user_class);
     
     $user->setUsername($username);
     $user->setEmail($email);
@@ -135,7 +136,9 @@ if (isset($_POST['submit'])) {
       }
     }
     
-    if ($user->save()) {
+    $s = $user->save();    
+
+    if ($s) {
       // update profile
       if (module_enabled('siteuser_profile')) {
         require MODULESROOT . '/siteuser_profile/controllers/fields_update.php';
@@ -190,6 +193,8 @@ if (isset($_POST['submit'])) {
           }
         }
       }
+      
+      HTML::forwardBackToReferer();
     } else {
       Message::register(new Message(Message::DANGER, i18n(array(
           'en' => 'Sorry, there is a system error when processing your request',
