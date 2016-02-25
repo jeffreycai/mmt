@@ -162,7 +162,7 @@ class MySiteUser extends SiteUser {
     $setup_fee_literal = $setup_fee == 0 ? '免费' : '$'.$setup_fee;
     
     $rtn = Message::renderMessages() . '
-<form action="'.$action.'" method="POST" id="signup">
+<form action="'.$action.'" method="POST" id="signup" name="signup">
   <div class="form-group" id="form-field-member_type" style="text-align:center;">
     <div class="btn-group" role="group" aria-label="会员类型">
       '.$member_type_btn_group.'
@@ -189,11 +189,9 @@ class MySiteUser extends SiteUser {
           if (btn.data("fee") == "0") {
             $("#payment").slideUp();
             $("#payment input").attr("required", false);
-            $("#card_number").addClass("disabled");
           } else {
             $("#payment").slideDown();
             $("#payment input").attr("required", true);
-            $("#card_number").removeClass("disabled");
           }
         }
       });
@@ -234,7 +232,7 @@ class MySiteUser extends SiteUser {
         'zh' => ' 标记为必填项'
     )).'
   </i></small></div>
-  <input type="submit" name="submit" class="btn btn-primary btn-block disabled" value="'.i18n(array(
+  <input type="submit" class="btn btn-primary btn-block disabled" value="'.i18n(array(
       'en' => 'Signup',
       'zh' => '注册'
   )).'" />
