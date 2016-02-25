@@ -67,6 +67,7 @@
         <button type="submit" name="submit" style="float:right;" class="btn btn-primary">提交</button>
         <div class="clearfix"></div>
       </div>
+      
     </div>
   </div>
 </div>

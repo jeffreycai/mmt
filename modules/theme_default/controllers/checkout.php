@@ -6,6 +6,7 @@ if (!$user) {
   exit;
 }
 $settings = Shopsettings::findByUserid($user->getId());
+$checkout_form_spam_token = "LKSDJFoie_kfje9";
 
 $items;
 // if it is "buy now"
@@ -24,6 +25,7 @@ if ($buynow_pid) {
 } else {
   $items = get_cart_items($user);
 }
+
 //_debug($_COOKIE['cart']);
 /** handle form submission **/
 if (isset($_POST['submit'])) {
@@ -69,6 +71,11 @@ if (isset($_POST['submit'])) {
 
   // validation
   $error = false;
+  // spam check
+  if (!Form::checkSpamToken($checkout_form_spam_token)) {
+    Message::register(new Message(Message::DANGER, '表格已过期，请尝试重新提交'));
+    $error |= true;
+  }
   // not empty
   $fields = array(
     'name' => '姓名',
@@ -142,6 +149,10 @@ if (isset($_POST['submit'])) {
 }
 
 
+// generate spam token for the form
+Form::generateSpamToken($checkout_form_spam_token);
+
+
 /** presentation **/
 
 $html = new HTML();
@@ -156,7 +167,7 @@ $html->renderOut('theme_default/components/navback', array(
 ));
 
 
-$html->output("\n<form action='".$user->getShopUri()."/checkout".($buynow_pid ? '?buynow='.$buynow_pid : '')."#delivery' method='POST'>\n");
+$html->output("\n<form id='checkout' action='".$user->getShopUri()."/checkout".($buynow_pid ? '?buynow='.$buynow_pid : '')."#delivery' method='POST'>\n");
 $html->renderOut('theme_default/components/cart', array(
   'user' => $user,
   'items' => $items,
@@ -164,6 +175,7 @@ $html->renderOut('theme_default/components/cart', array(
 ));
 if (!empty($items)) {
   $html->renderOut('theme_default/components/delivery');
+  Form::loadSpamToken('#checkout', $checkout_form_spam_token);
 }
 $html->output("\n</form>\n");
 

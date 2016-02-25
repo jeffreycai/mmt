@@ -1,10 +1,28 @@
 <div class="container">
   <div class="row section">
     
+    <div class="col-xs-12">
+      <br />
+      <p style="font-size: 6em; text-align: center; color: #28679A;"><i class="fa fa-lock"></i></p>
+      <p style="text-align: center;">安全支付</p>
+    </div>
+    
     <!-- payment form -->
-    <?php echo $html->render('theme_default/components/stripe_form', array(
-      'stripe_public_key' => $stripe_public_key
-    )); ?>
+    <div class="col-xs-12">  
+      <form action="" method="POST" data-payment_disabled="false">
+        <?php echo $stripe->renderPaymentForm(); ?>
+        <div class="form-group">
+          <button class="btn btn-success" style="float: right;" type="submit"><?php
+                 echo i18n(array(
+                   'en' => 'Submit Payment',
+                   'zh' => '提交支付'
+                 ))
+                 ?>
+          </button>
+          <div class="clearfix"></div>
+        </div>
+      </form>
+    </div>
     <!-- /payment form -->
     
     

@@ -129,6 +129,7 @@ class MySiteUser extends SiteUser {
   
   static function renderSignupForm(SiteUser $user = null, $action = '', $exclude_fields = array()) {
     $settings = Vars::getSettings();
+    $stripe = new MyStripe(decrypt($settings['admin_stripe_public_key_'.ENV]), decrypt($settings['admin_stripe_secret_key_'.ENV]));
     
     // set default action value
     if ($action != '') {
@@ -158,30 +159,42 @@ class MySiteUser extends SiteUser {
       $member_type_btn_group .= "      <button type=\"button\" class=\"btn btn-default ".($member_type == $type ? 'active' : '')."\" data-type=\"$type\" data-fee=\"".$confs['setup_fee']."\">".$confs['name']."</button>\n";
     }
     $setup_fee = $settings['member'][$member_type]['setup_fee'];
+    $setup_fee_literal = $setup_fee == 0 ? '免费' : '$'.$setup_fee;
     
     $rtn = Message::renderMessages() . '
-<form action="'.$action.'" method="POST" id="signup" enctype="multipart/form-data">
+<form action="'.$action.'" method="POST" id="signup">
   <div class="form-group" id="form-field-member_type" style="text-align:center;">
     <div class="btn-group" role="group" aria-label="会员类型">
       '.$member_type_btn_group.'
     </div>
-    <p style="margin-top: 10px;" id="setup_fee">$'.$setup_fee.'</p>
+    <p style="margin-top: 10px;" id="setup_fee">'.$setup_fee_literal.'</p>
     <input type="hidden" name="member_type" id="member_type" value="'.($member_type).'" />
     <script type="text/javascript">
-      // when a member type is selected, update corresponding components
-      $("#form-field-member_type .btn").click(function(){
-        // update hidden input and buttons
-        var type = $(this).data("type");
-        var fee = $(this).data("fee") == "0" ? "免费" : ("$" + $(this).data("fee"));
-        $("#member_type").val(type);
-        $("#form-field-member_type .btn").removeClass("active");
-        $(this).addClass("active");
-        $("#setup_fee").html(fee);
-        // update payment form
-        if ($(this).data("fee") == "0") {
-          $("#payment").slideUp();
-        } else {
-          $("#payment").slideDown();
+      jQuery(function(){
+        clickAction($(".btn-group .active").first());
+        // when a member type is selected, update corresponding components
+        $("#form-field-member_type .btn").click(function(){
+          clickAction($(this));
+        });
+
+        function clickAction(btn) {
+          // update hidden input and buttons
+          var type = btn.data("type");
+          var fee = btn.data("fee") == "0" ? "免费" : ("$" + btn.data("fee"));
+          $("#member_type").val(type);
+          $("#form-field-member_type .btn").removeClass("active");
+          btn.addClass("active");
+          $("#setup_fee").html(fee);
+          // update payment form and parent form
+          if (btn.data("fee") == "0") {
+            $("#payment").slideUp();
+            $("#payment input").attr("required", false);
+            $("#card_number").addClass("disabled");
+          } else {
+            $("#payment").slideDown();
+            $("#payment input").attr("required", true);
+            $("#card_number").removeClass("disabled");
+          }
         }
       });
     </script>
@@ -205,32 +218,13 @@ class MySiteUser extends SiteUser {
   ' . (class_exists('SiteProfile') ? SiteProfile::renderUpdateForm($user, $exclude_fields) : '') 
     . (in_array('active', $exclude_fields) ? '' : $active_field) . '
       
-  <div id="payment">
+  <div id="payment" style="'.($member_type == 'NORMAL' ? 'display:none;' : '').'">
   <hr>
-    <div class="alert alert-danger payment-errors" role="alert" style="display: none;"></div>
-
-    <div class="form-row form-group">
-      <label for="card_number">
-        信用卡号码
-      </label>
-      <input id="card_number" class="form-control" type="text" size="20" maxlength="20" data-stripe="number" required placeholder="您的信用卡卡号" autocomplete="off" />
-    </div>
-
-    <div class="form-row form-group">
-      <label for="cvc">
-        <span>CVC</span>
-      </label>
-      <input id="cvc" class="form-control" type="text" size="4" maxlength="4" data-stripe="cvc" required placeholder="CVC码" autocomplete="off" />
-    </div>
-
-    <div class="form-row form-group">
-      <label style="display: block;" for="month">
-        <span>有效期 (MM/YYYY)</span>
-      </label>
-      <input style="display: inline-block; width: 4em;" class="form-control" id="month" type="text" size="2" maxlength="2" data-stripe="exp-month" placeholder="MM" autocomplete="off" />
-      <span> / </span>
-      <input style="display: inline-block; width: 6em;" class="form-control" id="year" type="text" size="4" maxlength="4" data-stripe="exp-year" placeholder="YYYY" autocomplete="off" />
-    </div>
+  <div class="form-group" style="text-align:center;">
+    <p><i style="color:#28679A; font-size: 6em;" class="fa fa-lock"></i></p>
+    <p>安全支付</p>
+  </div>
+'.$stripe->renderPaymentForm().'
   <hr>
   </div>
 

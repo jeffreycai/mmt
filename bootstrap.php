@@ -18,6 +18,7 @@ if (isset($custom_modules)) {
       'site',
       'siteuser',
       'siteuser_profile',
+      'stripe',
       'product',
       'purchase_order',
 //'project',

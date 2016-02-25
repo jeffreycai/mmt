@@ -194,7 +194,7 @@ if (isset($_POST['submit'])) {
         }
       }
       
-      HTML::forwardBackToReferer();
+//      HTML::forwardBackToReferer();
     } else {
       Message::register(new Message(Message::DANGER, i18n(array(
           'en' => 'Sorry, there is a system error when processing your request',

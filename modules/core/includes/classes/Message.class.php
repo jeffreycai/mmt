@@ -86,6 +86,36 @@ class Message {
     return $rtn;
   }
   
+  /**
+   * Same as getMessages() but don't reset session
+   * 
+   * @param type $type
+   */
+  static function peekMessages($type = null) {
+    $rtn = array();
+    if (isset($_SESSION[self::_SESSION_KEY_]) && is_array($_SESSION[self::_SESSION_KEY_])) {
+      $total = sizeof($_SESSION[self::_SESSION_KEY_]);
+      for ($i = 0; $i < $total; $i++) {
+        $message = $_SESSION[self::_SESSION_KEY_][$i];
+        if ($type) {
+          if ($message->getType() == $type) {
+            if (!isset($rtn[$message->getType()]) || !is_array($rtn[$message->getType()])) {
+              $rtn[$message->getType()] = array();
+            }
+            $rtn[$message->getType()][] = $message;
+          }
+        } else {
+          if (!isset($rtn[$message->getType()]) || !is_array($rtn[$message->getType()])) {
+            $rtn[$message->getType()] = array();
+          }
+          $rtn[$message->getType()][] = $message;
+        }
+      }
+    }
+
+    return $rtn;
+  }
+  
   static function renderMessages($type = null) {
     $rtn = '';
     foreach (self::getMessages() as $type => $messages) {
