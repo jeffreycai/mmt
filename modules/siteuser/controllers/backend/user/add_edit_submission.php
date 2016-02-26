@@ -163,7 +163,7 @@ if (isset($_POST['username'])) {
               'zh' => '新用户添加成功'
           ))));
           // clear $_POST so that our form is not pre-populated
-          unset($_POST);
+          // unset($_POST);
         }
       } else {
         Message::register(new Message(Message::SUCCESS, i18n(array(

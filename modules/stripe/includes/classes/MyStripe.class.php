@@ -81,7 +81,7 @@ class MyStripe {
         $body = $e->getJsonBody();
         $err  = $body['error'];
 
-        $msg_content = "Purchase order ID: " . $public_id . "\n";
+        $msg_content = "Purchase order ID: " . $order_id . "\n";
 
         $msg_content.= "Stripe payment declined\n";
         $msg_content.= 'Status is:' . $e->getHttpStatus() . "\n";
@@ -104,7 +104,7 @@ class MyStripe {
       } catch (\Stripe\Error\RateLimit $e) {
         // Too many requests made to the API too quickly
         if (class_exists('Log')) {
-          $msg_content = "Purchase order ID: " . $public_id . "\n";
+          $msg_content = "Purchase order ID: " . $order_id . "\n";
           $msg_content.= 'Too many requests made to the API too quickly';
 
           $log = new Log('Stripe', Log::ERROR, $msg_content, $_SERVER['REMOTE_ADDR']);
@@ -120,7 +120,7 @@ class MyStripe {
       } catch (\Stripe\Error\InvalidRequest $e) {
         // Invalid parameters were supplied to Stripe's API
         if (class_exists('Log')) {
-          $msg_content = "Purchase order ID: " . $public_id . "\n";
+          $msg_content = "Purchase order ID: " . $order_id . "\n";
           $msg_content.= "Invalid parameters were supplied to Stripe's API";
 
           $log = new Log('Stripe', Log::ERROR, $msg_content, $_SERVER['REMOTE_ADDR']);
@@ -139,7 +139,7 @@ class MyStripe {
         // Invalid parameters were supplied to Stripe's API
 
         if (class_exists('Log')) {
-          $msg_content = "Purchase order ID: " . $public_id . "\n";
+          $msg_content = "Purchase order ID: " . $order_id . "\n";
           $msg_content.= "Authentication with Stripe's API failed\n";
           $msg_content.= "(maybe you changed API keys recently)\n";
           $msg_content.= "Invalid parameters were supplied to Stripe's API";
@@ -157,7 +157,7 @@ class MyStripe {
       } catch (\Stripe\Error\ApiConnection $e) {
         // Network communication with Stripe failed
         if (class_exists('Log')) {
-          $msg_content = "Purchase order ID: " . $public_id . "\n";
+          $msg_content = "Purchase order ID: " . $order_id . "\n";
           $msg_content.= "Network communication with Stripe failed";
 
           $log = new Log('Stripe', Log::ERROR, $msg_content, $_SERVER['REMOTE_ADDR']);
@@ -174,7 +174,7 @@ class MyStripe {
         // Display a very generic error to the user, and maybe send
         // yourself an email
         if (class_exists('Log')) {
-          $msg_content = "Purchase order ID: " . $public_id . "\n";
+          $msg_content = "Purchase order ID: " . $order_id . "\n";
           $msg_content.= "a very generic error";
 
           $log = new Log('Stripe', Log::ERROR, $msg_content, $_SERVER['REMOTE_ADDR']);
