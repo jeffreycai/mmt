@@ -24,6 +24,10 @@
                 <th>shop_introduction</th>
                 <th>shop_announcement</th>
                 <th>shop_logo</th>
+                <th>shop_wechat</th>
+                <th>shop_phone</th>
+                <th>shop_address</th>
+                <th>shop_email</th>
                 <th>stripe_public_key</th>
                 <th>stripe_private_key</th>
                 <th>Actions</th>
@@ -38,6 +42,10 @@
             <td><?php echo $object->getShopIntroduction() ?></td>
             <td><?php echo $object->getShopAnnouncement() ?></td>
             <td><?php echo $object->getShopLogo() ?></td>
+            <td><?php echo $object->getShopWechat() ?></td>
+            <td><?php echo $object->getShopPhone() ?></td>
+            <td><?php echo $object->getShopAddress() ?></td>
+            <td><?php echo $object->getShopEmail() ?></td>
             <td><?php echo $object->getStripePublicKey() ?></td>
             <td><?php echo $object->getStripePrivateKey() ?></td>
             <td>

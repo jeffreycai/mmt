@@ -203,10 +203,10 @@ if (!$chunks || $chunk == $chunks - 1) {
 }
 
 // transform if required
-$transform = "true";
+$transform = true;
 if ($transform) {
   // we only do this on image file
-  if (preg_match("/\.(jpg|JPG|png|PNG)$/", $fileName)) {
+  if (preg_match("/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/", $fileName)) {
     load_library_wide_image();
 
     $dimension_x = 80;

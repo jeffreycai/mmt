@@ -8,7 +8,7 @@ if (is_backend() && $user->isLogin()) {
   Backend::registerSideNav(
   '
   <li>
-    <a href="#"><i class="fa fa-folder-open"></i> '.i18n(array()).'<span class="fa arrow"></span></a>
+    <a href="#"><i class="fa fa-folder-open"></i> '.i18n(array('en' => 'Shop settings','zh' => '微店设置',)).'<span class="fa arrow"></span></a>
     <ul class="nav nav-second-level collapse">
       <li><a href="'.uri('admin/shopsettings/list').'">'.i18n(array(
           'en' => 'List',

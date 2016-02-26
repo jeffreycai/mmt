@@ -354,7 +354,7 @@ class SiteUser extends BaseSiteUser {
   }
   
   public function hasRole($rs) {
-    // get self permessions in an array()
+    // get self roles in an array()
     $roles = array();
     foreach ($this->getRoles() as $role) {
       $roles[] = $role->getName();
@@ -369,7 +369,7 @@ class SiteUser extends BaseSiteUser {
         }
       }
       return true;
-    // for a single permission
+    // for a single role
     } else {
       return in_array($rs, $roles);
     }
@@ -459,5 +459,17 @@ class SiteUser extends BaseSiteUser {
 </form>
 ';
     return $rtn;
+  }
+  
+  public function assignRole($role_name) {
+    if (!$this->hasRole($role_name)) {
+      $siterole = SiteRole::findByName($role_name);
+      if ($siterole) {
+        $site_user_role = New SiteUserRole();
+        $site_user_role->setRoleId($siterole->getId());
+        $site_user_role->setUserId($this->getId());
+        $site_user_role->save();
+      }
+    }
   }
 }

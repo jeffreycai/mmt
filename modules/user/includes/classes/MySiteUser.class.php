@@ -167,7 +167,8 @@ class MySiteUser extends SiteUser {
     <div class="btn-group" role="group" aria-label="会员类型">
       '.$member_type_btn_group.'
     </div>
-    <p style="margin-top: 10px;" id="setup_fee">'.$setup_fee_literal.'</p>
+    <p style="margin-top: 10px; font-size:30px;color: #4a90e2;" id="setup_fee">'.$setup_fee_literal.'</p>
+    <p><a href="'.uri('#pricing').'">&laquo; 查看会员类型区别</a></p>
     <input type="hidden" name="member_type" id="member_type" value="'.($member_type).'" />
     <script type="text/javascript">
       jQuery(function(){

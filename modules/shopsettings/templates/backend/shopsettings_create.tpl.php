@@ -69,7 +69,7 @@ $(function() {
       // General settings
       runtimes : 'html5,flash,silverlight,html4',
       url : "/modules/shopsettings/controllers/backend/shopsettings_form_field_shop_logo_upload.php",
-      chunk_size : '1mb',
+      //chunk_size : '1mb',
       rename : false,
       dragdrop: true,
 
@@ -123,6 +123,38 @@ $(function() {
 });
 </script>
 <!-- END OF js code for #shop_logo_uploader -->
+  
+<div class='form-group'>
+  <label class='col-sm-2 control-label' for='shop_wechat'>shop_wechat </label>
+  <div class='col-sm-10'>
+    <input value='<?php echo htmlentities(str_replace('\'', '"', ($object->isNew() ? (isset($_POST['shop_wechat']) ? strip_tags($_POST['shop_wechat']) : '') : $object->getShopWechat()))) ?>' type='text' class='form-control' id='shop_wechat' name='shop_wechat' />
+  </div>
+</div>
+<div class='hr-line-dashed'></div>
+  
+<div class='form-group'>
+  <label class='col-sm-2 control-label' for='shop_phone'>shop_phone </label>
+  <div class='col-sm-10'>
+    <input value='<?php echo htmlentities(str_replace('\'', '"', ($object->isNew() ? (isset($_POST['shop_phone']) ? strip_tags($_POST['shop_phone']) : '') : $object->getShopPhone()))) ?>' type='text' class='form-control' id='shop_phone' name='shop_phone' />
+  </div>
+</div>
+<div class='hr-line-dashed'></div>
+  
+<div class='form-group'>
+  <label class='col-sm-2 control-label' for='shop_address'>shop_address </label>
+  <div class='col-sm-10'>
+    <textarea class='form-control' rows='5' id='shop_address' name='shop_address'><?php echo ($object->isNew() ? (isset($_POST['shop_address']) ? htmlentities($_POST['shop_address']) : '') : htmlentities($object->getShopAddress())) ?></textarea>
+  </div>
+</div>
+<div class='hr-line-dashed'></div>
+  
+<div class='form-group'>
+  <label class='col-sm-2 control-label' for='shop_email'>shop_email </label>
+  <div class='col-sm-10'>
+    <input value='<?php echo htmlentities(str_replace('\'', '"', ($object->isNew() ? (isset($_POST['shop_email']) ? strip_tags($_POST['shop_email']) : '') : $object->getShopEmail()))) ?>' type='text' class='form-control' id='shop_email' name='shop_email' />
+  </div>
+</div>
+<div class='hr-line-dashed'></div>
 
   <input type="submit" name="submit" value="<?php i18n_echo(array(
       'en' => 'Create', 

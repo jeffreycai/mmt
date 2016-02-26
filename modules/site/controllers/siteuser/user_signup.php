@@ -1,5 +1,5 @@
 <?php
-
+//MySiteUser::findByUsername('demo');
 
 // check if already login, if yes, redirect to userpage
 if (is_login()) {
@@ -48,7 +48,9 @@ if (isset($_POST['username'])) {
       if ($stripe->proceedPaymentForm("$member_type: $username")) {
         /*** NOW　WE ARE ALL GOOD ***/
         
+        $user->assignRole($member_type);
         $user->sendAccountActivationEmail();
+        
         Message::register(new Message(Message::SUCCESS, i18n(array(
             'en' => 'Thank you for registering with us. An activation email has been sent to your mail box. Please activate your account by clicking the link in the mail.',
             'zh' => '感谢您注册'.$settings['member'][$member_type]['name'].'帐号。我们刚给您的注册邮箱发送了一份帐号激活邮件，请点击邮件内的激活链接'
@@ -60,7 +62,8 @@ if (isset($_POST['username'])) {
             'zh' => '在此登录'
         )).'</a>'));
             
-        $log = new Log('site', Log::SUCCESS, 'New user registered: '.$member_type.' - '.$user->getUsername(), $_SERVER['REMOTE_ADDR']);
+        $log = new Log('siteuser', Log::SUCCESS, 'New user registered: '.$member_type.' - '.$user->getUsername(), $_SERVER['REMOTE_ADDR']);
+        $log->save();
         sendemailAdmin('New user registered: '.$member_type.' - '.$user->getUsername(), 'New user registered: '.$member_type.' - '.$user->getUsername());
       
         HTML::forwardBackToReferer();
@@ -72,7 +75,9 @@ if (isset($_POST['username'])) {
     } else {
       /*** NOW WE ARE ALL GOOD ***/
       
+      $user->assignRole($member_type);
       $user->sendAccountActivationEmail();
+      
       Message::register(new Message(Message::SUCCESS, i18n(array(
           'en' => 'Thank you for registering with us. An activation email has been sent to your mail box. Please activate your account by clicking the link in the mail.',
           'zh' => '感谢您注册普通会员帐号。我们刚给您的注册邮箱发送了一份帐号激活邮件，请点击邮件内的激活链接'
@@ -84,7 +89,8 @@ if (isset($_POST['username'])) {
           'zh' => '在此登录'
       )).'</a>'));
             
-      $log = new Log('site', Log::SUCCESS, 'New user registered: '.$member_type.' - '.$user->getUsername(), $_SERVER['REMOTE_ADDR']);
+      $log = new Log('siteuser', Log::SUCCESS, 'New user registered: '.$member_type.' - '.$user->getUsername(), $_SERVER['REMOTE_ADDR']);
+      $log->save();
       sendemailAdmin('New user registered: '.$member_type.' - '.$user->getUsername(), 'New user registered: '.$member_type.' - '.$user->getUsername());
       
       HTML::forwardBackToReferer();
@@ -104,7 +110,7 @@ $html->renderOut('core/backend/single_form_header', array('title' => i18n(array(
 echo MySiteUser::renderSignupForm(null, '', array('avatar', 'active'));
 
 $html->renderOut('core/backend/single_form_footer', array(
-    'extra' => '<div  style="text-align: center;"><small class="login"><a href="'.uri('users').'">'.i18n(array('en' => 'login as exsiting user', 'zh' => '现有用户登录')).'</a></small></div><div><br /><br /></div>'
+    'extra' => '<div  style="text-align: center;"><small class="login"><a href="'.uri('users').'">'.i18n(array('en' => 'login as exsiting user', 'zh' => '现有用户登录')).'</a><br /><a href="'.uri('').'">&laquo; 返回首页</a></small></div><div><br /><br /></div>'
 ));
 
 

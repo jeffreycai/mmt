@@ -46,7 +46,15 @@ if (isset($_POST['submit'])) {
       }
     }
   }
-  /// proceed submission
+  
+  // validation for $shop_wechat
+  $shop_wechat = isset($_POST["shop_wechat"]) ? strip_tags($_POST["shop_wechat"]) : null;  
+  // validation for $shop_phone
+  $shop_phone = isset($_POST["shop_phone"]) ? strip_tags($_POST["shop_phone"]) : null;  
+  // validation for $shop_address
+  $shop_address = isset($_POST["shop_address"]) ? $_POST["shop_address"] : null;  
+  // validation for $shop_email
+  $shop_email = isset($_POST["shop_email"]) ? strip_tags($_POST["shop_email"]) : null;  /// proceed submission
   
   // proceed for $shop_logo
   $files = explode("\n", trim($shop_logo));
@@ -63,6 +71,18 @@ if (isset($_POST['submit'])) {
     $rtn[] = $file;
   }
   $object->setShopLogo(implode("\n", $rtn));
+  
+  // proceed for $shop_wechat
+  $object->setShopWechat($shop_wechat);
+  
+  // proceed for $shop_phone
+  $object->setShopPhone($shop_phone);
+  
+  // proceed for $shop_address
+  $object->setShopAddress($shop_address);
+  
+  // proceed for $shop_email
+  $object->setShopEmail($shop_email);
   if ($error_flag == false) {
     if ($object->save()) {
       Message::register(new Message(Message::SUCCESS, i18n(array("en" => "Record saved", "zh" => "记录保存成功"))));

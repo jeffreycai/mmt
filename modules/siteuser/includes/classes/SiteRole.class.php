@@ -27,4 +27,16 @@ class SiteRole extends BaseSiteRole {
     }
     return $rtn;
   }
+  
+  static function findByName($name, $instance = 'SiteRole') {
+    global $mysqli;
+    $query = 'SELECT * FROM site_role WHERE name=' . DBObject::prepare_val_for_sql($name);
+    $result = $mysqli->query($query);
+    if ($result && $b = $result->fetch_object()) {
+      $obj = new $instance();
+      DBObject::importQueryResultToDbObject($b, $obj);
+      return $obj;
+    }
+    return null;
+  }
 }

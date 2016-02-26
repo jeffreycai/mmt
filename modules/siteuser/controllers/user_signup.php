@@ -32,7 +32,10 @@ $html->renderOut('core/backend/single_form_header', array('title' => i18n(array(
       ))));
 echo SiteUser::renderSignupForm(null, '', array('avatar', 'active'));
 $html->renderOut('core/backend/single_form_footer', array(
-    'extra' => '<div  style="text-align: center;"><small class="login"><a href="'.uri('users').'">'.i18n(array('en' => 'login as exsiting user', 'zh' => '现有用户登录')).'</a></small></div>'
+    'extra' => '<div  style="text-align: center;"><small class="login"><a href="'.uri('users').'">'.i18n(array('en' => 'login as exsiting user', 'zh' => '现有用户登录')).'</a><a href="'.uri('users/signup').'">'.i18n(array('en' => 'signup as new user', 'zh' => '申请注册为新用户')).'</a><br /><a href="'.uri('').'">&laquo; '.i18n(array(
+        'en' => 'Go back to homepage',
+        'zh' => '返回首页'
+    )).'</a></small><br /><br /></div>'
 ));
 
 
