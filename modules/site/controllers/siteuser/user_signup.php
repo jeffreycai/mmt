@@ -10,19 +10,28 @@ if (is_login()) {
 $member_type = isset($_POST['member']) ? strip_tags($_POST['member']) : 'NORMAL';
 $username = isset($_POST['username']) ? strip_tags($_POST['username']) : false;
 
-// handle payment submission
-$stripe = new MyStripe(decrypt($settings['admin_stripe_public_key_'.ENV]), decrypt($settings['admin_stripe_secret_key_'.ENV]));
-if ($stripe->proceedPaymentForm("$member_type: $username")) {
-
+if (isset($_POST['username'])) {
   // handle default submission
+  $_POST['noemailnotification'] = 1; // we don't want to send user notification in default handler, gonna wait till payment is through, will do it later
   $submission_handler = MODULESROOT . '/siteuser/controllers/backend/user/add_edit_submission.php';
   require $submission_handler;
-  // now we should have $user from above;
   
   
-  // extra handling for site specific actions, only do when there is no errors thrown before
+  
+  // now we should have "$user" var from the default handler above;
+  $user = isset($user) ? $user : new MySiteUser();
+  // see if default submission has error thrown, if not, proceed to payment
   $err_msgs = Message::peekMessages(Message::DANGER);
   if (sizeof($err_msgs) == 0) {
+    // user needs to activate account
+    if (!$user->isNew()) {
+      $user->setEmailActivated(0);
+      $user->save();
+    }
+    
+    // we fetch success message as we don't want the default, gonna wait till payment is through, will do it later
+    Message::getMessages(Message::SUCCESS); 
+    
     // check membership is legal
     $types = array();
     foreach ($settings['member'] as $type => $confs) {
@@ -30,14 +39,44 @@ if ($stripe->proceedPaymentForm("$member_type: $username")) {
     }
     if (!in_array($member_type, $types)) {
       Message::register(new Message(Message::DANGER, '会员类型不合法'));
+      $user->delete();
       HTML::forwardBackToReferer();
     }
-    // ok
-  }
-  
-  
-}
+    // handle payment for GOLD and PLATINUM user
+    if (in_array($member_type, array('GOLD', 'PLATINUM'))) {
+      $stripe = new MyStripe(decrypt($settings['admin_stripe_public_key_'.ENV]), decrypt($settings['admin_stripe_secret_key_'.ENV]));
+      if ($stripe->proceedPaymentForm("$member_type: $username")) {
+        /*** NOW　WE ARE ALL GOOD ***/
 
+        
+        Message::register(new Message(Message::SUCCESS, '注册成功'));
+      } else {
+        Message::register(new Message(Message::DANGER, '支付失败'));
+        $user->delete();
+      }
+    // go straight to register for NORMAL user
+    } else {
+      /*** NOW WE ARE ALL GOOD ***/
+      
+      $user->sendAccountActivationEmail();
+      Message::register(new Message(Message::SUCCESS, i18n(array(
+          'en' => 'Thank you for registering with us. An activation email has been sent to your mail box. Please activate your account by clicking the link in the mail.',
+          'zh' => '感谢您注册新帐号。我们刚给您的注册邮箱发送了一份帐号激活邮件，请点击邮件内的激活链接'
+      )). '<br /><br />'.i18n(array(
+          'en' => 'After you activate your account, you can ',
+          'zh' => '激活您的账号后，您可以'
+      )).'<a href="'.uri('users').'">'.i18n(array(
+          'en' => 'login here',
+          'zh' => '在此登录'
+      )).'</a>'));
+            
+      $log = new Log('site', Log::SUCCESS, 'New user registered: '.$member_type.' - '.$user->getUsername(), $_SERVER['REMOTE_ADDR']);
+      sendemailAdmin('New user registered: '.$member_type.' - '.$user->getUsername(), 'New user registered: '.$member_type.' - '.$user->getUsername());
+      
+      HTML::forwardBackToReferer();
+    }
+  }
+}
 
 /** presentation **/
 $html = new HTML();

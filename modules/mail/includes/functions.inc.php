@@ -4,6 +4,7 @@ function load_library_phpmailer() {
   require_once WEBROOT . DS . 'modules' . DS . 'mail' . DS . 'includes' . DS . 'libraries' . DS . 'PHPMailer' . DS . 'PHPMailerAutoload.php';
 }
 
+/*
 function sendemailAdmin($subject, $msg) {
   $settings = Vars::getSettings();
   $username = $settings['mail']['admin']['username'];
@@ -50,6 +51,15 @@ function sendemailAdmin($subject, $msg) {
     return false;
   }
   return true;
+}
+ * 
+ */
+
+
+function sendemailAdmin($subject, $msg) {
+  $settings = Vars::getSettings();
+  
+  return sendMailViaLocal($settings['siteemail'], 'Site Admin', 'admin@songguo.com.au', 'Site Admin', 'admin@songguo.com.au', $settings['sitename'], $subject, $msg);
 }
 
 

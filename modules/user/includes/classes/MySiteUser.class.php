@@ -189,9 +189,11 @@ class MySiteUser extends SiteUser {
           if (btn.data("fee") == "0") {
             $("#payment").slideUp();
             $("#payment input").attr("required", false);
+            $("#card_number").addClass("disabled");
           } else {
             $("#payment").slideDown();
             $("#payment input").attr("required", true);
+            $("#card_number").removeClass("disabled");
           }
         }
       });

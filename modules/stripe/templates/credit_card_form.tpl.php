@@ -56,23 +56,25 @@
     
     // we only do credit card action when the credit_cart input is not disabled
     $form.submit(function() {
-      payment_btn_text = $form.find('button[type="submit"]').html();
-      payment_input_text = $form.find('input[type="submit"]').val();
+      if (!$("#card_number").hasClass('disabled')) {
+        payment_btn_text = $form.find('button[type="submit"]').html();
+        payment_input_text = $form.find('input[type="submit"]').val();
 
-      // Disable the submit button to prevent repeated clicks
-      $form.find('button[type="submit"]').prop('disabled', true).html("<?php echo i18n(array(
-          'en' => 'Submitting ...',
-          'zh' => '提交中 ...'
-      )) ?>  <i class='fa fa-spin fa-circle-o-notch'></i>");
-      $form.find('input[type="submit"]').prop('disabled', true).val("<?php echo i18n(array(
-          'en' => 'Submitting ...',
-          'zh' => '提交中 ...'
-      )) ?>");
+        // Disable the submit button to prevent repeated clicks
+        $form.find('button[type="submit"]').prop('disabled', true).html("<?php echo i18n(array(
+            'en' => 'Submitting ...',
+            'zh' => '提交中 ...'
+        )) ?>  <i class='fa fa-spin fa-circle-o-notch'></i>");
+        $form.find('input[type="submit"]').prop('disabled', true).val("<?php echo i18n(array(
+            'en' => 'Submitting ...',
+            'zh' => '提交中 ...'
+        )) ?>");
 
-      Stripe.card.createToken($form, stripeResponseHandler);
+        Stripe.card.createToken($form, stripeResponseHandler);
 
-      // Prevent the form from submitting with the default action
-      return false;
+        // Prevent the form from submitting with the default action
+        return false;
+      }
     });
     
     function stripeResponseHandler(status, response) {

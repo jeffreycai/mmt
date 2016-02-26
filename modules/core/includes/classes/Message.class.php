@@ -62,7 +62,12 @@ class Message {
     if (isset($_SESSION[self::_SESSION_KEY_]) && is_array($_SESSION[self::_SESSION_KEY_])) {
       $total = sizeof($_SESSION[self::_SESSION_KEY_]);
       for ($i = 0; $i < $total; $i++) {
-        $message = $_SESSION[self::_SESSION_KEY_][$i];
+        $message = isset($_SESSION[self::_SESSION_KEY_][$i]) ? $_SESSION[self::_SESSION_KEY_][$i] : null;
+        
+        if (is_null($message)) {
+          continue;;
+        }
+        
         if ($type) {
           if ($message->getType() == $type) {
             if (!isset($rtn[$message->getType()]) || !is_array($rtn[$message->getType()])) {
@@ -81,6 +86,13 @@ class Message {
 //          $_SESSION[self::_SESSION_KEY_] = array_values($_SESSION[self::_SESSION_KEY_]);
         }
       }
+      
+      // consolidate
+      $msgs = array();
+      foreach ($_SESSION[self::_SESSION_KEY_] as $var) {
+        $msgs[] = $var;
+      }
+      $_SESSION[self::_SESSION_KEY_] = $msgs;
     }
 
     return $rtn;
@@ -96,7 +108,12 @@ class Message {
     if (isset($_SESSION[self::_SESSION_KEY_]) && is_array($_SESSION[self::_SESSION_KEY_])) {
       $total = sizeof($_SESSION[self::_SESSION_KEY_]);
       for ($i = 0; $i < $total; $i++) {
-        $message = $_SESSION[self::_SESSION_KEY_][$i];
+        $message = isset($_SESSION[self::_SESSION_KEY_][$i]) ? $_SESSION[self::_SESSION_KEY_][$i] : null;
+        
+        if (is_null($message)) {
+          continue;
+        }
+        
         if ($type) {
           if ($message->getType() == $type) {
             if (!isset($rtn[$message->getType()]) || !is_array($rtn[$message->getType()])) {

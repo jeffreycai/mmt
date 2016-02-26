@@ -6,7 +6,7 @@ $uid = isset($uid) ? $uid : null;
 $user = isset($user) ? $user : null;
 $user_class = class_exists('MySiteUser') ? 'MySiteUser' : 'SiteUser';
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['username'])) {
   $username = isset($_POST['username']) ? strip_tags(trim($_POST['username'])) : null;
   $email    = isset($_POST['email'])    ? strip_tags(trim($_POST['email']))    : null;
   $password = isset($_POST['password']) ? strip_tags(trim($_POST['password'])) : null;
@@ -108,13 +108,13 @@ if (isset($_POST['submit'])) {
   if (module_enabled('siteuser_profile')) {
     require MODULESROOT . '/siteuser_profile/controllers/fields_validation.php';
   }
-  
+
   // eorror handling
   if (sizeof($messages) > 0) {
     foreach ($messages as $message) {
       Message::register($message);
     }
-    
+
   // if success
   } else {
     $user = empty($uid) ? new $user_class() : $user_class::findById($uid, $user_class);

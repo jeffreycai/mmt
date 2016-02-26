@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['username'])) {
   $nickname = isset($_POST['nickname']) ? strip_tags(trim($_POST['nickname'])) : null;
   $avatar   = isset($_FILES['avatar'])  ?                $_FILES['avatar']     : null;
 }
