@@ -2,7 +2,7 @@
 
 // check if already login, if yes, redirect to homepage
 if (is_login()) {
-  HTML::forward('');
+  HTML::forward('user');
 }
 
 // override this call if "site" module has the override controller

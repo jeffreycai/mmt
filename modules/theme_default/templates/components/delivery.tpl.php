@@ -18,8 +18,8 @@
           <p><small>* 此邮箱将被用来接收订单信息</small></p>
         </div>
         <div class="form-group">
-          <label for="phone" class="control-label">手机</label>
-          <input type="text" class="form-control" id="phone" name="phone" placeholder="04xxxxxxxx" value="<?php echo isset($_POST['phone']) ? htmlentities($_POST['phone']) : (isset($_COOKIE['delivery']['phone']) ? htmlentities($_COOKIE['delivery']['phone']) : '') ?>" />
+          <label for="phone" class="control-label">手机 <?php if ($user->hasPermission('use sms')): ?><span style="color:red">*</span><?php endif; ?></label>
+          <input type="text" class="form-control" id="phone" name="phone" placeholder="04xxxxxxxx" value="<?php echo isset($_POST['phone']) ? htmlentities($_POST['phone']) : (isset($_COOKIE['delivery']['phone']) ? htmlentities($_COOKIE['delivery']['phone']) : '') ?>" <?php if ($user->hasPermission('use sms')): ?>required=""<?php endif; ?> />
         </div>
         <div class="form-group">
           <label for="wechat" class="control-label">微信号</label>

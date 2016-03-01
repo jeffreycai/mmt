@@ -26,10 +26,6 @@ class MyStripe {
     $this->alipay = $on;
   }
   
-  public function load_library_stripe() {
-    require_once MODULESROOT . '/stripe/includes/libraries/stripe-php/init.php';
-  }
-  
   public function renderPaymentForm($template = false) {
     ob_start();
     
@@ -45,10 +41,10 @@ class MyStripe {
     return ob_get_clean();
   }
   
-  public function proceedPaymentForm($order_id = false) {
+  public function proceedPaymentForm($amount, $order_id = false, $description = '', $currency = 'aud') {
     /** handle payment submission **/
     if (isset($_POST['stripeToken'])) {
-      $this->load_library_stripe();
+      load_library_stripe();
 
       $error = false;
 
@@ -62,10 +58,10 @@ class MyStripe {
       // Create the charge on Stripe's servers - this will charge the user's card
       try {
         $params = array(
-          "amount" => 1000, // amount in cents, again
-          "currency" => "aud",
+          "amount" => $amount, // amount in cents, again
+          "currency" => $currency,
           "source" => $token,
-          "description" => "Example charge",
+          "description" => $description,
 //          "metadata" => array(
 //            "order_id" => $order_id
 //          )
@@ -198,6 +194,202 @@ class MyStripe {
       }
 
       return $error ? false : true;
+
+    }
+  }
+  
+  public function proceedPaymentFormAndCreatCustomer($amount, $order_id = false, $description = '', $currency = 'aud', $customer_description = '') {
+    /** handle payment submission **/
+    if (isset($_POST['stripeToken'])) {
+      load_library_stripe();
+
+      $error = false;
+
+      // Set your secret key: remember to change this to your live secret key in production
+      // See your keys here https://dashboard.stripe.com/account/apikeys
+      \Stripe\Stripe::setApiKey($this->secret_key);
+
+      // Get the credit card details submitted by the form
+      $token = strip_tags($_POST['stripeToken']);
+      
+      $stripe_customer;
+      
+      // Create the charge on Stripe's servers - this will charge the user's card
+      try {
+        $stripe_customer = \Stripe\Customer::create(array(
+          "description" => $customer_description,
+          "source" => $token 
+        ));
+        
+        $params = array(
+          "amount" => $amount, // amount in cents, again
+          "currency" => $currency,
+          "customer" => $stripe_customer->id,
+          "description" => $description,
+        );
+        if ($order_id) {
+          $params['metadata'] = array(
+            "order_id" => $order_id
+          );
+        }
+        $charge = \Stripe\Charge::create($params);
+      } catch(\Stripe\Error\Card $e) {
+        // error occurs, don't save this stripe user
+        if ($stripe_customer) {
+          $stripe_customer->delete();
+        }
+        
+        // Since it's a decline, \Stripe\Error\Card will be caught
+        $body = $e->getJsonBody();
+        $err  = $body['error'];
+
+        $msg_content = "Purchase order ID: " . $order_id . "\n";
+
+        $msg_content.= "Stripe payment declined\n";
+        $msg_content.= 'Status is:' . $e->getHttpStatus() . "\n";
+        $msg_content.= 'Type is:' . $err['type'] . "\n";
+        $msg_content.= 'Code is:' . $err['code'] . "\n";
+        $msg_content.= 'Param is:' . $err['param'] . "\n";
+        $msg_content.= 'Message is:' . $err['message'] . "\n";
+
+        if (class_exists('Log')) {
+          $log = new Log('Stripe', Log::ERROR, $msg_content, $_SERVER['REMOTE_ADDR']);
+          $log->save();
+        }
+
+        Message::register(new Message(Message::DANGER, i18n(array(
+          'en' => 'An error has occured. Your payment has been declined. No charges has occurred against your credit card.',
+          'zh' => '支付过程中出现错误。您的支付请求失败了。我们没有向您的信用卡扣除任何费用。'
+        ))));
+
+        $error |= true;
+      } catch (\Stripe\Error\RateLimit $e) {
+        // error occurs, don't save this stripe user
+        if ($stripe_customer) {
+          $stripe_customer->delete();
+        }
+        
+        // Too many requests made to the API too quickly
+        if (class_exists('Log')) {
+          $msg_content = "Purchase order ID: " . $order_id . "\n";
+          $msg_content.= 'Too many requests made to the API too quickly';
+
+          $log = new Log('Stripe', Log::ERROR, $msg_content, $_SERVER['REMOTE_ADDR']);
+          $log->save();
+        }
+
+        Message::register(new Message(Message::DANGER, i18n(array(
+          'en' => 'An error has occured. Your payment has been declined. No charges has occurred against your credit card.',
+          'zh' => '支付过程中出现错误。您的支付请求失败了。我们没有向您的信用卡扣除任何费用。'
+        ))));
+
+        $error |= true;
+      } catch (\Stripe\Error\InvalidRequest $e) {
+        // error occurs, don't save this stripe user
+        if ($stripe_customer) {
+          $stripe_customer->delete();
+        }
+        
+        // Invalid parameters were supplied to Stripe's API
+        if (class_exists('Log')) {
+          $msg_content = "Purchase order ID: " . $order_id . "\n";
+          $msg_content.= "Invalid parameters were supplied to Stripe's API";
+
+          $log = new Log('Stripe', Log::ERROR, $msg_content, $_SERVER['REMOTE_ADDR']);
+          $log->save();
+        }
+
+        Message::register(new Message(Message::DANGER, i18n(array(
+          'en' => 'An error has occured. Your payment has been declined. No charges has occurred against your credit card.',
+          'zh' => '支付过程中出现错误。您的支付请求失败了。我们没有向您的信用卡扣除任何费用。'
+        ))));
+
+        $error |= true;
+      } catch (\Stripe\Error\Authentication $e) {
+        // error occurs, don't save this stripe user
+        if ($stripe_customer) {
+          $stripe_customer->delete();
+        }
+        
+        // Authentication with Stripe's API failed
+        // (maybe you changed API keys recently)
+        // Invalid parameters were supplied to Stripe's API
+
+        if (class_exists('Log')) {
+          $msg_content = "Purchase order ID: " . $order_id . "\n";
+          $msg_content.= "Authentication with Stripe's API failed\n";
+          $msg_content.= "(maybe you changed API keys recently)\n";
+          $msg_content.= "Invalid parameters were supplied to Stripe's API";
+
+          $log = new Log('Stripe', Log::ERROR, $msg_content, $_SERVER['REMOTE_ADDR']);
+          $log->save();
+        }
+
+        Message::register(new Message(Message::DANGER, i18n(array(
+          'en' => 'An error has occured. Your payment has been declined. No charges has occurred against your credit card.',
+          'zh' => '支付过程中出现错误。您的支付请求失败了。我们没有向您的信用卡扣除任何费用。'
+        ))));
+
+        $error |= true;
+      } catch (\Stripe\Error\ApiConnection $e) {
+        // error occurs, don't save this stripe user
+        if ($stripe_customer) {
+          $stripe_customer->delete();
+        }
+        
+        // Network communication with Stripe failed
+        if (class_exists('Log')) {
+          $msg_content = "Purchase order ID: " . $order_id . "\n";
+          $msg_content.= "Network communication with Stripe failed";
+
+          $log = new Log('Stripe', Log::ERROR, $msg_content, $_SERVER['REMOTE_ADDR']);
+          $log->save();
+        }
+
+        Message::register(new Message(Message::DANGER, i18n(array(
+          'en' => 'An error has occured. Your payment has been declined. No charges has occurred against your credit card.',
+          'zh' => '支付过程中出现错误。您的支付请求失败了。我们没有向您的信用卡扣除任何费用。'
+        ))));
+
+        $error |= true;
+      } catch (\Stripe\Error\Base $e) {
+        // error occurs, don't save this stripe user
+        if ($stripe_customer) {
+          $stripe_customer->delete();
+        }
+        
+        // Display a very generic error to the user, and maybe send
+        // yourself an email
+        if (class_exists('Log')) {
+          $msg_content = "Purchase order ID: " . $order_id . "\n";
+          $msg_content.= "a very generic error";
+
+          $log = new Log('Stripe', Log::ERROR, $msg_content, $_SERVER['REMOTE_ADDR']);
+          $log->save();
+        }
+
+        Message::register(new Message(Message::DANGER, i18n(array(
+          'en' => 'An error has occured. Your payment has been declined. No charges has occurred against your credit card.',
+          'zh' => '支付过程中出现错误。您的支付请求失败了。我们没有向您的信用卡扣除任何费用。'
+        ))));
+
+        $error |= true;
+      } catch (Exception $e) {
+        // error occurs, don't save this stripe user
+        if ($stripe_customer) {
+          $stripe_customer->delete();
+        }
+        
+        // Something else happened, completely unrelated to Stripe
+        Message::register(new Message(Message::DANGER, i18n(array(
+          'en' => 'An error has occured. Your payment has been declined. No charges has occurred against your credit card.',
+          'zh' => '支付过程中出现错误。您的支付请求失败了。我们没有向您的信用卡扣除任何费用。'
+        ))));
+
+        $error |= true;
+      }
+
+      return $error ? false : $stripe_customer;
 
     }
   }

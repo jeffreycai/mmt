@@ -7,6 +7,10 @@
       <p style="text-align: center;">安全支付</p>
     </div>
     
+    <div class="col-xs-12">
+      <?php echo Message::renderMessages(); ?>
+    </div>
+    
     <!-- payment form -->
     <div class="col-xs-12">  
       <form action="" method="POST" data-payment_disabled="false">

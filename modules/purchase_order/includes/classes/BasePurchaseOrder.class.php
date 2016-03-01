@@ -20,6 +20,7 @@ include_once MODULESROOT . DS . 'core' . DS . 'includes' . DS . 'classes' . DS .
  * - created_at
  * - confirmed_at
  * - paid_at
+ * - dispatched
  */
 class BasePurchaseOrder extends DBObject {
   /**
@@ -142,6 +143,12 @@ class BasePurchaseOrder extends DBObject {
    public function getPaidAt() {
      return $this->getDbFieldPaid_at();
    }
+   public function setDispatched($var) {
+     $this->setDbFieldDispatched($var);
+   }
+   public function getDispatched() {
+     return $this->getDbFieldDispatched();
+   }
 
   
   
@@ -179,6 +186,7 @@ CREATE TABLE IF NOT EXISTS `purchase_order` (
   `created_at` INT ,
   `confirmed_at` INT ,
   `paid_at` INT ,
+  `dispatched` INT DEFAULT 0 ,
   PRIMARY KEY (`id`)
  ,
 INDEX `purchase_order_public_id` (`public_id` ASC) ,

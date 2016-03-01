@@ -15,6 +15,7 @@ include_once MODULESROOT . DS . 'core' . DS . 'includes' . DS . 'classes' . DS .
  * - shop_email
  * - stripe_public_key
  * - stripe_private_key
+ * - stripe_uid
  */
 class BaseShopsettings extends DBObject {
   /**
@@ -107,6 +108,12 @@ class BaseShopsettings extends DBObject {
    public function getStripePrivateKey() {
      return $this->getDbFieldStripe_private_key();
    }
+   public function setStripeUid($var) {
+     $this->setDbFieldStripe_uid($var);
+   }
+   public function getStripeUid() {
+     return $this->getDbFieldStripe_uid();
+   }
 
   
   
@@ -139,6 +146,7 @@ CREATE TABLE IF NOT EXISTS `shopsettings` (
   `shop_email` VARCHAR(32) ,
   `stripe_public_key` VARCHAR(48) ,
   `stripe_private_key` VARCHAR(48) ,
+  `stripe_uid` VARCHAR(32) ,
   PRIMARY KEY (`id`)
  ,
 INDEX `fk-shopsettings-user_id-idx` (`user_id` ASC),

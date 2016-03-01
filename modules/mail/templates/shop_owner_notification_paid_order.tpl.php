@@ -1,5 +1,10 @@
 <p>
-  订单 <strong><?php echo $purchase_order->getPublicId() ?></strong> 已付款。
+  您有新的订单 - <strong><?php echo $purchase_order->getPublicId() ?></strong>.<br />
+  订单已付款。
+</p>
+
+<p>
+  -----------------
 </p>
 
 <?php $html = new HTML(); ?>

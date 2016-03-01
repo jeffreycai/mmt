@@ -14,7 +14,7 @@ member:
     product_limit: 5
     name: 普通会员
     setup_fee: 0
-    trasaction_fee: 0
+    transaction_fee: 0
   GOLD:
     product_limit: 25
     name: 黄金会员

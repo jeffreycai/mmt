@@ -80,6 +80,8 @@ if (sizeof($items)): $i = -1; ?>
       var price = $('input.price', this).val();
       total += parseFloat(price) * parseInt(number);
     });
+    // round
+    total = Math.round(total * 100) / 100;
     $('.total').html(total.toString());
   }
   

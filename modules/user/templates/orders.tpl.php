@@ -50,7 +50,7 @@
         )) ?>
 
         <p>
-          <button id="mark_paid_<?php echo $order->getId(); ?>" class="mark_paid btn btn-sm btn-<?php echo $order->getPaid() ? 'danger' : 'success' ?>" data-id="<?php echo $order->getId() ?>" >标记为<?php echo $order->getPaid() ? '未' : '已' ?>付款</button>
+          <button id="mark_paid_<?php echo $order->getId(); ?>" class="mark_paid btn btn-sm btn-<?php echo $order->getPaid() ? 'danger' : 'success' ?>" data-id="<?php echo $order->getId() ?>" ><i class="fa fa-usd"></i> <span>标记为<?php echo $order->getPaid() ? '未' : '已' ?>付款</span></button>
         </p>
       </div>
       <div class="modal-footer">
@@ -77,11 +77,11 @@
       
       switch (data) {
         case "0":
-          $btn.html('标记为已付款').removeClass('btn-danger').addClass('btn-success').prop('disabled', false);
+          $('span', btn).html('标记为已付款').removeClass('btn-danger').addClass('btn-success').prop('disabled', false);
           $('.fa-check', $row).removeClass('fa-check').addClass('fa-times');
           break;
         case "1":
-          $btn.html('标记为未付款').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
+          $('span', btn).html('标记为未付款').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
           $('.fa-times', $row).removeClass('fa-times').addClass('fa-check');
           break;
         default:

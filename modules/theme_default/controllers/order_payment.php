@@ -8,9 +8,8 @@ if (!$purchase_order) {
 $user = $purchase_order->getUser();
 $stripe = new MyStripe($user->getShopSettings()->getStripePublicKey(), $user->getShopSettings()->getStripePrivateKey());
 
-
 /** handle payment submission **/
-if ($stripe->proceedPaymentForm($public_id)) {
+if ($stripe->proceedPaymentForm($purchase_order->getTotal(), $public_id)) {
   // mark as confirmed
   if ($purchase_order->getConfirmed() == 0) {
     // clear cart / delivery cookie
@@ -23,19 +22,43 @@ if ($stripe->proceedPaymentForm($public_id)) {
     $purchase_order->setConfirmedAt(time());
     $purchase_order->save();
     // send shop owner email
-    $purchase_order->sendShopOwnerNewOrderConfirmation();
+//    $purchase_order->sendShopOwnerNewOrderConfirmation();
     // send customer email
-    $purchase_order->sendCustomerNewOrderConfirmation();
+//    $purchase_order->sendCustomerNewOrderConfirmation();
   }
 
   // mark as paid
   $purchase_order->setPaid(1);
   $purchase_order->setPaidAt(time());
   $purchase_order->save();
+  // create a charge item
+  $charge_item = new ChargeItem();
+  $charge_item->setTitle('订单');
+  $charge_item->setReference($public_id);
+  $charge_item->setAmount($settings['member'][$user->getMemberType()]['transaction_fee']);
+  $charge_item->setCreatedAt(time());
+  $charge_item->save();
   // send shop owner paid confirmation
   $purchase_order->sendShopOwnerPaidConfirmation();
-  // send customer email
+  if ($user->hasPermission('use sms')) {
+    $sms_msg = loadSMSTemplate('shop_owner_notification_paid_order', array(
+      'purchase_order' => $purchase_order,
+      'user' => $user
+    ));
+    sendSMS($user->getProfile()->getPhone(), $sms_msg);
+  }
+  // send customer paid confirmation
   $purchase_order->sendCustomerPaidConfirmation();
+  if ($user->hasPermission('use sms')) {
+    $sms_msg = loadSMSTemplate('customer_notification_paid_order', array(
+      'purchase_order' => $purchase_order,
+      'user' => $user
+    ));
+    sendSMS($purchase_order->getPhone(), $sms_msg);
+  }
+  // log it
+  $log = new Log('purchase_order', Log::SUCCESS, 'Created and paid: ' . $purchase_order->getPublicId(), $_SERVER['REMOTE_ADDR']);
+  $log->save();
 
   HTML::forward('order/payment_confirmed/' . $public_id);
 }

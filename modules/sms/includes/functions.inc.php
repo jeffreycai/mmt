@@ -30,11 +30,36 @@ function sendSMS($to_number, $text) {
     $message_data = "";
     $message_data = explode(':', $data_line);
     if ($message_data[0] == "OK") {
-      echo "The message to " . $message_data[1] . " was successful, with reference " . $message_data[2] . "\n";
+      // success
+      if (class_exists('Log')) {
+        $log = new Log('SMS', Log::SUCCESS, 'Message sent to ' . $message_data[1], $_SERVER['REMOTE_ADDR']);
+        $log->save();
+      }
     } elseif ($message_data[0] == "BAD") {
-      echo "The message to " . $message_data[1] . " was NOT successful. Reason: " . $message_data[2] . "\n";
+      // register error message
+      // Message::register(new Message(Message::DANGER, 'SMS delivery failed.'));
+      // log it
+      if (class_exists('Log')) {
+        $log = new Log('SMS', Log::ERROR, 'Message failed to send to ' .$message_data[1] . '. Reason: ' . $message_data[2], $_SERVER['REMOTE_ADDR']);
+        $log->save();
+      }
     } elseif ($message_data[0] == "ERROR") {
-      echo "There was an error with this request. Reason: " . $message_data[1] . "\n";
+      if (class_exists('Log')) {
+        $log = new Log('SMS', Log::ERROR, 'Message failed to send. Reason: ' . $message_data[1], $_SERVER['REMOTE_ADDR']);
+        $log->save();
+      }
     }
   }
+}
+
+
+function loadSMSTemplate($template_name, $vars = array()) {
+  foreach ($vars as $key => $val) {
+    $$key = $val;
+  }
+  
+  ob_start();
+  include(MODULESROOT . DS . 'sms' . DS . 'templates' . DS . $template_name . '.tpl.php');
+  $content = ob_get_clean(); 
+  return $content;
 }

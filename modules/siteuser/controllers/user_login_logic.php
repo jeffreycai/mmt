@@ -63,12 +63,12 @@ if (module_enabled('form') && !Form::checkSpamToken(SITEUSER_FORM_SPAM_TOKEN)) {
 /** login action **/
 $user->login(is_null($remember) ? false : true);
 // forward back to referer if exists
-$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : false;
-if ($referer
-        && !preg_match('/\/users\/?$/', $referer) // we don't go back to login for loop
-        && !preg_match('/\/confirm\/?$/', $referer) // we don't go back to 'confirm' page as it doesn't have meaningful message
-        && !preg_match('/forget\-password\/?$/', $referer)
-) {
-  HTML::forward($referer);
-}
-HTML::forward('');
+//$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : false;
+//if ($referer
+//        && !preg_match('/\/users\/?$/', $referer) // we don't go back to login for loop
+//        && !preg_match('/\/confirm\/?$/', $referer) // we don't go back to 'confirm' page as it doesn't have meaningful message
+//        && !preg_match('/forget\-password\/?$/', $referer)
+//) {
+//  HTML::forward($referer);
+//}
+HTML::forward('user');

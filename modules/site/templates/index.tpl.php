@@ -17,7 +17,7 @@
 
         <div id="mobilenav" class="hidden" rel="mobile">
             <ul>
-                <li><a href="<?php echo uri('users/signup') ?>">注册帐号</a></li>
+                <li><a href="<?php echo uri('signup') ?>">注册帐号</a></li>
                 <li><a href="<?php echo uri('users') ?>">登录</a></li>
             </ul>
             <ul class="anchors">
@@ -28,7 +28,7 @@
             </ul>
         </div>
 
-        <a href="<?php echo uri('users/signup') ?>" class=" button" id="header_signup">注册帐号</a>
+        <a href="<?php echo uri('signup') ?>" class=" button" id="header_signup">注册帐号</a>
         <a href="<?php echo uri('users') ?>" class=" button" id="header_login">登录</a>
         <a href="#" id="mobiletoggle" rel="mobile">导航菜单</a>
 
@@ -44,7 +44,7 @@
                     <br /><br />
                     <!--<a href="#" id="check" data-toggle="modal" data-target="#checkModal">查看演示站</a>-->
 
-                    <a href="<?php echo uri('users/signup') ?>" class=" button">马上免费注册！</a>
+                    <a href="<?php echo uri('signup') ?>" class=" button">马上免费注册！</a>
                     <p>
                         已经注册帐号了? <a href="<?php echo uri('users') ?>" class="">登录后台</a>
                     </p>
@@ -151,7 +151,7 @@
                     <li><i class="fa fa-times"></i> 短信提醒 - 无</li>
                   </ul>
                   <br />
-                  <a class="signuplink button" href="<?php echo uri('users/signup?member_type=NORMAL') ?>">选择注册！</a>
+                  <a class="button" href="<?php echo uri('signup?member_type=NORMAL') ?>">选择注册！</a>
                 </div>
                 </div>
                 
@@ -169,7 +169,7 @@
                     <li><i class="fa fa-times"></i> 短信提醒 - 无</li>
                   </ul>
                   <br />
-                  <a class="signuplink button" href="<?php echo uri('users/signup?member_type=GOLD') ?>">选择注册！</a>
+                  <a class="button" href="<?php echo uri('signup?member_type=GOLD') ?>">选择注册！</a>
                 </div>
                 </div>
                 
@@ -186,7 +186,7 @@
                     <li><i class="fa fa-check"></i> 短信提醒 - 有</li>
                   </ul>
                   <br />
-                  <a class="signuplink button" href="<?php echo uri('users/signup?member_type=PLATINUM') ?>">选择注册！</a>
+                  <a class="button" href="<?php echo uri('signup?member_type=PLATINUM') ?>">选择注册！</a>
                 </div>
                 </div>
                 
@@ -241,7 +241,7 @@
         </section>
 
         <section id="final">
-            <a href="<?php echo uri('users/signup') ?>" class="signuplink button">马上免费注册！</a>
+            <a href="<?php echo uri('signup') ?>" class="button">马上免费注册！</a>
             <br /><br /><br />
             <p style="color: #AAA;">或者查看演示微店</p>
             <br />

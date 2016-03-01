@@ -18,7 +18,7 @@ if (isset($_POST['username'])) {
   }
   
   // validation
-  $messages = array();
+  $messages = isset($custom_fields_error_messages) && is_array($custom_fields_error_messages) ? $custom_fields_error_messages : array();
   
   // spam token for frontend only
   if (is_frontend()) {
@@ -106,7 +106,13 @@ if (isset($_POST['username'])) {
   
   // profile
   if (module_enabled('siteuser_profile')) {
-    require MODULESROOT . '/siteuser_profile/controllers/fields_validation.php';
+    // site module override
+    $override = MODULESROOT . '/site/controllers/siteuser_profile/fields_validation.php';
+    if (is_file($override)) {
+      require $override;
+    } else {
+      require MODULESROOT . '/siteuser_profile/controllers/fields_validation.php';
+    }
   }
 
   // eorror handling
@@ -141,7 +147,12 @@ if (isset($_POST['username'])) {
     if ($s) {
       // update profile
       if (module_enabled('siteuser_profile')) {
-        require MODULESROOT . '/siteuser_profile/controllers/fields_update.php';
+        $override = MODULESROOT . '/site/controllers/siteuser_profile/fields_update.php';
+        if (is_file($override)) {
+          require $override;
+        } else {
+          require MODULESROOT . '/siteuser_profile/controllers/fields_update.php';
+        }
       }
       
       if (empty($uid)) {

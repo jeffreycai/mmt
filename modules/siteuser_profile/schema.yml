@@ -5,6 +5,7 @@ site_profile:
     user_id: INT NOT NULL
     nickname: VARCHAR(32)
     thumbnail: VARCHAR(28)
+    phone: VARCHAR(10)
   fks:
     user_id:
       foreign_key: user_id

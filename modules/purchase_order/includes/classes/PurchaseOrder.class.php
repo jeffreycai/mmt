@@ -111,7 +111,7 @@ class PurchaseOrder extends BasePurchaseOrder {
             $settings['sitename'],//$reply_to_nickname, 
             'pdrupal@maimaitionline.com', // $from, 
             $settings['sitename'], // $from_nickname, 
-            '订单' . $this->getPublicId() . '已付款', // $subject, 
+            '新订单' . $this->getPublicId() . ' - 已付款', // $subject, 
             loadEmailTemplate('shop_owner_notification_paid_order', array(
                 'purchase_order' => $this
             ))
@@ -150,5 +150,14 @@ class PurchaseOrder extends BasePurchaseOrder {
                 'purchase_order' => $this
             ))
     );
+  }
+  
+  public function getTotal() {
+    $items = $this->getItems();
+    $total = 0;
+    foreach ($items as $item) {
+      $total += $item->getNumber() * floatval($item->getSinglePrice());
+    }
+    return floor($total * 100);
   }
 }

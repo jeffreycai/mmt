@@ -11,12 +11,19 @@ class MySiteUser extends SiteUser {
   }
   
   public function save() {
+    // when it is a new object, we creat a shopsettings object for it
+    $shop_settings = null;
+    if ($this->isNew()) {
+      $shop_settings = new Shopsettings();
+    }
+    
     $rtn = parent::save();
     
     // create shop settings
-    $shop_settings = new Shopsettings();
-    $shop_settings->setUserId($this->getId());
-    $shop_settings->save();
+    if (!is_null($shop_settings)) {
+      $shop_settings->setUserId($this->getId());
+      $shop_settings->save();
+    }
     
     return $rtn;
   }
@@ -216,7 +223,7 @@ class MySiteUser extends SiteUser {
     <label for="password_confirm">'.i18n(array('en' => 'Password again', 'zh' => '再次确认密码')).$mandatory_label.'</label>
     <input type="password" class="form-control" id="password_confirm" name="password_confirm" value="'.$password_confirm.'" required />
   </div>
-  ' . (class_exists('SiteProfile') ? SiteProfile::renderUpdateForm($user, $exclude_fields) : '') 
+  ' . (class_exists('MySiteProfile') ? MySiteProfile::renderUpdateForm($user, $exclude_fields) : '') 
     . (in_array('active', $exclude_fields) ? '' : $active_field) . '
       
   <div id="payment" style="'.($member_type == 'NORMAL' ? 'display:none;' : '').'">
@@ -228,7 +235,12 @@ class MySiteUser extends SiteUser {
 '.$stripe->renderPaymentForm().'
   <hr>
   </div>
-
+  <div class="form-group">
+    <input type="checkbox" name="terms" id="terms" value="1" /> <label for="terms">我已阅读,并同意'.$settings['sitename_short'].'的<a href="'.uri('terms').'" target=_blank>服务条款</a> '.$mandatory_label.'</label>
+    <br /><input type="checkbox" name="privacy" id="privacy" value="1" /> <label for="privacy">我已阅读,并同意'.$settings['sitename_short'].'的<a href="'.uri('privacy').'" target=_blank>隐私条款</a> '.$mandatory_label.'</label>
+    <br /><input type="checkbox" name="cookies" id="cookies" value="1" /> <label for="cookies">我已阅读,并同意'.$settings['sitename_short'].'的<a href="'.uri('cookies').'" target=_blank>Cookie使用说明</a> '.$mandatory_label.'</label>
+  </div>
+  
   <div class="form-group" id="form-field-notice"><small><i>
     '.$mandatory_label.i18n(array(
         'en' => ' indicates mandatory fields',
@@ -243,5 +255,33 @@ class MySiteUser extends SiteUser {
 </form>
 ';
     return $rtn;
+  }
+  
+  public function getMemberType() {
+    $settings = Vars::getSettings();
+    
+    // get all types in an array
+    $types = array();
+    $i = 0;
+    foreach ($settings['member'] as $type => $confs) {
+      $types[$i] = $type;
+      $i++;
+    }
+    
+    // get user roles in an array
+    $roles = $this->getRoles();
+    $user_types = array();
+    foreach ($roles as $role) {
+      $user_types[] = $role->getName();
+    }
+    
+    // compare and return the highest member type
+    for ($i = sizeof($types) - 1; $i >= 0; $i--) {
+      foreach ($user_types as $user_type) {
+        if ($user_type == $types[$i]) {
+          return $user_type;
+        }
+      }
+    }
   }
 }

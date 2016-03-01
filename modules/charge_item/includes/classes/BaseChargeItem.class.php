@@ -4,12 +4,13 @@ include_once MODULESROOT . DS . 'core' . DS . 'includes' . DS . 'classes' . DS .
 /**
  * DB fields
  * - id
- * - user_id
- * - nickname
- * - thumbnail
- * - phone
+ * - title
+ * - reference
+ * - amount
+ * - created_at
+ * - charged
  */
-class BaseSiteProfile extends DBObject {
+class BaseChargeItem extends DBObject {
   /**
    * Implement parent abstract functions
    */
@@ -22,7 +23,7 @@ class BaseSiteProfile extends DBObject {
     $this->pk_auto_increased = TRUE;
   }
   protected function setTableName() {
-    $this->table_name = 'site_profile';
+    $this->table_name = 'charge_item';
   }
   
   /**
@@ -34,29 +35,35 @@ class BaseSiteProfile extends DBObject {
    public function getId() {
      return $this->getDbFieldId();
    }
-   public function setUserId($var) {
-     $this->setDbFieldUser_id($var);
+   public function setTitle($var) {
+     $this->setDbFieldTitle($var);
    }
-   public function getUserId() {
-     return $this->getDbFieldUser_id();
+   public function getTitle() {
+     return $this->getDbFieldTitle();
    }
-   public function setNickname($var) {
-     $this->setDbFieldNickname($var);
+   public function setReference($var) {
+     $this->setDbFieldReference($var);
    }
-   public function getNickname() {
-     return $this->getDbFieldNickname();
+   public function getReference() {
+     return $this->getDbFieldReference();
    }
-   public function setThumbnail($var) {
-     $this->setDbFieldThumbnail($var);
+   public function setAmount($var) {
+     $this->setDbFieldAmount($var);
    }
-   public function getThumbnail() {
-     return $this->getDbFieldThumbnail();
+   public function getAmount() {
+     return $this->getDbFieldAmount();
    }
-   public function setPhone($var) {
-     $this->setDbFieldPhone($var);
+   public function setCreatedAt($var) {
+     $this->setDbFieldCreated_at($var);
    }
-   public function getPhone() {
-     return $this->getDbFieldPhone();
+   public function getCreatedAt() {
+     return $this->getDbFieldCreated_at();
+   }
+   public function setCharged($var) {
+     $this->setDbFieldCharged($var);
+   }
+   public function getCharged() {
+     return $this->getDbFieldCharged();
    }
 
   
@@ -65,11 +72,11 @@ class BaseSiteProfile extends DBObject {
    * self functions
    */
   static function dropTable() {
-    return parent::dropTableByName('site_profile');
+    return parent::dropTableByName('charge_item');
   }
   
   static function tableExist() {
-    return parent::tableExistByName('site_profile');
+    return parent::tableExistByName('charge_item');
   }
   
   static function createTableIfNotExist() {
@@ -77,20 +84,15 @@ class BaseSiteProfile extends DBObject {
 
     if (!self::tableExist()) {
       return $mysqli->query('
-CREATE TABLE IF NOT EXISTS `site_profile` (
+CREATE TABLE IF NOT EXISTS `charge_item` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `user_id` INT NOT NULL ,
-  `nickname` VARCHAR(32) ,
-  `thumbnail` VARCHAR(28) ,
-  `phone` VARCHAR(10) ,
+  `title` VARCHAR(256) ,
+  `reference` VARCHAR(256) ,
+  `amount` VARCHAR(5) ,
+  `created_at` INT ,
+  `charged` TINYINT DEFAULT 0 ,
   PRIMARY KEY (`id`)
- ,
-INDEX `fk-site_profile-user_id-idx` (`user_id` ASC),
-CONSTRAINT `fk-site_profile-user_id`
-  FOREIGN KEY (`user_id`)
-  REFERENCES `site_user` (`id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE)
+)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
@@ -100,9 +102,9 @@ COLLATE = utf8_general_ci;
     return true;
   }
   
-  static function findById($id, $instance = 'SiteProfile') {
+  static function findById($id, $instance = 'ChargeItem') {
     global $mysqli;
-    $query = 'SELECT * FROM site_profile WHERE id=' . $id;
+    $query = 'SELECT * FROM charge_item WHERE id=' . $id;
     $result = $mysqli->query($query);
     if ($result && $b = $result->fetch_object()) {
       $obj = new $instance();
@@ -114,12 +116,12 @@ COLLATE = utf8_general_ci;
   
   static function findAll() {
     global $mysqli;
-    $query = "SELECT * FROM site_profile";
+    $query = "SELECT * FROM charge_item";
     $result = $mysqli->query($query);
     
     $rtn = array();
     while ($result && $b = $result->fetch_object()) {
-      $obj= new SiteProfile();
+      $obj= new ChargeItem();
       DBObject::importQueryResultToDbObject($b, $obj);
       $rtn[] = $obj;
     }
@@ -129,12 +131,12 @@ COLLATE = utf8_general_ci;
   
   static function findAllWithPage($page, $entries_per_page) {
     global $mysqli;
-    $query = "SELECT * FROM site_profile LIMIT " . ($page - 1) * $entries_per_page . ", " . $entries_per_page;
+    $query = "SELECT * FROM charge_item LIMIT " . ($page - 1) * $entries_per_page . ", " . $entries_per_page;
     $result = $mysqli->query($query);
     
     $rtn = array();
     while ($result && $b = $result->fetch_object()) {
-      $obj= new SiteProfile();
+      $obj= new ChargeItem();
       DBObject::importQueryResultToDbObject($b, $obj);
       $rtn[] = $obj;
     }
@@ -144,7 +146,7 @@ COLLATE = utf8_general_ci;
   
   static function countAll() {
     global $mysqli;
-    $query = "SELECT COUNT(*) as 'count' FROM site_profile";
+    $query = "SELECT COUNT(*) as 'count' FROM charge_item";
     if ($result = $mysqli->query($query)) {
       return $result->fetch_object()->count;
     }
@@ -152,7 +154,7 @@ COLLATE = utf8_general_ci;
   
   static function truncate() {
     global $mysqli;
-    $query = "TRUNCATE TABLE site_profile";
+    $query = "TRUNCATE TABLE charge_item";
     return $mysqli->query($query);
   }
 }

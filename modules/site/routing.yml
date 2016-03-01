@@ -4,6 +4,16 @@ routing:
     isSecure: 0
     i18n: 0
     controller: site/index
+  signup:
+    path: ^\/signup\/?$
+    isSecure: 0
+    i18n: 0
+    controller: site/signup
+  signin:
+    path: ^\/signin\/?$
+    isSecure: 0
+    i18n: 0
+    controller: site/signin
   terms:
     path: ^\/terms\/?$
     isSecure: 0

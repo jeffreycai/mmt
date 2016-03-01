@@ -102,6 +102,10 @@ if (isset($_POST['submit'])) {
     $error |= true;
   }
   // phone
+  if (empty($phone) && $user->hasPermission('use sms')) {
+    Message::register(new Message(Message::DANGER, '请填写手机号码'));
+    $error |= true;
+  }
   if (!empty($phone) && !preg_match('/^04\d+$/', $phone)) {
     Message::register(new Message(Message::DANGER, '电话号码不合法，请检查'));
     $error |= true;
@@ -174,7 +178,9 @@ $html->renderOut('theme_default/components/cart', array(
   'settings' => $settings
 ));
 if (!empty($items)) {
-  $html->renderOut('theme_default/components/delivery');
+  $html->renderOut('theme_default/components/delivery', array(
+    'user' => $user
+  ));
   Form::loadSpamToken('#checkout', $checkout_form_spam_token);
 }
 $html->output("\n</form>\n");

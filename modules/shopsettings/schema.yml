@@ -13,6 +13,7 @@ shopsettings:
     shop_email: VARCHAR(32)
     stripe_public_key: VARCHAR(48)
     stripe_private_key: VARCHAR(48)
+    stripe_uid: VARCHAR(32)
   fks:
     user_id:
       foreign_key: user_id

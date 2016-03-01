@@ -3,6 +3,7 @@
 if (isset($_POST['username'])) {
   $nickname = isset($_POST['nickname']) ? strip_tags(trim($_POST['nickname'])) : null;
   $avatar   = isset($_FILES['avatar'])  ?                $_FILES['avatar']     : null;
+  $phone    = isset($_POST['phone'])    ? strip_tags($_POST['phone']) : null;
 }
 
 // nickname
@@ -44,4 +45,15 @@ if ($avatar) {
       )));
       break;
   }
+}
+
+// phone
+if ($phone && !preg_match('/^04/', $phone)) {
+  $messages[] = new Message(Message::DANGER, i18n(array(
+    'en' => 'Please enter a valid cell phone number',
+    'zh' => '手机号码格式不合法，请重写填写'
+  )));
+}
+if (empty($phone)) {
+  $messages[] = new Message(Message::DANGER, '请填写手机号码');
 }

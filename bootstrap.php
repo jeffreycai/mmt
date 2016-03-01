@@ -21,6 +21,7 @@ if (isset($custom_modules)) {
       'stripe',
       'product',
       'purchase_order',
+      'charge_item',
 //'project',
       'shopsettings',
       'mail',

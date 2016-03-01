@@ -6,11 +6,27 @@ if (is_login()) {
   HTML::forward('user');
 }
 
-// get vars
-$member_type = isset($_POST['member_type']) ? strip_tags($_POST['member_type']) : 'NORMAL';
-$username = isset($_POST['username']) ? strip_tags($_POST['username']) : false;
 
 if (isset($_POST['username'])) {
+  // get vars
+  $member_type = isset($_POST['member_type']) ? strip_tags($_POST['member_type']) : 'NORMAL';
+  $username = isset($_POST['username']) ? strip_tags($_POST['username']) : false;
+  $terms = isset($_POST['terms']) ? $_POST['terms'] : false;
+  $privacy = isset($_POST['privacy']) ? $_POST['privacy'] : false;
+  $cookies = isset($_POST['cookies']) ? $_POST['cookies'] : false;
+  
+  // custom fields validation
+  $custom_fields_error_messages = array();
+  if (!$terms) {
+    $custom_fields_error_messages[] = new Message(Message::DANGER, '请同意服务条款');
+  }
+  if (!$privacy) {
+    $custom_fields_error_messages[] = new Message(Message::DANGER, '请同意隐私条款');
+  }
+  if (!$cookies) {
+    $custom_fields_error_messages[] = new Message(Message::DANGER, '请同意Cookies使用说明');
+  }
+  
   // handle default submission
   $_POST['noemailnotification'] = 1; // we don't want to send user notification in default handler, gonna wait till payment is through, will do it later
   $submission_handler = MODULESROOT . '/siteuser/controllers/backend/user/add_edit_submission.php';
@@ -45,8 +61,13 @@ if (isset($_POST['username'])) {
     // handle payment for GOLD and PLATINUM user
     if (in_array($member_type, array('GOLD', 'PLATINUM'))) {
       $stripe = new MyStripe(decrypt($settings['admin_stripe_public_key_'.ENV]), decrypt($settings['admin_stripe_secret_key_'.ENV]));
-      if ($stripe->proceedPaymentForm("$member_type: $username")) {
+      $stripe_user = $stripe->proceedPaymentFormAndCreatCustomer(floatval($settings['member'][$member_type]['setup_fee']) * 100, "$member_type: $username", "Membership initial setup fee", "aud", "MySiteUser::id=".$user->getId());
+      if ($stripe_user) {
         /*** NOW　WE ARE ALL GOOD ***/
+        
+        $shop_settings = $user->getShopSettings();
+        $shop_settings->setStripeUid($stripe_user->id);
+        $shop_settings->save();
         
         $user->assignRole($member_type);
         $user->sendAccountActivationEmail();
