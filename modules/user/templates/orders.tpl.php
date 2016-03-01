@@ -17,7 +17,8 @@
         <tr>
           <th>订单号</th>
           <th>下单时间</th>
-          <th>支付?</th>
+          <th>已支付?</th>
+          <th>已发货?</th>
           <th></th>
         </tr>
 <?php foreach ($orders as $order): ?>
@@ -25,6 +26,7 @@
           <td><?php echo $order->getPublicId() ?></td>
           <td><?php echo time_ago($order->getConfirmedAt()); ?></td>
           <td><i class="fa fa-<?php echo $order->getPaid() ? 'check' : 'times' ?>"></i></td>
+          <td><i class="fa fa-<?php echo $order->getDispatched() ? 'check' : 'times' ?>"></i></td>
           <td>
             <a href="#" style="display: block;" class="btn btn-sm btn-default" data-toggle="modal" data-target="#order-modal-<?php echo $order->getId() ?>"><i class="fa fa-search-plus"></i></a>
           </td>
@@ -51,6 +53,7 @@
 
         <p>
           <button id="mark_paid_<?php echo $order->getId(); ?>" class="mark_paid btn btn-sm btn-<?php echo $order->getPaid() ? 'danger' : 'success' ?>" data-id="<?php echo $order->getId() ?>" ><i class="fa fa-usd"></i> <span>标记为<?php echo $order->getPaid() ? '未' : '已' ?>付款</span></button>
+          <button id="mark_dispatched_<?php echo $order->getId(); ?>" class="mark_dispatched btn btn-sm btn-<?php echo $order->getDispatched() ? 'danger' : 'success' ?>" data-id="<?php echo $order->getId() ?>" ><i class="fa fa-truck"></i> <span>标记为<?php echo $order->getDispatched() ? '未' : '已' ?>发货</span></button>
         </p>
       </div>
       <div class="modal-footer">
@@ -82,6 +85,34 @@
           break;
         case "1":
           $('span', btn).html('标记为未付款').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
+          $('.fa-times', $row).removeClass('fa-times').addClass('fa-check');
+          break;
+        default:
+          $btn.html(text).prop('disabled', false);
+          swal("更新出错", "十分抱歉，订单更新不成功", "error");
+      }
+    });
+    
+    return false;
+  });
+  
+  $('body').on('click', '.mark_dispatched', function(){
+    var id = $(this).data('id');
+    var text = $(this).html();
+    var width = $(this).css('width');
+    $(this).css('width', width).html('<i class="fa fa-spin fa-circle-o-notch"></i>').prop('disabled', true);
+    $btn = $('#mark_dispatched_' + id);
+    $row = $('#order-' + id);
+    
+    $.get("<?php echo uri('user/order_mark_dispatched') ?>" + "/" + id, function(data){
+      
+      switch (data) {
+        case "0":
+          $('span', btn).html('标记为已发货').removeClass('btn-danger').addClass('btn-success').prop('disabled', false);
+          $('.fa-check', $row).removeClass('fa-check').addClass('fa-times');
+          break;
+        case "1":
+          $('span', btn).html('标记为未发货').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
           $('.fa-times', $row).removeClass('fa-times').addClass('fa-check');
           break;
         default:

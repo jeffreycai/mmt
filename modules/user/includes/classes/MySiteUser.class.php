@@ -223,7 +223,7 @@ class MySiteUser extends SiteUser {
     <label for="password_confirm">'.i18n(array('en' => 'Password again', 'zh' => '再次确认密码')).$mandatory_label.'</label>
     <input type="password" class="form-control" id="password_confirm" name="password_confirm" value="'.$password_confirm.'" required />
   </div>
-  ' . (class_exists('MySiteProfile') ? MySiteProfile::renderUpdateForm($user, $exclude_fields) : '') 
+  ' . (class_exists('MySiteProfile') ? MySiteProfile::renderUpdateForm($user) : (class_exists('SiteProfile') ? SiteProfile::renderUpdateForm($user) : '')) 
     . (in_array('active', $exclude_fields) ? '' : $active_field) . '
       
   <div id="payment" style="'.($member_type == 'NORMAL' ? 'display:none;' : '').'">

@@ -56,7 +56,7 @@ class SiteUser extends BaseSiteUser {
     <label for="password_confirm">'.i18n(array('en' => 'Password again', 'zh' => '再次确认密码')).$mandatory_label.'</label>
     <input type="password" class="form-control" id="password_confirm" name="password_confirm" value="'.$password_confirm.'" required />
   </div>
-  ' . (class_exists('SiteProfile') ? SiteProfile::renderUpdateForm($user) : '') . '
+  ' . (class_exists('MySiteProfile') ? MySiteProfile::renderUpdateForm($user) : (class_exists('SiteProfile') ? SiteProfile::renderUpdateForm($user) : '')) . '
   <div class="checkbox" id="form-field-active">
     <label>
       <input type="checkbox" id="active" name="active" value="1" '.($active == false ? '' : 'checked="checked"').'> '.  i18n(array('en' => 'Active?', 'zh' => '有效用户')).'

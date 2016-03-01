@@ -3,7 +3,8 @@
 </p>
 <p>
   <br />
-  订单号: <strong><?php echo $purchase_order->getPublicId() ?></strong>
+  订单号: <strong><?php echo $purchase_order->getPublicId() ?></strong><br />
+  查看： <a href="http://<?php echo SITEDOMAIN ?>/user/orders">http://<?php echo SITEDOMAIN ?>/user/orders</a>
 </p>
 
 <p>

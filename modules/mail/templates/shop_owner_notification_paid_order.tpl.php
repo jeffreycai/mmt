@@ -1,6 +1,10 @@
 <p>
-  您有新的订单 - <strong><?php echo $purchase_order->getPublicId() ?></strong>.<br />
-  订单已付款。
+  您有新的订单：(已支付)
+</p>
+<p>
+  <br />
+  订单号: <strong><?php echo $purchase_order->getPublicId() ?></strong><br />
+  查看： <a href="http://<?php echo SITEDOMAIN ?>/user/orders">http://<?php echo SITEDOMAIN ?>/user/orders</a>
 </p>
 
 <p>
