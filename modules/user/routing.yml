@@ -49,3 +49,8 @@ routing:
     isSecure: 0
     i18n: 0
     controller: user/order_mark_paid
+  user_order_mark_dispatched:
+    path: ^\/user\/order_mark_dispatched\/(\d+)\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/order_mark_dispatched

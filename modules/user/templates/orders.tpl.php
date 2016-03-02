@@ -25,8 +25,8 @@
         <tr id="order-<?php echo $order->getId(); ?>">
           <td><?php echo $order->getPublicId() ?></td>
           <td><?php echo time_ago($order->getConfirmedAt()); ?></td>
-          <td><i class="fa fa-<?php echo $order->getPaid() ? 'check' : 'times' ?>"></i></td>
-          <td><i class="fa fa-<?php echo $order->getDispatched() ? 'check' : 'times' ?>"></i></td>
+          <td><i class="fa fa-<?php echo $order->getPaid() ? 'check' : 'times' ?> paid"></i></td>
+          <td><i class="fa fa-<?php echo $order->getDispatched() ? 'check' : 'times' ?> dispatched"></i></td>
           <td>
             <a href="#" style="display: block;" class="btn btn-sm btn-default" data-toggle="modal" data-target="#order-modal-<?php echo $order->getId() ?>"><i class="fa fa-search-plus"></i></a>
           </td>
@@ -80,12 +80,12 @@
       
       switch (data) {
         case "0":
-          $('span', btn).html('标记为已付款').removeClass('btn-danger').addClass('btn-success').prop('disabled', false);
-          $('.fa-check', $row).removeClass('fa-check').addClass('fa-times');
+          $btn.html('<i class="fa fa-usd"></i> 标记为已付款').removeClass('btn-danger').addClass('btn-success').prop('disabled', false);
+          $('.fa-check.paid', $row).removeClass('fa-check').addClass('fa-times');
           break;
         case "1":
-          $('span', btn).html('标记为未付款').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
-          $('.fa-times', $row).removeClass('fa-times').addClass('fa-check');
+          $btn.html('<i class="fa fa-usd"></i> 标记为未付款').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
+          $('.fa-times.paid', $row).removeClass('fa-times').addClass('fa-check');
           break;
         default:
           $btn.html(text).prop('disabled', false);
@@ -108,12 +108,12 @@
       
       switch (data) {
         case "0":
-          $('span', btn).html('标记为已发货').removeClass('btn-danger').addClass('btn-success').prop('disabled', false);
-          $('.fa-check', $row).removeClass('fa-check').addClass('fa-times');
+          $btn.html('<i class="fa fa-truck"></i> 标记为已发货').removeClass('btn-danger').addClass('btn-success').prop('disabled', false);
+          $('.fa-check.dispatched', $row).removeClass('fa-check').addClass('fa-times');
           break;
         case "1":
-          $('span', btn).html('标记为未发货').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
-          $('.fa-times', $row).removeClass('fa-times').addClass('fa-check');
+          $btn.html('<i class="fa fa-truck"></i> 标记为未发货').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
+          $('.fa-times.dispatched', $row).removeClass('fa-times').addClass('fa-check');
           break;
         default:
           $btn.html(text).prop('disabled', false);

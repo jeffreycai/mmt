@@ -9,6 +9,7 @@ Asset::addDynamicAsset('user', 'css', 'frontend', '
 Asset::addDynamicAsset('user', 'js', 'frontend', '
 <!-- user js -->
 <script type="text/javascript" src="'.uri('modules/user/assets/js/script.js', false).'"></script>
+<script type="text/javascript" src="'.uri('libraries/jquery-qrcode/dist/jquery.qrcode.min.js', false).'"></script>
 ');
 
 

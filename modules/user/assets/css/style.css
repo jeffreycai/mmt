@@ -1,3 +1,11 @@
+/** bootstrap modal window zoom on mobile bug fix **/
+body {
+  padding-right: 0px !important
+}
+.modal-open {
+  overflow-y: auto;
+}
+
 /** user theme style **/
 body.home {
   background: url(../images/bg-1.jpg) no-repeat center center fixed; 

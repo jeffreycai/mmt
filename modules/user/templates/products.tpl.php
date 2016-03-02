@@ -79,7 +79,7 @@
     </div>
     <div class="col-xs-12 lower">
       <div class="col-xs-3">
-        <a href="#">
+        <a href="<?php echo $user->getShopUri() . "/" . $product->getId() ?>?preview=1" target="_blank">
           <i class="fa fa-eye"></i><br />
           <?php echo i18n(array(
             'en' => 'Preview',
@@ -88,22 +88,65 @@
         </a>
       </div>
       <div class="col-xs-3">
-        <a href="#">
+        <a href="#" class="copy" data-toggle="modal" data-target="#product-url-<?php echo $product->getId() ?>">
           <i class="fa fa-copy"></i><br />
           <?php echo i18n(array(
             'en' => 'Copy',
             'zh' => '复制'
           )) ?>
         </a>
+        <!-- Modal -->
+        <div class="modal fade" id="product-url-<?php echo $product->getId() ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">商品页面链接</h4>
+              </div>
+              <div class="modal-body">
+                <p>请选择并复制以下链接</p>
+                <textarea class="form-control">http://<?php echo SITEDOMAIN . $user->getShopUri() . "/" . $product->getId() ?></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-xs-3">
-        <a href="#">
+        <a href="#" class="qrcode" data-toggle="modal" data-target="#product-qr-<?php echo $product->getId() ?>">
           <i class="fa fa-qrcode"></i><br />
           <?php echo i18n(array(
             'en' => 'QR code',
             'zh' => '二维码'
           )) ?>
         </a>
+        <!-- Modal -->
+        <div class="modal fade" id="product-qr-<?php echo $product->getId() ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">商品页面二维码</h4>
+              </div>
+              <div class="modal-body">
+                <h3><?php echo $product->getTitle() ?></h3>
+                <div class="canvas img-responsive"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- generate QR code image -->
+        <script type="text/javascript">
+          $('#product-qr-<?php echo $product->getId() ?> .canvas').qrcode({
+            "render": 'image',
+            "text": 'http://<?php echo SITEDOMAIN . $user->getShopUri() . "/" . $product->getId() ?>'
+          });
+        </script>
       </div>
       <div class="col-xs-3">
         <a href="#">
@@ -128,3 +171,12 @@
   )) ?></a>
   </div>
 </footer>
+
+
+<script type="text/javascript">
+  jQuery(function($){
+    $('textarea').on('focus', function(){
+      $(this).select();
+    });
+  });
+</script>

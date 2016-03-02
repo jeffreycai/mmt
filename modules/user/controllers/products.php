@@ -50,7 +50,8 @@ $html->renderOut('user/components/header_filter', array(
 ));
 $html->renderOut('user/products', array(
     'sorting' => $sorting,
-    'products' => $products
+    'products' => $products,
+    'user' => $user
 ));
 
 $html->output('</div>');

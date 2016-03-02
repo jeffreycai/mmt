@@ -18,7 +18,7 @@ class Product extends BaseProduct {
   }
   
   public function getUser() {
-    return MySiteUser::findById($this->getUserId());
+    return MySiteUser::findById($this->getUserId(), 'MySiteUser');
   }
   
   public function getDescriptionFormatted() {
@@ -76,5 +76,10 @@ class Product extends BaseProduct {
     $b = $result->fetch_object();
     
     return $b->total;
+  }
+  
+  public function getShopUri() {
+    $user = $this->getUser();
+    return $user->getShopUri() . "/" . $this->getId();
   }
 }

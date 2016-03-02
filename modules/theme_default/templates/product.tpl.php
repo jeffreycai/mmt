@@ -1,5 +1,16 @@
 
 <div id="product" class="page-body">
+  
+  <?php if (!empty(Message::peekMessages())): ?>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12" style="padding-top: 8px;">
+        <?php echo Message::renderMessages(); ?>
+      </div>
+    </div>
+  </div>
+  <?php endif; ?>
+  
   <div class="container">
     <div class="row">
       <div class="col-xs-12">

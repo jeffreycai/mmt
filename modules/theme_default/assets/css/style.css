@@ -1,3 +1,11 @@
+/** bootstrap modal window zoom on mobile bug fix **/
+body {
+  padding-right: 0px !important
+}
+.modal-open {
+  overflow-y: auto;
+}
+
 body.checkout,
 body.order_confirm,
 body.order_confirmed,
