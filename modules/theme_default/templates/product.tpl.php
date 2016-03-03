@@ -54,10 +54,10 @@
         </div>
       </div>
       <div class="col-xs-6 subcontent">
-        <a class="btn btn-default btn-sm" href="#"><i class="fa fa-envelope"></i> 联系商家</a>
+        <a class="btn btn-default btn-sm" href="<?php echo $user->getShopUri() ?>/contact"><i class="fa fa-envelope"></i> 联系商家</a>
       </div>
       <div class="col-xs-6 subcontent">
-        <a class="btn btn-default btn-sm" href="#"><i class="fa fa-shopping-bag"></i> 进入店铺</a>
+        <a class="btn btn-default btn-sm" href="<?php echo $user->getShopUri() ?>"><i class="fa fa-shopping-bag"></i> 进入店铺</a>
       </div>
     </div>
   </div>

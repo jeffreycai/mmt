@@ -113,6 +113,7 @@ a.tile {
 }
 .tile .price {
   color: #DD2727;
+  padding-bottom: 15px;
 }
 .tile .price span {
   color: #999;
@@ -255,6 +256,14 @@ a.tile {
 }
 #bottom_nav a.addtocart {
   background-color: #FF9402;
+}
+#bottom_nav a.outofstock {
+  background-color: #FF4400;
+  width: 80%;
+  color: #FFF;
+  font-size: 1em;
+  padding-top: 13px;
+  cursor: not-allowed;
 }
 
 /** cart style **/

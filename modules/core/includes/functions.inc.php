@@ -954,7 +954,22 @@ function is_email_address($str) {
 function delFolder($dir) {
   $files = array_diff(scandir($dir), array('.','..')); 
    foreach ($files as $file) { 
-     (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file"); 
+     (is_dir("$dir/$file")) ? delFolder("$dir/$file") : unlink("$dir/$file"); 
    } 
    return rmdir($dir); 
  } 
+
+function copyFolderFilesOver($src, $dst) {
+  $dir = opendir($src);
+  @mkdir($dst);
+  while (false !== ( $file = readdir($dir))) {
+    if (( $file != '.' ) && ( $file != '..' )) {
+      if (is_dir($src . '/' . $file)) {
+        copyFolder($src . '/' . $file, $dst . '/' . $file);
+      } else {
+        copy($src . '/' . $file, $dst . '/' . $file);
+      }
+    }
+  }
+  closedir($dir);
+}

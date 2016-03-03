@@ -131,7 +131,7 @@
                 <h4 class="modal-title" id="myModalLabel">商品页面二维码</h4>
               </div>
               <div class="modal-body">
-                <h3><?php echo $product->getTitle() ?></h3>
+                <h3 style="margin-bottom: 20px;"><?php echo $product->getTitle() ?></h3>
                 <div class="canvas img-responsive"></div>
               </div>
               <div class="modal-footer">
@@ -149,13 +149,37 @@
         </script>
       </div>
       <div class="col-xs-3">
-        <a href="#">
-          <i class="fa fa-share"></i><br />
+        <a href="#" class="delete" id="product-delete-<?php echo $product->getId() ?>" data-pid="<?php echo $product->getId() ?>">
+          <i class="fa fa-trash"></i><br />
           <?php echo i18n(array(
-            'en' => 'Share',
-            'zh' => '分享'
+            'en' => 'Delete',
+            'zh' => '删除'
           )) ?>
         </a>
+        
+        <script type="text/javascript">
+          // delete product
+          $("#product-delete-<?php echo $product->getId() ?>").click(function(){
+            var row = $(this).parents(".product").first();
+            swal({
+              title: "确定删除?",
+              text: "删除操作不可恢复",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonClass: "btn-danger",
+              confirmButtonText: "确定删除",
+              cancelButtonText: "取消",
+              closeOnConfirm: false
+            },
+            function(){
+              $.get("<?php echo uri('user/products/delete/'.$product->getId()) ?>");
+              row.fadeOut();
+              swal("删除成功!", "商品<?php echo $product->getTitle() ?>已被删除", "success");
+            });
+            
+            return false;
+          });
+        </script>
       </div>
     </div>
   </div>
@@ -175,8 +199,9 @@
 
 <script type="text/javascript">
   jQuery(function($){
+    // select text
     $('textarea').on('focus', function(){
       $(this).select();
     });
-  });
+  });  
 </script>

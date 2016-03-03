@@ -9,8 +9,9 @@
         <p class="price">
           $<?php echo $product->getPrice() ?>
   <?php if (!empty($product->getOriginalPrice())): ?>
-          &nbsp;&nbsp;&nbsp;<span><del>$<?php echo $product->getOriginalPrice(); ?></del></span>
+          &nbsp;&nbsp;<span><del>$<?php echo $product->getOriginalPrice(); ?></del></span>
   <?php endif; ?>
+          <span style="float: right;">库存: <?php echo $product->getStock() ?></span>
         </p>
       </a>
   <?php endforeach; ?>

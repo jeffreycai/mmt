@@ -210,7 +210,7 @@ if ($transform) {
     load_library_wide_image();
 
     $dimension_x = 600;
-    $dimension_y = 320;
+    $dimension_y = 350;
     $refill = '255,255,255';
     $watermark = false;
 

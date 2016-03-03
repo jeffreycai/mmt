@@ -13,7 +13,7 @@ $preview = isset($_GET['preview']) && $_GET['preview'] == 1 ? true : false;
 if ($preview) {
   // we only put preview message for loggin shop owner
   if (MySiteUser::getCurrentUser()->getId() == $user->getId()) {
-    Message::register(new Message(Message::INFO, '您是本商品店主，预览商品中'));
+    Message::register(new Message(Message::INFO, '您目前处于预览模式<br /><small><a href="'.$product->getShopUri().'">退出预览，跳转至发正式发布页 &raquo;</a></small>'));
     // if product is off shelf, we notice shop owner not to send it over to customer
     if (!$product->getOnShelf()) {
       Message::register(new Message(Message::INFO, '此商品未上架，请勿将预览模式下的商品页链接分享给客户，客户是无法访问的'));
@@ -33,6 +33,7 @@ if ($preview) {
 }
 
 // get sliders
+$thumbnail_uri = uri(trim($product->getThumbnail()));
 $sliders = empty(trim($product->getImages())) ? explode("\n", trim($product->getThumbnail())) : explode("\n", trim($product->getImages()));
 for ($i = 0; $i < sizeof($sliders); $i++) {
   $sliders[$i] = uri($sliders[$i], false);
@@ -43,12 +44,15 @@ for ($i = 0; $i < sizeof($sliders); $i++) {
 $html = new HTML();
 $html->renderOut('theme_default/components/html_header', array(
     'body_class' => 'theme_default product',
-    'title' => '商品 :: ' . htmlentities($product->getTitle())
+    'title' => ($preview ? '预览商品 - ' : '') . htmlentities($product->getTitle()) . ' :: ' . $user->getShopName()
 ));
-$html->renderOut('theme_default/components/navback_transparent', array(
-  'uri' => $user->getShopUri(),
-  'user' => $user
-));
+$html->output('<div style="overflow:hidden; width:0px; height:0px; position:absolute;"><img src="'.$thumbnail_uri.'" /></div>');
+if (!$preview) {
+  $html->renderOut('theme_default/components/navback_transparent', array(
+    'uri' => $user->getShopUri(),
+    'user' => $user
+  ));
+}
 $html->renderOut('theme_default/components/slideshow', array(
     'sliders' => $sliders
 ));
@@ -57,9 +61,11 @@ $html->renderOut('theme_default/product', array(
     'product' => $product
 ));
 $html->renderOut('theme_default/components/footer');
-$html->renderOut('theme_default/components/bottom_nav', array(
-  'user' => $user,
-  'product'  => $product
-));
+if (!$preview) {
+  $html->renderOut('theme_default/components/bottom_nav', array(
+    'user' => $user,
+    'product'  => $product
+  ));
+}
 
 $html->renderOut('theme_default/components/html_footer');

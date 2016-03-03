@@ -45,7 +45,7 @@ if ($stripe->proceedPaymentForm($purchase_order->getTotal(), $public_id)) {
       'purchase_order' => $purchase_order,
       'user' => $user
     ));
-    sendSMS($user->getProfile()->getPhone(), $sms_msg);
+//    sendSMS($user->getProfile()->getPhone(), $sms_msg);
   }
   // send customer paid confirmation
   $purchase_order->sendCustomerPaidConfirmation();
@@ -54,7 +54,7 @@ if ($stripe->proceedPaymentForm($purchase_order->getTotal(), $public_id)) {
       'purchase_order' => $purchase_order,
       'user' => $user
     ));
-    sendSMS($purchase_order->getPhone(), $sms_msg);
+//    sendSMS($purchase_order->getPhone(), $sms_msg);
   }
   // log it
   $log = new Log('purchase_order', Log::SUCCESS, 'Created and paid: ' . $purchase_order->getPublicId(), $_SERVER['REMOTE_ADDR']);

@@ -28,7 +28,7 @@ class MySiteUser extends SiteUser {
     return $rtn;
   }
   
-  public function getProducts($onshelf = false) {
+  public function getProducts($onshelf = null) {
     return Product::findAllByUserId($this->getId(), $onshelf);
   }
   
@@ -126,7 +126,7 @@ class MySiteUser extends SiteUser {
   
   public function delete() {
     // remove user folder
-    $user_folder = FILE_DIR . '/files/user/' .$this->getId();
+    $user_folder = FILE_DIR . '/user/' .$this->getId();
     if (is_dir($user_folder)) {
       delFolder($user_folder);
     }

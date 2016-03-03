@@ -82,4 +82,8 @@ class Product extends BaseProduct {
     $user = $this->getUser();
     return $user->getShopUri() . "/" . $this->getId();
   }
+  
+  public function getPreviewUri() {
+    return $this->getShopUri() . "?preview=1";
+  }
 }

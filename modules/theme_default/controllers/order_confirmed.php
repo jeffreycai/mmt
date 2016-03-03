@@ -19,6 +19,8 @@ if ($purchase_order->getConfirmed() == 0) {
   $purchase_order->setConfirmed(1);
   $purchase_order->setConfirmedAt(time());
   $purchase_order->save();
+  // decrease stock by 1
+  // TODO
   // send shop owner email
   $purchase_order->sendShopOwnerNewOrderConfirmation();
   // send customer email

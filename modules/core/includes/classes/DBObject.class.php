@@ -210,10 +210,16 @@ abstract class DBObject {
 
     foreach ($this->getPrimaryKeyName() as $field) {
       $val = $this->{"get".self::tableNameToClassName($field)}();
-      $rtn &= is_null($val);
+      $rtn = is_null($val) && $rtn;
     }
  
     return $rtn;
+  }
+  
+  public function setNew() {
+    foreach ($this->getPrimaryKeyName() as $field) {
+      unset($this->{'db_field_' . $field});
+    }
   }
   
   public function getLastExecuteQuery() {

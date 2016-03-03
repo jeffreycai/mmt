@@ -3,8 +3,12 @@
     <div class="row">
       <div class="col-xs-12">
         <a class="contact" href="<?php echo $user->getShopUri() ?>/checkout"><i class="fa fa-shopping-cart"></i><br />购物车</a>
+<?php if ($product->getStock()): ?>
         <a class="buynow" href="<?php echo $user->getShopUri() ?>/checkout?buynow=<?php echo $product->getId(); ?>">立即购买</a>
         <a class="addtocart" href="<?php echo $user->getShopUri() ?>/cart-add/<?php echo $product->getId() ?>">加入购物车</a>
+<?php else: ?>
+        <a class="outofstock" href="#" onclick="return false;"><i class="fa fa-info-circle"></i> 该商品暂无库存</a>
+<?php endif; ?>
       </div>
     </div>
   </div>

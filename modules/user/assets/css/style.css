@@ -268,10 +268,12 @@ body.products .product .lower {
 body.products .product .lower a {
   color: #6B6B6B;
 }
-body.products .product .lower a:hover {
+body.products .product .lower a:hover,
+body.products .delete  {
   text-decoration: none;
-  color: #C60A1E;
+  color: #C60A1E !important;
 }
+
 
 /** product list page **/
 .product .upper:hover {

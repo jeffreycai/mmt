@@ -48,4 +48,10 @@
       )) ?></a>
     </div>
   </div>
+  
+  <div class="row">
+    <div class="col-xs-12">
+      <a style="width: 140px; display: block; margin: 15px auto 0 auto; text-align: center; color: #FFF;" href="<?php echo uri('users/logout') ?>">登出后台</a>
+    </div>
+  </div>
 </div>

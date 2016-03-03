@@ -14,6 +14,11 @@ routing:
     isSecure: 0
     i18n: 0
     controller: user/products_edit
+  user_products_delete:
+    path: ^\/user\/products\/delete\/(\d+)\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/products_delete
   user_shop_index:
     path: ^\/user\/shop\/?$
     isSecure: 0

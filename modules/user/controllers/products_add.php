@@ -30,6 +30,10 @@ if (isset($_POST['submit'])) {
   
   // validation for $thumbnail
   $thumbnail = isset($_POST["thumbnail"]) ? strip_tags(trim($_POST["thumbnail"])) : null;
+  if (empty($thumbnail)) {
+    Message::register(new Message(Message::DANGER, '请上传缩略图'));
+    $error_flag = true;
+  }
   // check upload_dir
   if (!is_dir(WEBROOT . DS . "files/user/" . $user->getId())) {
     mkdir(WEBROOT . DS . "files/user/" . $user->getId());
@@ -111,6 +115,10 @@ if (isset($_POST['submit'])) {
   
   // validation for $original_price
   $original_price = isset($_POST["original_price"]) ? strip_tags($_POST["original_price"]) : null;  
+  if (!empty($original_price) && !preg_match('/^\d+(\.\d\d?)?$/', $original_price)) {
+    Message::register(new Message(Message::DANGER, i18n(array("en" => "Please enter a valid originalprice. e.g. 23.4", "zh" => "请填写一个合法的产品原价。例如： 23.4"))));
+    $error_flag = true;
+  }
   // validation for $stock
   $stock = isset($_POST["stock"]) ? intval(strip_tags($_POST["stock"])) : 0;
   if (!preg_match('/^\d+$/', $stock)) {
@@ -180,7 +188,7 @@ if (isset($_POST['submit'])) {
   
   if ($error_flag == false) {
     if ($object->save()) {
-      Message::register(new Message(Message::SUCCESS, i18n(array("en" => "Product has been successfully added. You can continue to add new product.", "zh" => "商品添加成功！您可以继续添加新的商品"))));
+      Message::register(new Message(Message::SUCCESS, i18n(array("en" => "Product has been successfully added. You can continue to add new product.", "zh" => "商品添加成功！您可以继续添加新的商品<br /><small><a href='".$object->getPreviewUri()."' target='_blank'>预览商品 &raquo;</a></small>"))));
       HTML::forwardBackToReferer();
     } else {
       Message::register(new Message(Message::DANGER, i18n(array("en" => "Product failed to save", "zh" => "记录产品失败"))));
