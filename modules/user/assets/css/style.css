@@ -17,12 +17,15 @@ body.home {
 body.shop, 
 body.shop_settings,
 body.orders,
-body.platform_contact {
+body.platform_contact,
+body.account_index,
+body.account_details {
   padding-top: 55px;
 }
 .bg-red {background-color: #EE4136;}
 .bg-cyan {background-color: #42BDC2;}
 .bg-yellow {background-color: #FFD800;}
+.bg-darkblue {background-color: #388BD1;}
 .section {
   border-top: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
@@ -374,4 +377,7 @@ body.products .delete  {
 }
 #orders_table .fa-times {
   color: #C9302C;
+}
+body.account_details form .btn {
+  float: right;
 }

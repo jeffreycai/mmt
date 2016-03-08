@@ -4,6 +4,7 @@ include_once MODULESROOT . DS . 'core' . DS . 'includes' . DS . 'classes' . DS .
 /**
  * DB fields
  * - id
+ * - user_id
  * - title
  * - reference
  * - amount
@@ -34,6 +35,12 @@ class BaseChargeItem extends DBObject {
    }
    public function getId() {
      return $this->getDbFieldId();
+   }
+   public function setUserId($var) {
+     $this->setDbFieldUser_id($var);
+   }
+   public function getUserId() {
+     return $this->getDbFieldUser_id();
    }
    public function setTitle($var) {
      $this->setDbFieldTitle($var);
@@ -86,13 +93,19 @@ class BaseChargeItem extends DBObject {
       return $mysqli->query('
 CREATE TABLE IF NOT EXISTS `charge_item` (
   `id` INT NOT NULL AUTO_INCREMENT ,
+  `user_id` INT NOT NULL ,
   `title` VARCHAR(256) ,
   `reference` VARCHAR(256) ,
   `amount` VARCHAR(5) ,
   `created_at` INT ,
   `charged` TINYINT DEFAULT 0 ,
   PRIMARY KEY (`id`)
-)
+ ,
+INDEX `fk-charge_item-user_id-idx` (`user_id` ASC),
+CONSTRAINT `fk-charge_item-user_id`
+  FOREIGN KEY (`user_id`)
+  REFERENCES `site_user` (`id`)
+  ON DELETE CASCADE  ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;

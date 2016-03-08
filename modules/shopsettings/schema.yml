@@ -32,7 +32,7 @@ shopsettings:
           max_file_number: 1
           extensions: jpg,png,gif,jpeg
           transform:
-            dimension: 80x80
+            dimension: 350x350
 #            refill: "0,0,0"
 #            watermark: modules/site/assets/images/favicon.png
       shop_wechat:

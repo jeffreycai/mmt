@@ -37,6 +37,15 @@
           )) ?></span>
         </a>
       </div>
+      <div class="col-xs-6">
+        <a href="<?php echo uri('user/account') ?>" class="nav-button bg-darkblue">
+          <i class="fa fa-user"></i>
+          <span><?php echo i18n(array(
+              'en' => 'Account',
+              'zh' => '帐号'
+          )) ?></span>
+        </a>
+      </div>
     </nav>
   </div>
   

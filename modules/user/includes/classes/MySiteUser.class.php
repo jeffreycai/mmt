@@ -223,7 +223,7 @@ class MySiteUser extends SiteUser {
     <label for="password_confirm">'.i18n(array('en' => 'Password again', 'zh' => '再次确认密码')).$mandatory_label.'</label>
     <input type="password" class="form-control" id="password_confirm" name="password_confirm" value="'.$password_confirm.'" required />
   </div>
-  ' . (class_exists('MySiteProfile') ? MySiteProfile::renderUpdateForm($user) : (class_exists('SiteProfile') ? SiteProfile::renderUpdateForm($user) : '')) 
+  ' . (class_exists('MySiteProfile') ? MySiteProfile::renderUpdateForm($user, $exclude_fields) : (class_exists('SiteProfile') ? SiteProfile::renderUpdateForm($user, $exclude_fields) : '')) 
     . (in_array('active', $exclude_fields) ? '' : $active_field) . '
       
   <div id="payment" style="'.($member_type == 'NORMAL' ? 'display:none;' : '').'">
@@ -257,7 +257,7 @@ class MySiteUser extends SiteUser {
     return $rtn;
   }
   
-  public function getMemberType() {
+  public function getMemberType($verbal = false) {
     $settings = Vars::getSettings();
     
     // get all types in an array
@@ -279,9 +279,24 @@ class MySiteUser extends SiteUser {
     for ($i = sizeof($types) - 1; $i >= 0; $i--) {
       foreach ($user_types as $user_type) {
         if ($user_type == $types[$i]) {
-          return $user_type;
+          return $verbal ? $settings['member'][$user_type]['name'] : $user_type;
         }
       }
     }
+  }
+  
+  public function getChargeItemsWithPage($page, $entries_per_page) {
+    global $mysqli;
+    $query = "SELECT * FROM charge_item WHERE user_id=".$this->getId()." LIMIT " . ($page - 1) * $entries_per_page . ", " . $entries_per_page;
+    $result = $mysqli->query($query);
+    
+    $rtn = array();
+    while ($result && $b = $result->fetch_object()) {
+      $obj= new ChargeItem();
+      DBObject::importQueryResultToDbObject($b, $obj);
+      $rtn[] = $obj;
+    }
+    
+    return $rtn;
   }
 }

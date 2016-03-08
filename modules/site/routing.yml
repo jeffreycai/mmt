@@ -4,6 +4,7 @@ routing:
     isSecure: 0
     i18n: 0
     controller: site/index
+    static_cache: 1
   signup:
     path: ^\/signup\/?$
     isSecure: 0

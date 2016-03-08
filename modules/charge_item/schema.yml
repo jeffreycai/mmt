@@ -2,8 +2,15 @@ charge_item:
   pk: id
   fields:
     id: INT NOT NULL AUTO_INCREMENT
+    user_id: INT NOT NULL
     title: VARCHAR(256)
     reference: VARCHAR(256)
     amount: VARCHAR(5)
     created_at: INT
     charged: TINYINT DEFAULT 0
+  fks:
+    user_id:
+      foreign_key: user_id
+      references: site_user.id
+      on_delete: CASCADE
+      on_update: CASCADE

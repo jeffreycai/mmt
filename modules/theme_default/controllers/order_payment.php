@@ -37,6 +37,7 @@ if ($stripe->proceedPaymentForm($purchase_order->getTotal(), $public_id)) {
   $charge_item->setReference($public_id);
   $charge_item->setAmount($settings['member'][$user->getMemberType()]['transaction_fee']);
   $charge_item->setCreatedAt(time());
+  $charge_item->setUserId($user->getId());
   $charge_item->save();
   // send shop owner paid confirmation
   $purchase_order->sendShopOwnerPaidConfirmation();

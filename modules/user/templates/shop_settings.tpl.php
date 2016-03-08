@@ -31,7 +31,7 @@
           <label for="shop_logo" class="control-label"><?php echo i18n(array(
               'en' => 'Shop logo',
               'zh' => '微店logo'
-          )); ?><small>&nbsp;&nbsp;(建议上传图片尺寸80x80)</small></label>
+          )); ?><small>&nbsp;&nbsp;(建议上传图片尺寸350x350)</small></label>
           <textarea name="shop_logo" id="shop_logo" rows="5" class="form-control"><?php echo isset($_POST["shop_logo"]) ? htmlentities($_POST["shop_logo"]) : htmlentities($settings->getShopLogo()); ?></textarea>
           <div id="shop_logo_uploader" class="uploader" style="display: none;">
               <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>

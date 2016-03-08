@@ -92,8 +92,8 @@ INDEX `<?php echo "fk-$table-$fk_name-idx" ?>` (`<?php echo $fk_settings['foreig
 CONSTRAINT `<?php echo "fk-$table-$fk_name" ?>`
   FOREIGN KEY (`<?php echo $fk_settings['foreign_key'] ?>`)
   REFERENCES `<?php echo $reference_table ?>` (`<?php echo $reference_field ?>`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE<?php if ($i < sizeof($fks) - 1): ?> ,
+  ON DELETE <?php echo $fk_settings['on_delete'] ?>
+  ON UPDATE <?php echo $fk_settings['on_update'] ?><?php if ($i < sizeof($fks) - 1): ?> ,
 <?php endif; ?>
 <?php endforeach; ?>
 <?php endif; ?>)

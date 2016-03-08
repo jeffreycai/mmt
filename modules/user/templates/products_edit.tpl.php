@@ -95,7 +95,7 @@
     <div class="form-group">
       <label for="thumbnail" class="col-sm-2 control-label"><?php echo i18n(array(
           'en' => 'Product thumbnail',
-          'zh' => '商品缩略图'
+          'zh' => '商品缩略图<br />(1张)'
       )) ?> <br /><small>&nbsp;&nbsp;(建议上传图片大小500x500)</small> <span style="color: rgb(185,2,0); font-weight: bold;">*</span></label>
       <div class="col-sm-10">
         <textarea name="thumbnail" id="thumbnail" rows="5" class="form-control"><?php echo isset($_POST["thumbnail"]) ? htmlentities($_POST["thumbnail"]) : htmlentities($object->getThumbnail()); ?></textarea>
@@ -202,7 +202,7 @@ $(function() {
     <div class="form-group">
       <label for="images" class="col-sm-2 control-label"><?php echo i18n(array(
           'en' => 'Product images',
-          'zh' => '商品图片'
+          'zh' => '商品图片<br />(最多8张)'
       )) ?>  <br /><small>&nbsp;&nbsp;(建议上传图片大小600x350)</small></label>
       <div class="col-sm-10">
         <textarea name="images" id="images" rows="5" class="form-control"><?php echo isset($_POST["images"]) ? htmlentities($_POST["images"]) : htmlentities($object->getImages()); ?></textarea>

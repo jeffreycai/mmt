@@ -32,7 +32,7 @@ cart_item:
   pk: id
   fields:
     id: INT NOT NULL AUTO_INCREMENT
-    product_id: INT NOT NULL
+    product_id: INT
     purchase_order_id: INT NOT NULL
     number: INT(4)
     single_price: VARCHAR(10) NOT NULL
@@ -41,7 +41,7 @@ cart_item:
     product_id:
       foreign_key: product_id
       references: product.id
-      on_delete: CASCADE
+      on_delete: SET NULL
       on_update: CASCADE
     purchase_order_id:
       foreign_key: purchase_order_id

@@ -1,13 +1,14 @@
 <?php
 //MySiteUser::findByUsername('demo');
 
-// check if already login, if yes, redirect to userpage
+// check if already login, if yes, tell user
 if (is_login()) {
-  HTML::forward('user');
+  Message::register(new Message(Message::INFO, '您目前正已用户名<strong>'.MySiteUser::getCurrentUser()->getUsername().'</strong>登录本站中，本注册页面是给新会员注册用的。如您想注册多个帐号，可以继续。如不想注册多个帐号，可以'
+    . '<ul><li><a href="'.uri('signin').'">前往后台 &raquo;</a></li><li><a href="'.uri('users/logout').'">登出 &raquo;</a></li></ul>'));
 }
 
 
-if (isset($_POST['username'])) {
+if (isset($_POST['email'])) {
   // get vars
   $member_type = isset($_POST['member_type']) ? strip_tags($_POST['member_type']) : 'NORMAL';
   $username = isset($_POST['username']) ? strip_tags($_POST['username']) : false;

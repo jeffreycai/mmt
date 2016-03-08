@@ -17,7 +17,7 @@ class SiteUser extends BaseSiteUser {
     return $rtn;
   }
   
-  static function renderUpdateFormBackend(SiteUser $user = null, $action = '') {
+  static function renderUpdateFormBackend(SiteUser $user = null, $action = '', $exclude_fields = array()) {
     // set default action value
     if ($action != '') {
       $action = uri($action);
@@ -38,16 +38,14 @@ class SiteUser extends BaseSiteUser {
     }
     $roles_form_markup .= '</ul></div>';
     
-    $rtn = '
-<form action="'.$action.'" method="POST" id="adduser" enctype="multipart/form-data">
+    $username_field = '
   <div class="form-group" id="form-field-username">
     <label for="username">'.i18n(array('en' => 'Username', 'zh' => '用户名')).$mandatory_label.' <small style="font-weight: normal;"><i>('.  i18n(array('en' => 'alphabetical letters, number or underscore', 'zh' => '英文字母，数字或下划线')).')</i></small></label>
     <input type="text" class="form-control" id="username" name="username" value="'.$username.'" required placeholder="" />
   </div>
-  <div class="form-group" id="form-field-email" >
-    <label for="email">'.i18n(array('en' => 'Email', 'zh' => '电子邮箱')).$mandatory_label.'</label>
-    <input type="email" class="form-control" id="email" name="email" value="'.$email.'" required />
-  </div>
+';
+    
+    $password_fields = '
   <div class="form-group" id="form-field-password">
     <label for="password">'.i18n(array('en' => 'Password', 'zh' => '密码')).$mandatory_label.' <small style="font-weight: normal;"><i>('.i18n(array('en' => 'at least 6 letters', 'zh' => '至少6位')).')</i></small></label>
     <input type="password" class="form-control" id="password" name="password" value="'.$password.'" required />
@@ -56,12 +54,24 @@ class SiteUser extends BaseSiteUser {
     <label for="password_confirm">'.i18n(array('en' => 'Password again', 'zh' => '再次确认密码')).$mandatory_label.'</label>
     <input type="password" class="form-control" id="password_confirm" name="password_confirm" value="'.$password_confirm.'" required />
   </div>
-  ' . (class_exists('MySiteProfile') ? MySiteProfile::renderUpdateForm($user) : (class_exists('SiteProfile') ? SiteProfile::renderUpdateForm($user) : '')) . '
+';
+    $active_field = '
   <div class="checkbox" id="form-field-active">
     <label>
       <input type="checkbox" id="active" name="active" value="1" '.($active == false ? '' : 'checked="checked"').'> '.  i18n(array('en' => 'Active?', 'zh' => '有效用户')).'
     </label>
   </div>
+';
+    
+    $rtn = '
+<form action="'.$action.'" method="POST" id="adduser" enctype="multipart/form-data">
+'.(in_array('username', $exclude_fields) ? '' : $username_field).'
+  <div class="form-group" id="form-field-email" >
+    <label for="email">'.i18n(array('en' => 'Email', 'zh' => '电子邮箱')).$mandatory_label.'</label>
+    <input type="email" class="form-control" id="email" name="email" value="'.$email.'" required />
+  </div>'.(in_array('password', $exclude_fields) ? '' : $password_fields) . '
+  ' . (class_exists('MySiteProfile') ? MySiteProfile::renderUpdateForm($user, $exclude_fields) : (class_exists('SiteProfile') ? SiteProfile::renderUpdateForm($user, $exclude_fields) : '')) . '
+  ' . (in_array('active', $exclude_fields) ? '' : $active_field) . '
   <input type="hidden" value=1 name="noemailnotification" />
   ' . (is_backend() ? $roles_form_markup : '') . '
   <div class="form-group" id="form-field-notice"><small><i>
@@ -73,6 +83,7 @@ class SiteUser extends BaseSiteUser {
   <button type="submit" name="submit" class="btn btn-primary">'.(is_null($user) 
             ? i18n(array('en' => 'Add new user', 'zh' => '添加新用户')) 
             : i18n(array('en' => 'Update user', 'zh' => '更新用户'))).'</button>
+'.(is_frontend() ? Form::loadSpamToken('#adduser', SITEUSER_FORM_SPAM_TOKEN) : '').'
 </form>
 ';
     return $rtn;

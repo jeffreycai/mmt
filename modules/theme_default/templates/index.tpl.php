@@ -2,12 +2,14 @@
 
 <?php if (!empty($user->getAnnouncement())): ?>
 <div class="container">
-  <div class="row">
+  <div class="row" style="background-color: #FFF">
+    <div class="col-xs-12" style="background-color: #FFF; padding-top: 15px; padding-bottom: 15px;">
 
-    <div class="alert alert-info" style="margin-bottom: 0px;"> <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button>
-        <p><?php echo $user->getAnnouncementFormatted() ?></p>
+      <div class="alert alert-info" style="margin-bottom: 0px;"> <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button>
+          <p><?php echo $user->getAnnouncementFormatted() ?></p>
+      </div>
+
     </div>
-
   </div>
 </div>
 <?php endif; ?>

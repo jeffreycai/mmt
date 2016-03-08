@@ -27,7 +27,6 @@
       )) ?>
       </a>
     </div>
-<?php if (MySiteUser::getCurrentUser()->getId() == $user->getId()): ?>
     <div class="col-xs-3">
       <a href="<?php echo uri('user') ?>">
         <span class="fa fa-user"></span><br />
@@ -37,6 +36,5 @@
         )) ?>
       </a>
     </div>
-<?php endif; ?>
   </div>
 </nav>

@@ -6,7 +6,7 @@ $uid = isset($uid) ? $uid : null;
 $user = isset($user) ? $user : null;
 $user_class = class_exists('MySiteUser') ? 'MySiteUser' : 'SiteUser';
 
-if (isset($_POST['username'])) {
+if (isset($_POST['email'])) {
   $username = isset($_POST['username']) ? strip_tags(trim($_POST['username'])) : null;
   $email    = isset($_POST['email'])    ? strip_tags(trim($_POST['email']))    : null;
   $password = isset($_POST['password']) ? strip_tags(trim($_POST['password'])) : null;

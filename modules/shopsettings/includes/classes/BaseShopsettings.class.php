@@ -153,8 +153,7 @@ INDEX `fk-shopsettings-user_id-idx` (`user_id` ASC),
 CONSTRAINT `fk-shopsettings-user_id`
   FOREIGN KEY (`user_id`)
   REFERENCES `site_user` (`id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE)
+  ON DELETE CASCADE  ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;

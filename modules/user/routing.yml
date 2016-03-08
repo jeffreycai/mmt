@@ -59,3 +59,18 @@ routing:
     isSecure: 0
     i18n: 0
     controller: user/order_mark_dispatched
+  user_account_index:
+    path: ^\/user\/account\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/account_index
+  user_account_details:
+    path: ^\/user\/account\/details\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/account_details
+  user_account_change:
+    path: ^\/user\/account\/change\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/account_change

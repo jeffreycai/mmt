@@ -86,7 +86,7 @@ class BaseCartItem extends DBObject {
       return $mysqli->query('
 CREATE TABLE IF NOT EXISTS `cart_item` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `product_id` INT NOT NULL ,
+  `product_id` INT ,
   `purchase_order_id` INT NOT NULL ,
   `number` INT(4) ,
   `single_price` VARCHAR(10) NOT NULL ,
@@ -97,14 +97,12 @@ INDEX `fk-cart_item-product_id-idx` (`product_id` ASC),
 CONSTRAINT `fk-cart_item-product_id`
   FOREIGN KEY (`product_id`)
   REFERENCES `product` (`id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE ,
+  ON DELETE SET NULL  ON UPDATE CASCADE ,
 INDEX `fk-cart_item-purchase_order_id-idx` (`purchase_order_id` ASC),
 CONSTRAINT `fk-cart_item-purchase_order_id`
   FOREIGN KEY (`purchase_order_id`)
   REFERENCES `purchase_order` (`id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE)
+  ON DELETE CASCADE  ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
