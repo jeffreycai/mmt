@@ -2,3 +2,4 @@
 /modules/database/bootstrap.php
 /_rsync/*
 /modules/userexport/results/*
+/db
