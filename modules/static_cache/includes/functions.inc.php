@@ -18,6 +18,8 @@ function buffer_flush() {
     } else {
       $relative_uri = str_replace(get_sub_root(), '', get_request_uri());
     }
+    
+    $found_match = false;
     foreach ($settings['routing'] as $route) {
       $path = $route['path'];
       $isSecure = $route['isSecure'];
@@ -27,6 +29,8 @@ function buffer_flush() {
 
       $user = User::getInstance();
       if (preg_match('/'.$path.'/', $relative_uri)) {
+        $found_match = true;
+        
         // redirect to lang url if lang code is not here
         if ($i18n && $settings['i18n']) {
           HTML::redirectToI18nUrl();
@@ -53,7 +57,10 @@ function buffer_flush() {
       }
     }
     
-
+    // when no match is found, just show
+    if (!$found_match) {
+      echo $content;
+    }
   }
 }
 

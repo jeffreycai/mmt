@@ -125,6 +125,50 @@ $(function() {
 });
 </script>
 <!-- END OF js code for #shop_logo_uploader -->
+
+        <div class="form-group">
+          <label for="wechat" class="control-label"><?php echo i18n(array(
+            'en' => 'Shop wechat',
+            'zh' => '微店微信'
+          )) ?></label>
+          <input type="text" name="wechat" id="wechat" class="form-control" placeholder="<?php echo i18n(array(
+            'en' => 'Your shop\'s wechat that is shown to public',
+            'zh' => '买家看到的微店微信'
+          )) ?>" value="<?php echo (isset($_POST['wechat']) ? $_POST['wechat'] : ($settings ? $settings->getShopWechat() : '')) ?>" />
+        </div>
+
+        <div class="form-group">
+          <label for="phone" class="control-label"><?php echo i18n(array(
+            'en' => 'Shop phone',
+            'zh' => '微店电话'
+          )) ?></label>
+          <input type="text" name="phone" id="phone" class="form-control" placeholder="<?php echo i18n(array(
+            'en' => 'Your shop\'s phone that is shown to public',
+            'zh' => '买家看到的微店微信'
+          )) ?>" value="<?php echo (isset($_POST['phone']) ? $_POST['phone'] : ($settings ? $settings->getShopPhone() : '')) ?>" />
+        </div>
+
+        <div class="form-group">
+          <label for="address" class="control-label"><?php echo i18n(array(
+            'en' => 'Shop address',
+            'zh' => '商家地址'
+          )) ?></label>
+          <input type="text" name="address" id="address" class="form-control" placeholder="<?php echo i18n(array(
+            'en' => 'Your shop\'s address that is shown to public',
+            'zh' => '买家看到的微店地址'
+          )) ?>" value="<?php echo (isset($_POST['address']) ? $_POST['address'] : ($settings ? $settings->getShopAddress() : '')) ?>" />
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="control-label"><?php echo i18n(array(
+            'en' => 'Shop email',
+            'zh' => '商家联系邮箱'
+          )) ?></label>
+          <input type="email" name="email" id="email" class="form-control" placeholder="<?php echo i18n(array(
+            'en' => 'Your shop\'s email that is shown to public',
+            'zh' => '买家看到的微店邮件地址'
+          )) ?>" value="<?php echo (isset($_POST['email']) ? $_POST['email'] : ($settings ? $settings->getShopEmail() : '')) ?>" />
+        </div>
     </div>
     
     <div class="col-xs-12">

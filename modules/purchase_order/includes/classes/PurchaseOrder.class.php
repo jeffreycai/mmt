@@ -87,12 +87,12 @@ class PurchaseOrder extends BasePurchaseOrder {
   public function sendShopOwnerNewOrderConfirmation() {
     $settings = Vars::getSettings();
     
-    sendMailViaLocal(
+    return sendMailViaLocal(
             $this->getUser()->getEmail(), // $to
             $this->getUser()->getProfile()->getNickname(), //$to_nickname, 
             $settings['siteemail'], //$reply_to, 
             $settings['sitename'],//$reply_to_nickname, 
-            'pdrupal@maimaitionline.com', // $from, 
+            'pdrupal@' . SITEDOMAIN, // $from, 
             $settings['sitename'], // $from_nickname, 
             '您有新的订单 - ' . $this->getPublicId(), // $subject, 
             loadEmailTemplate('shop_owner_notification_confirmed_order', array(
@@ -104,12 +104,12 @@ class PurchaseOrder extends BasePurchaseOrder {
   public function sendShopOwnerPaidConfirmation() {
     $settings = Vars::getSettings();
     
-    sendMailViaLocal(
+    return sendMailViaLocal(
             $this->getUser()->getEmail(), // $to
             $this->getUser()->getProfile()->getNickname(), //$to_nickname, 
             $settings['siteemail'], //$reply_to, 
             $settings['sitename'],//$reply_to_nickname, 
-            'pdrupal@maimaitionline.com', // $from, 
+            'pdrupal@' . SITEDOMAIN, // $from, 
             $settings['sitename'], // $from_nickname, 
             '新订单' . $this->getPublicId() . ' - 已付款', // $subject, 
             loadEmailTemplate('shop_owner_notification_paid_order', array(
@@ -121,12 +121,12 @@ class PurchaseOrder extends BasePurchaseOrder {
   public function sendCustomerNewOrderConfirmation() {
     $settings = Vars::getSettings();
     
-    sendMailViaLocal(
+    return sendMailViaLocal(
             $this->getEmail(), // $to
             $this->getName(), //$to_nickname, 
             $this->getUser()->getEmail(), //$reply_to, 
             $this->getUser()->getShopName(),//$reply_to_nickname, 
-            'pdrupal@maimaitionline.com', // $from, 
+            'pdrupal@' . SITEDOMAIN, // $from, 
             $this->getUser()->getShopName(), // $from_nickname, 
             '您的订单'.$this->getPublicId().'已送达', // $subject, 
             loadEmailTemplate('customer_notification_confirmed_order', array(
@@ -138,12 +138,12 @@ class PurchaseOrder extends BasePurchaseOrder {
   public function sendCustomerPaidConfirmation() {
     $settings = Vars::getSettings();
     
-    sendMailViaLocal(
+    return sendMailViaLocal(
             $this->getEmail(), // $to
             $this->getName(), //$to_nickname, 
             $this->getUser()->getEmail(), //$reply_to, 
             $this->getUser()->getShopName(),//$reply_to_nickname, 
-            'pdrupal@maimaitionline.com', // $from, 
+            'pdrupal@' . SITEDOMAIN, // $from, 
             $this->getUser()->getShopName(), // $from_nickname, 
             '您的订单' . $this->getPublicId() . '已付款', // $subject, 
             loadEmailTemplate('customer_notification_paid_order', array(

@@ -6,6 +6,10 @@ $user = MySiteUser::getCurrentUser();
 if (isset($_POST['submit'])) {
   $name = isset($_POST['name']) ? trim(strip_tags($_POST['name'])) : null;
   $introduction = isset($_POST['introduction']) ? trim(strip_tags($_POST['introduction'])) : null;
+  $wechat = isset($_POST['wechat']) ? trim(strip_tags($_POST['wechat'])) : null;
+  $phone = isset($_POST['phone']) ? trim(strip_tags($_POST['phone'])) : null;
+  $address = isset($_POST['address']) ? trim(strip_tags($_POST['address'])) : null;
+  $email = isset($_POST['email']) ? trim(strip_tags($_POST['email'])) : null;
   // validation
   $error = false;
   if (empty($name)) {
@@ -14,6 +18,11 @@ if (isset($_POST['submit'])) {
       'zh' => '请填写微店名称'
     ))));
     $error |= true;
+  }
+  // validation for shop email
+  if ($email && !is_email_address($email)) {
+    $error |= true;
+    Message::register(new Message(Message::DANGER, '请填写正确的Email地址'));
   }
   // validation for $shop_logo
   $shop_logo = isset($_POST["shop_logo"]) ? strip_tags(trim($_POST["shop_logo"])) : null;
@@ -55,6 +64,10 @@ if (isset($_POST['submit'])) {
     $settings->setUserId($user->getId());
     $settings->setShopName($name);
     $settings->setShopIntroduction($introduction);
+    $settings->setShopWechat($wechat);
+    $settings->setShopPhone($phone);
+    $settings->setShopAddress($address);
+    $settings->setShopEmail($email);
     
     // store shop logo
     $files = explode("\n", trim($shop_logo));

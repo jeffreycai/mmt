@@ -16,4 +16,8 @@ class CartItem extends BaseCartItem {
     
     return $rtn;
   }
+  
+  function getProduct() {
+    return Product::findById($this->getProductId());
+  }
 }

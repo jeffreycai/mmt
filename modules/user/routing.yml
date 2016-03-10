@@ -74,3 +74,8 @@ routing:
     isSecure: 0
     i18n: 0
     controller: user/account_change
+  user_account_charges:
+    path: ^\/user\/account\/charges\/?$
+    isSecure: 0
+    i18n: 0
+    controller: user/account_charges

@@ -26,3 +26,6 @@ member:
     setup_fee: 38.88
     transaction_fee: 0.88
 
+demo_accounts:
+  - aixin
+  - foodking

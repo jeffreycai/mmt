@@ -9,7 +9,7 @@ mail:
     host: smtp.mandrillapp.com
     port: 587
     username: HFDT0EEMN12bj5yM2EDQ2gTMsJXan5WYlp2T
-    nickname: Maimaiti Online
+    nickname: SongGuo E-Commerce
     password: GRTQpVjb3cmZtkVWJFXTyFFNitUOYhnWqBzdIJGN
     
   ticket:
@@ -29,5 +29,5 @@ mail:
     port: 587
     username: HFDT0EEMN12bj5yM2EDQ2gTMsJXan5WYlp2T
     password: GRTQpVjb3cmZtkVWJFXTyFFNitUOYhnWqBzdIJGN
-    reply_to: maimaitionline@gmail.com
-    from: maimaitionline@gmail.com
+    reply_to: songguo.com.au@gmail.com
+    from: songguo.com.au@gmail.com

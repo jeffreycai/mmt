@@ -1,6 +1,18 @@
 <div class="container">
   <div class="row section">
     
+<?php if (is_demo_account($user->getUserName())): ?>
+    <div class="col-xs-12">
+      <br />
+      <div class="alert alert-info"> 
+      <strong>请使用以下信用卡信息做测试用</strong><br />
+      <strong>信用卡号码：</strong> 4242424242424242<br />
+      <strong>CVC：</strong> 任意三位数字<br />
+      <strong>有效日期：</strong> 08 2017
+      </div>
+    </div>
+<?php endif; ?>
+    
     <div class="col-xs-12">
       <br />
       <p style="font-size: 6em; text-align: center; color: #28679A;"><i class="fa fa-lock"></i></p>

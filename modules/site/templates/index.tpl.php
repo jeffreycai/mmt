@@ -246,8 +246,8 @@
             <p style="color: #AAA;">或者查看演示微店</p>
             <br />
             <div style="text-align: center; margin-bottom: 15px;">
-              <a href="#" class="btn btn-lg btn-success">演示微店前台</a>
-              <a href="#" class="btn btn-lg btn-warning">演示微店后台</a>
+              <a href="<?php echo uri('shop/aixin') ?>" class="btn btn-lg btn-success">演示微店1</a>
+              <a href="<?php echo uri('shop/foodking') ?>" class="btn btn-lg btn-warning">演示微店2</a>
             </div>
         </section>
 

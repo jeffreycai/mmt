@@ -19,8 +19,18 @@ if ($purchase_order->getConfirmed() == 0) {
   $purchase_order->setConfirmed(1);
   $purchase_order->setConfirmedAt(time());
   $purchase_order->save();
-  // decrease stock by 1
-  // TODO
+  // decrease stock number
+  $items = $purchase_order->getItems();
+  foreach ($items as $item) {
+    $product = $item->getProduct();
+    if ($product && $product->getStock()) {
+      $stock = $product->getStock() - $item->getNumber();
+      if ($stock >= 0) {
+        $product->setStock($stock);
+        $product->save();
+      }
+    }
+  }
   // send shop owner email
   $purchase_order->sendShopOwnerNewOrderConfirmation();
   // send customer email

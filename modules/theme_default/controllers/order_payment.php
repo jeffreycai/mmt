@@ -25,6 +25,20 @@ if ($stripe->proceedPaymentForm($purchase_order->getTotal(), $public_id)) {
 //    $purchase_order->sendShopOwnerNewOrderConfirmation();
     // send customer email
 //    $purchase_order->sendCustomerNewOrderConfirmation();
+
+    // decrease stock number
+    $items = $purchase_order->getItems();
+    foreach ($items as $item) {
+      $product = $item->getProduct();
+      if ($product && $product->getStock()) {
+        $stock = $product->getStock() - $item->getNumber();
+        if ($stock >= 0) {
+          $product->setStock($stock);
+          $product->save();
+        }
+      }
+    }
+    
   }
 
   // mark as paid
@@ -41,21 +55,23 @@ if ($stripe->proceedPaymentForm($purchase_order->getTotal(), $public_id)) {
   $charge_item->save();
   // send shop owner paid confirmation
   $purchase_order->sendShopOwnerPaidConfirmation();
-  if ($user->hasPermission('use sms')) {
+  
+  if ($user->hasPermission('use sms') && !is_demo_account($user->getUsername())) {
     $sms_msg = loadSMSTemplate('shop_owner_notification_paid_order', array(
       'purchase_order' => $purchase_order,
       'user' => $user
     ));
-//    sendSMS($user->getProfile()->getPhone(), $sms_msg);
+    sendSMS($user->getProfile()->getPhone(), $sms_msg);
   }
   // send customer paid confirmation
   $purchase_order->sendCustomerPaidConfirmation();
-  if ($user->hasPermission('use sms')) {
+  
+  if ($user->hasPermission('use sms') && !is_demo_account($user->getUsername())) {
     $sms_msg = loadSMSTemplate('customer_notification_paid_order', array(
       'purchase_order' => $purchase_order,
       'user' => $user
     ));
-//    sendSMS($purchase_order->getPhone(), $sms_msg);
+    sendSMS($purchase_order->getPhone(), $sms_msg);
   }
   // log it
   $log = new Log('purchase_order', Log::SUCCESS, 'Created and paid: ' . $purchase_order->getPublicId(), $_SERVER['REMOTE_ADDR']);

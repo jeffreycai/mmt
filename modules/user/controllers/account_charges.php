@@ -12,7 +12,7 @@ $charge_items = $user->getChargeItemsWithPage($page, $settings['charge_item_per_
 $html = new HTML();
 
 $html->renderOut('user/components/html_header', array(
-    'body_class' => 'user charge',
+    'body_class' => 'user account_charges',
     'title' => i18n(array(
         'en' => 'Charge records',
         'zh' => '支付记录'
@@ -24,9 +24,9 @@ $html->renderOut('user/components/header_general', array(
         'en' => 'Charge records',
         'zh' => '支付记录'
     )),
-    'gobackuri' => uri('account')
+    'gobackuri' => uri('user/account')
 ));
-$html->renderOut('user/account_charge', array(
+$html->renderOut('user/account_charges', array(
   'user' => $user,
   'charge_items' => $charge_items,
   'pager' => $html->render('user/components/pagination', array(

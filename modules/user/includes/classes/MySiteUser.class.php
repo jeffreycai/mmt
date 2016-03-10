@@ -287,7 +287,7 @@ class MySiteUser extends SiteUser {
   
   public function getChargeItemsWithPage($page, $entries_per_page) {
     global $mysqli;
-    $query = "SELECT * FROM charge_item WHERE user_id=".$this->getId()." LIMIT " . ($page - 1) * $entries_per_page . ", " . $entries_per_page;
+    $query = "SELECT * FROM charge_item WHERE user_id=".$this->getId()." ORDER BY created_at DESC LIMIT " . ($page - 1) * $entries_per_page . ", " . $entries_per_page;
     $result = $mysqli->query($query);
     
     $rtn = array();

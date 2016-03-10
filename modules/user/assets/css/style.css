@@ -19,7 +19,8 @@ body.shop_settings,
 body.orders,
 body.platform_contact,
 body.account_index,
-body.account_details {
+body.account_details,
+body.account_charges {
   padding-top: 55px;
 }
 .bg-red {background-color: #EE4136;}

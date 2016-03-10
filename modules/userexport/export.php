@@ -1,6 +1,6 @@
 <?php
 
-define('EXPORT_USERNAME', 'foodking');
+define('EXPORT_USERNAME', 'aixin');
 
 require_once __DIR__ . "/../../bootstrap.php";
 
