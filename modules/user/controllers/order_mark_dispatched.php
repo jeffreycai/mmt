@@ -20,4 +20,4 @@ if ($dispatched) {
 }
 $purchase_order->save();
 
-die($purchase_order->getDispatched()."");
+die($purchase_order->getDispatched() ? "Y" : "N");

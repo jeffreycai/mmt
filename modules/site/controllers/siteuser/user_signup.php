@@ -72,6 +72,17 @@ if (isset($_POST['email'])) {
         
         $user->assignRole($member_type);
         $user->sendAccountActivationEmail();
+        $user->sendGreetingEmail();
+        
+        // create a charge item
+        $charge_item = new ChargeItem();
+        $charge_item->setAmount($settings['member'][$member_type]['setup_fee']);
+        $charge_item->setCharged(1);
+        $charge_item->setCreatedAt(time());
+        $charge_item->setReference($settings['member'][$member_type]['name']);
+        $charge_item->setTitle('注册会员');
+        $charge_item->setUserId($user->getId());
+        $charge_item->save();
         
         Message::register(new Message(Message::SUCCESS, i18n(array(
             'en' => 'Thank you for registering with us. An activation email has been sent to your mail box. Please activate your account by clicking the link in the mail.',
@@ -99,6 +110,7 @@ if (isset($_POST['email'])) {
       
       $user->assignRole($member_type);
       $user->sendAccountActivationEmail();
+      $user->sendGreetingEmail();
       
       Message::register(new Message(Message::SUCCESS, i18n(array(
           'en' => 'Thank you for registering with us. An activation email has been sent to your mail box. Please activate your account by clicking the link in the mail.',

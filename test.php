@@ -2,7 +2,6 @@
 
 include 'bootstrap.php';
 
-$result = sendMailViaLocal('jeffreycaizhenyuan@gmail.com', 'Jeffrey Cai', 'admin@songguo.com.au', 'Songguo', 'admin@songguo.com.au', 'Songguo', 'Test', 'A test email');
-
-echo $result ? "success" : "fail";
+echo "\n";
+echo encrypt('pk_live_v8AemUgwYvdBTmWguIm3urrD');
 echo "\n";

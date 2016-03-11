@@ -240,6 +240,10 @@ class SiteUser extends BaseSiteUser {
     foreach ($this->getRoles() as $r) {
       $_SESSION['siteuser_roles'][] = $r->getName();
     }
+    
+    // set last login time
+    $this->setLastLogin(time());
+    $this->save();
   }
   
   public function isLogin() {

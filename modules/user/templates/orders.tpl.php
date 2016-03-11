@@ -52,8 +52,8 @@
         )) ?>
 
         <p>
-          <button id="mark_paid_<?php echo $order->getId(); ?>" class="mark_paid btn btn-sm btn-<?php echo $order->getPaid() ? 'danger' : 'success' ?>" data-id="<?php echo $order->getId() ?>" ><i class="fa fa-usd"></i> <span>标记为<?php echo $order->getPaid() ? '未' : '已' ?>付款</span></button>
-          <button id="mark_dispatched_<?php echo $order->getId(); ?>" class="mark_dispatched btn btn-sm btn-<?php echo $order->getDispatched() ? 'danger' : 'success' ?>" data-id="<?php echo $order->getId() ?>" ><i class="fa fa-truck"></i> <span>标记为<?php echo $order->getDispatched() ? '未' : '已' ?>发货</span></button>
+          <button id="mark_paid_<?php echo $order->getId(); ?>" class="mark_paid btn btn-sm btn-<?php echo $order->getPaid() ? 'success' : 'danger' ?>" data-id="<?php echo $order->getId() ?>" ><i class="fa fa-usd"></i> <span><?php echo $order->getPaid() ? '已' : '未' ?>付款</span></button>
+          <button id="mark_dispatched_<?php echo $order->getId(); ?>" class="mark_dispatched btn btn-sm btn-<?php echo $order->getDispatched() ? 'success' : 'danger' ?>" data-id="<?php echo $order->getId() ?>" ><i class="fa fa-truck"></i> <span><?php echo $order->getDispatched() ? '已' : '未' ?>发货</span></button>
         </p>
       </div>
       <div class="modal-footer">
@@ -79,12 +79,12 @@
     $.get("<?php echo uri('user/order_mark_paid') ?>" + "/" + id, function(data){
       
       switch (data) {
-        case "0":
-          $btn.html('<i class="fa fa-usd"></i> 标记为已付款').removeClass('btn-danger').addClass('btn-success').prop('disabled', false);
+        case "N":
+          $btn.html('<i class="fa fa-usd"></i> 未付款').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
           $('.fa-check.paid', $row).removeClass('fa-check').addClass('fa-times');
           break;
-        case "1":
-          $btn.html('<i class="fa fa-usd"></i> 标记为未付款').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
+        case "Y":
+          $btn.html('<i class="fa fa-usd"></i> 已付款').removeClass('btn-danger').addClass('btn-success').prop('disabled', false);
           $('.fa-times.paid', $row).removeClass('fa-times').addClass('fa-check');
           break;
         default:
@@ -107,12 +107,12 @@
     $.get("<?php echo uri('user/order_mark_dispatched') ?>" + "/" + id, function(data){
       
       switch (data) {
-        case "0":
-          $btn.html('<i class="fa fa-truck"></i> 标记为已发货').removeClass('btn-danger').addClass('btn-success').prop('disabled', false);
+        case "N":
+          $btn.html('<i class="fa fa-truck"></i> 未发货').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
           $('.fa-check.dispatched', $row).removeClass('fa-check').addClass('fa-times');
           break;
-        case "1":
-          $btn.html('<i class="fa fa-truck"></i> 标记为未发货').removeClass('btn-success').addClass('btn-danger').prop('disabled', false);
+        case "Y":
+          $btn.html('<i class="fa fa-truck"></i> 已发货').removeClass('btn-danger').addClass('btn-success').prop('disabled', false);
           $('.fa-times.dispatched', $row).removeClass('fa-times').addClass('fa-check');
           break;
         default:

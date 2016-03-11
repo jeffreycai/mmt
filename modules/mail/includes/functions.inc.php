@@ -177,5 +177,5 @@ function loadEmailTemplate($template_name, $vars = array()) {
 
 function sendmail($subject, $body, $to) {
   $settings = Vars::getSettings();
-  return sendMailViaLocal($to, '', $settings['siteemail'], $settings['sitename'], $settings['siteemail'], $settings['sitename'], $subject, $body);
+  return sendMailViaLocal($to, '', $settings['siteemail'], $settings['sitename'], 'pdrupal@'.SITEDOMAIN, $settings['sitename'], $subject, $body);
 }

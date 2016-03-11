@@ -299,4 +299,22 @@ class MySiteUser extends SiteUser {
     
     return $rtn;
   }
+  
+  public function sendGreetingEmail() {
+    $settings = Vars::getSettings();
+    
+    return sendMailViaLocal(
+            $this->getEmail(), // $to
+            $this->getProfile()->getNickname(), //$to_nickname, 
+            $settings['siteemail'], //$reply_to, 
+            $settings['sitename'],//$reply_to_nickname, 
+            'pdrupal@' . SITEDOMAIN, // $from, 
+            $settings['sitename'], // $from_nickname, 
+            '亲，欢迎您来到'.$settings['sitename'], // $subject, 
+            loadEmailTemplate('customer_greeting', array(
+              'user' => $this,
+              'settings' => $settings
+            ))
+    );
+  }
 }

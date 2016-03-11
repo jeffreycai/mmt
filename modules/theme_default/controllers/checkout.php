@@ -26,9 +26,11 @@ if ($buynow_pid) {
   $items = get_cart_items($user);
 }
 
+
 //_debug($_COOKIE['cart']);
 /** handle form submission **/
 if (isset($_POST['submit'])) {
+  $error = false;
   // get vars from $_POST
   $number = $_POST['number'];
   $pid = $_POST['pid'];
@@ -52,6 +54,11 @@ if (isset($_POST['submit'])) {
     if ($product->getUserId() !== $user->getId()) {
       continue;
     }
+    // product must have enough stock
+    if ($product->getStock() < $number[$i]) {
+      Message::register(new Message(Message::INFO, '商品：<strong>'.$product->getTitle().'</strong>现有库存为<strong>'.$product->getStock().'</strong> 您的订单数为<strong>'.$number[$i].'</strong>，超过了库存量，请修改订单'));
+      $error |= true;
+    }
     // create cart items for further usage
     $cart_item = new CartItem();
     $cart_item->setProductId($product_id);
@@ -70,7 +77,7 @@ if (isset($_POST['submit'])) {
   setcookie('cart', serialize($cart), (CART_ITEM_COOKIE_LIFE_TIME), "/" . get_sub_root(), SITEDOMAIN);
 
   // validation
-  $error = false;
+  
   // spam check
   if (!Form::checkSpamToken($checkout_form_spam_token)) {
     Message::register(new Message(Message::DANGER, '表格已过期，请尝试重新提交'));

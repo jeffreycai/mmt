@@ -26,14 +26,16 @@ if ($stripe->proceedPaymentForm($purchase_order->getTotal(), $public_id)) {
     // send customer email
 //    $purchase_order->sendCustomerNewOrderConfirmation();
 
-    // decrease stock number
+    // decrease stock number and increase sales number
     $items = $purchase_order->getItems();
     foreach ($items as $item) {
       $product = $item->getProduct();
       if ($product && $product->getStock()) {
         $stock = $product->getStock() - $item->getNumber();
+        $sales = $product->getSales() + $item->getNumber();
         if ($stock >= 0) {
           $product->setStock($stock);
+          $product->setSales($sales);
           $product->save();
         }
       }

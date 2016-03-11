@@ -225,16 +225,7 @@
                         <p>是的。普通会员的微店客户会收到邮件提醒，白金会员的微店客户除了收到邮件提醒外还会收到短信提醒，以防部分邮箱邮件接收失败或者勿标为垃圾邮件的现象。</p>
 
                         <h3>如何咨询更多的问题？</h3>
-                        <p>欢迎您随时联系我们 <script type="text/javascript">
-                            document.write('<a href="mai');
-                            document.write('lto');
-                            document.write(':songguo.com.au');
-                            document.write('@');
-                            document.write('gmail.com">');
-                            document.write('songguo.com.au');
-                            document.write('@');
-                            document.write('gmail.com<\/a>');
-                        </script>.</p>
+                        <p>欢迎您随时<a href="<?php echo uri('contact') ?>">联系我们</a>  .</p>
                     </div>
                 </div>
             </div>
@@ -252,15 +243,18 @@
         </section>
 
         <footer>
+          <!--
             <ul id="social">
                 <li><a href="http://www.facebook.com/GrabbyIo" target="_blank"><i class="fa fa-facebook"></i></a></li>
                 <li><a href="http://www.twitter.com/GrabbyIo" target="_blank"><i class="fa fa-twitter"></i></a></li>
                 <li><a href="http://www.medium.com/@GrabbyIo" target="_blank"><i class="fa fa-medium"></i></a></li>
             </ul>
+          -->
             <span>&copy; <?php echo $settings['sitename'] ?> 2016</span>
             <ul>
                 <li><a href="<?php echo uri('terms') ?>">网站使用条款及条件</a></li>
                 <li><a href="<?php echo uri('privacy') ?>">隐私权和条款</a></li>
                 <li><a href="<?php echo uri('cookies') ?>">关于Cookies</a></li>
+                <li><a href="<?php echo uri('contact') ?>">联系我们</a></li>
             </ul>
         </footer>

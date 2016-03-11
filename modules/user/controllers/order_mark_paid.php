@@ -20,4 +20,4 @@ if ($paid) {
 }
 $purchase_order->save();
 
-die($purchase_order->getPaid()."");
+die(($purchase_order->getPaid() ? "Y" : "N"));

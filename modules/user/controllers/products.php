@@ -33,6 +33,14 @@ if (!in_array($sorting['onshelf'], array(
 $user = MySiteUser::getCurrentUser();
 $products = Product::findAllByUserId($user->getId(), intval($sorting['onshelf']), null, $sorting['column'], $sorting['order']);
 
+// set alert if onShelf products is more than allowed
+$member_type = $user->getMemberType();
+$member_type_verbal = $user->getMemberType(true);
+$limit = $user->getProductLimit();
+if ($limit < sizeof($products)) {
+  Message::register(new Message(Message::INFO, '您当前为'.$member_type_verbal.'，最多可以上架'.$limit.'件商品。<br />您当前上架商品总数为'.sizeof($products).'件，已超出限额。微店前台将只显示'.$limit.'件商品'));
+}
+
 /** presentation **/
 $html = new HTML();
 

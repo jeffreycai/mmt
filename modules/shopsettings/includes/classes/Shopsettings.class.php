@@ -13,4 +13,12 @@ class Shopsettings extends BaseShopsettings {
     }
     return null;
   }
+  
+  public function setStripePrivateKey($var) {
+    return parent::setStripePrivateKey(encrypt($var));
+  }
+  
+  public function getStripePrivateKey() {
+    return decrypt(parent::getStripePrivateKey());
+  }
 }

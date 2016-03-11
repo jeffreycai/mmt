@@ -18,7 +18,7 @@ purchase_order:
     created_at: INT
     confirmed_at: INT
     paid_at: INT
-    dispatched: INT DEFAULT 0
+    dispatched: TINYINT DEFAULT 0
   indexes:
     - `purchase_order_public_id` (`public_id` ASC)
   fks:

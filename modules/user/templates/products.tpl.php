@@ -43,6 +43,11 @@
   </div>
   <?php endif; ?>
 <?php else: foreach ($products as $product): ?>
+  <?php if (!empty(Message::peekMessages(Message::INFO))): ?>
+<div class="row product" style="padding-top: 0px; padding-bottom: 0px; border: none;">
+  <?php echo Message::renderMessages(Message::INFO); ?>
+</div>
+  <?php endif; ?>
   <div class="row product">
     <div class="col-xs-12 upper">
       <div class="left">
@@ -133,6 +138,7 @@
               <div class="modal-body">
                 <h3 style="margin-bottom: 20px;"><?php echo $product->getTitle() ?></h3>
                 <div class="canvas img-responsive"></div>
+                <p><br /><br />保存图片分享到微信</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
