@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `purchase_order` (
   `created_at` INT ,
   `confirmed_at` INT ,
   `paid_at` INT ,
-  `dispatched` INT DEFAULT 0 ,
+  `dispatched` TINYINT DEFAULT 0 ,
   PRIMARY KEY (`id`)
  ,
 INDEX `purchase_order_public_id` (`public_id` ASC) ,

@@ -1,9 +1,9 @@
 <?php
 
-define('IMPORT_USERNAME', 'aixin');
-define('RENAMED_USERNAME', 'aixin'); // if you need the user to be renamed, put new username here, otherwise leave it blank
+define('IMPORT_USERNAME', 'foodking');
+define('RENAMED_USERNAME', 'foodking'); // if you need the user to be renamed, put new username here, otherwise leave it blank
 if (RENAMED_USERNAME) {
-  define('RENAMED_EMAIL', 'blue.stream186@gmail.com'); // new user's email, must be unique
+  define('RENAMED_EMAIL', 'bluestream.186@gmail.com'); // new user's email, must be unique
 }
 
 require_once __DIR__ . "/../../bootstrap.php";
