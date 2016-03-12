@@ -88,11 +88,26 @@ body.order_payment_confirmed {
 #slideshow {
   position: relative;
 }
+body.home .container.section {
+  background: #FFF;
+  border: 1px solid #E0E0E0;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+body.home .container.section h2 {
+  margin-top: 0px;
+}
 .tiles {
   background: #FFF;
   border: 1px solid #E0E0E0;
   padding-top: 15px;
   padding-bottom: 15px;
+  margin-bottom: 10px;
+}
+.tiles h2 {
+  font-size: 1.3em;
+  margin-top: 0px;
 }
 a.tile {
   text-decoration: none;
@@ -117,6 +132,13 @@ a.tile {
 }
 .tile .price span {
   color: #999;
+}
+.promoted_shop h3 {
+  font-size: 1em;
+  height: 2.2em;
+  overflow: hidden;
+  text-align: center;
+  margin-top: 0px;
 }
 .page-body .container .row {
   margin-bottom: 10px;

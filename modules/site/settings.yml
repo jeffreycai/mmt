@@ -25,7 +25,15 @@ member:
     name: 白金会员
     setup_fee: 38.88
     transaction_fee: 0.88
+  SELF:
+    product_limit: 99999
+    name: 内部会员
+    transaction_fee: 0
+    setup_fee: 0
 
 demo_accounts:
   - aixin
   - foodking
+  
+promoted_shops:
+  - dummy
