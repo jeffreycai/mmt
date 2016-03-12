@@ -163,6 +163,10 @@ class MySiteUser extends SiteUser {
     $member_type = isset($_POST['member_type']) ? strip_tags($_POST['member_type']) : (isset($_GET['member_type']) ? strip_tags($_GET['member_type']) : 'NORMAL');
     $member_type_btn_group = "";
     foreach ($settings['member'] as $type => $confs) {
+      // exclude internal member types
+      if (in_array($type, array('SELF'))) {
+        continue;
+      }
       $member_type_btn_group .= "      <button type=\"button\" class=\"btn btn-default ".($member_type == $type ? 'active' : '')."\" data-type=\"$type\" data-fee=\"".$confs['setup_fee']."\">".$confs['name']."</button>\n";
     }
     $setup_fee = $settings['member'][$member_type]['setup_fee'];

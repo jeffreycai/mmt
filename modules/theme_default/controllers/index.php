@@ -13,7 +13,7 @@ $products = $user->getTotalProductsOnSale();
 /** presentation **/
 $html = new HTML();
 $html->renderOut('theme_default/components/html_header', array(
-    'body_class' => 'theme_default',
+    'body_class' => 'theme_default home',
     'title' => $user->getShopName() . " :: " . $settings['sitename']
 ));
 $html->renderOut('theme_default/components/header', array(
