@@ -141,6 +141,7 @@ $html->renderOut('core/backend/single_form_header', array('title' => i18n(array(
           'en' => 'New user signup',
           'zh' => '新用户注册'
       ))));
+$html->output(render_ga());
 echo MySiteUser::renderSignupForm(null, '', array('avatar', 'active'));
 
 $html->renderOut('core/backend/single_form_footer', array(

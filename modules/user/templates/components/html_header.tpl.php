@@ -51,4 +51,4 @@
 </head>
 
 <body class="<?php if (isset($body_class)) {echo $body_class; }?>">
-
+<?php echo render_ga(); ?>
