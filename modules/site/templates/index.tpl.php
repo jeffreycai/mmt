@@ -149,6 +149,7 @@
                     <li><i class="fa fa-times"></i> 广告和推广 - 有</li>
                     <li><i class="fa fa-times"></i> 在线支付 - 无</li>
                     <li><i class="fa fa-times"></i> 短信提醒 - 无</li>
+                    <li><i class="fa fa-times"></i> 销售数据导出功能 - 无</li>
                   </ul>
                   <br />
                   <a class="button" href="<?php echo uri('signup?member_type=NORMAL') ?>">选择注册！</a>
@@ -167,6 +168,7 @@
                     <li><i class="fa fa-check"></i> 广告和推广 - 无</li>
                     <li><i class="fa fa-check"></i> 在线支付 - 有</li>
                     <li><i class="fa fa-times"></i> 短信提醒 - 无</li>
+                    <li><i class="fa fa-times"></i> 销售数据导出功能 - 无</li>
                   </ul>
                   <br />
                   <a class="button" href="<?php echo uri('signup?member_type=GOLD') ?>">选择注册！</a>
@@ -184,6 +186,7 @@
                     <li><i class="fa fa-check"></i> 广告和推广 - 无</li>
                     <li><i class="fa fa-check"></i> 在线支付 - 有</li>
                     <li><i class="fa fa-check"></i> 短信提醒 - 有</li>
+                    <li><i class="fa fa-check"></i> 销售数据导出功能 - 有</li>
                   </ul>
                   <br />
                   <a class="button" href="<?php echo uri('signup?member_type=PLATINUM') ?>">选择注册！</a>
@@ -194,7 +197,7 @@
 
                 <small class="footnote">* 支付平台Stripe每笔交易会<a href="https://stripe.com/au/pricing">收取一定手续费</a><br />黄金和白金会员订单产生的费用每月月初结算.</small>
                 
-                <span>按您收到的订单多少收费 <span>只有您卖的好，我们才收取您小部分的会员费用</span></span>
+                <span>按您收到的订单多少收费 <span>只有您卖的好，我们才收取您小部分的服务费用</span></span>
             </div>
         </section>
 

@@ -19,12 +19,12 @@ member:
     product_limit: 25
     name: 黄金会员
     setup_fee: 22.22
-    transaction_fee: 0.66
+    transaction_fee: 0.22
   PLATINUM:
     product_limit: 999999
     name: 白金会员
-    setup_fee: 38.88
-    transaction_fee: 0.88
+    setup_fee: 22.22
+    transaction_fee: 0.36
   SELF:
     product_limit: 99999
     name: 内部会员
