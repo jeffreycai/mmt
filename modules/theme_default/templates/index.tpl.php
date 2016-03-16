@@ -60,7 +60,7 @@
 <div class="container section">
   <div class="row">
     <div class="col-xs-12">
-      <a style="width: 100%;" class="btn btn-danger btn-lg" target="_blank" href="<?php echo uri('') ?>">我也要开微店,收澳元!</a>
+      <a style="width: 100%;" class="btn btn-danger btn-lg" target="_blank" href="<?php echo uri('') ?>">我也要免费开微店,澳元在线收账!</a>
     </div>
   </div>
 </div>
