@@ -15,22 +15,7 @@
             </ul>
         </nav>
 
-        <div id="mobilenav" class="hidden" rel="mobile">
-            <ul>
-                <li><a href="<?php echo uri('signup') ?>">注册帐号</a></li>
-                <li><a href="<?php echo uri('users') ?>">登录</a></li>
-            </ul>
-            <ul class="anchors">
-                <li><a href="#about">关于松果</a></li>
-                <li><a href="#features">微店特点</a></li>
-                <li><a href="#pricing">产品价格</a></li>
-                <li><a href="#faq">常见问题</a></li>
-            </ul>
-        </div>
-
-        <a href="<?php echo uri('signup') ?>" class=" button" id="header_signup">注册帐号</a>
-        <a href="<?php echo uri('users') ?>" class=" button" id="header_login">登录</a>
-        <a href="#" id="mobiletoggle" rel="mobile">导航菜单</a>
+        <?php $html->renderOut('site/components/mobile_nav') ?>
 
         <div id="navbg"></div>
 
@@ -40,10 +25,11 @@
                 <div id="sub">
                     <h2>支持澳元在线支付功能的电子商务平台</h2>
                     <h3>低门槛把您的生意电商化！</h3>
-                    <!--<a href="#" id="play">播放简介视频</a>-->
-                    <br /><br />
-                    <!--<a href="#" id="check" data-toggle="modal" data-target="#checkModal">查看演示站</a>-->
-
+                    
+                    
+                    <a href="#" id="play" data-toggle="modal" data-target="#introVideo" data-theVideo="https://www.youtube.com/embed/2BY27aSxqVI">播放简介视频</a>
+                      
+                      
                     <a href="<?php echo uri('signup') ?>" class=" button">马上免费注册！</a>
                     <p>
                         已经注册帐号了? <a href="<?php echo uri('users') ?>" class="">登录后台</a>
@@ -245,19 +231,17 @@
             </div>
         </section>
 
-        <footer>
-          <!--
-            <ul id="social">
-                <li><a href="http://www.facebook.com/GrabbyIo" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="http://www.twitter.com/GrabbyIo" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="http://www.medium.com/@GrabbyIo" target="_blank"><i class="fa fa-medium"></i></a></li>
-            </ul>
-          -->
-            <span>&copy; <?php echo $settings['sitename'] ?> 2016</span>
-            <ul>
-                <li><a href="<?php echo uri('terms') ?>">网站使用条款及条件</a></li>
-                <li><a href="<?php echo uri('privacy') ?>">隐私权和条款</a></li>
-                <li><a href="<?php echo uri('cookies') ?>">关于Cookies</a></li>
-                <li><a href="<?php echo uri('contact') ?>">联系我们</a></li>
-            </ul>
-        </footer>
+<?php $html->renderOut('site/components/footer') ?>
+
+                    <div class="modal fade" id="introVideo" tabindex="-1" role="dialog" aria-labelledby="videoModal" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <div>
+                              <iframe width="100%" height="350" src=""></iframe>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>

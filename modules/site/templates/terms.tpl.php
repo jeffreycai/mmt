@@ -8,35 +8,10 @@
     
 		<header>
 			<h1 id="logo"><?php echo $settings['sitename'] ?></h1>
-
-	        <nav>
-            <ul id="left">
-                <li><a href="<?php echo uri('') ?>#about">关于松果</a></li>
-                <li><a href="<?php echo uri('') ?>#features">微店特点</a></li>
-            </ul>
-            <ul id="right">
-                <li><a href="<?php echo uri('') ?>#pricing">产品价格</a></li>
-                <li><a href="<?php echo uri('') ?>#faq">常见问题</a></li>
-            </ul>
-	        </nav>
+      <?php $html->renderOut('site/components/home_nav'); ?>
 		</header>
 
-        <div id="mobilenav" class="hidden" rel="mobile">
-            <ul>
-                <li><a href="<?php echo uri('users/signup') ?>">注册帐号</a></li>
-                <li><a href="<?php echo uri('users') ?>">登录</a></li>
-            </ul>
-            <ul class="anchors">
-                <li><a href="<?php echo uri('') ?>#about">关于松果</a></li>
-                <li><a href="<?php echo uri('') ?>#features">微店特点</a></li>
-                <li><a href="<?php echo uri('') ?>#pricing">产品价格</a></li>
-                <li><a href="<?php echo uri('') ?>#faq">常见问题</a></li>
-            </ul>
-        </div>
-
-        <a href="<?php echo uri('users/signup') ?>" class="signuplink button visible" id="header_signup">注册帐号</a>
-        <a href="<?php echo uri('users') ?>" class="loginlink button visible" id="header_login">登录</a>
-        <a href="#" id="mobiletoggle" rel="mobile">导航菜单</a>
+    <?php $html->renderOut('site/components/mobile_nav') ?>
 
 		<div id="document_wrapper">
 			<div id="document">
@@ -107,15 +82,49 @@
             <li><?php echo $settings['sitename_short'] ?>不承诺使用我们的服务得到的结果是准确和可靠的。</li>
             <li><?php echo $settings['sitename_short'] ?>不承诺任何您在我们平台上购买的商品，服务，信息以及其他您在我们平台上购买的物品会达到您的期望值。我们同时也不承诺任何服务中出现的错误会被纠正。虽然我们会尽力纠正出现的所有问题。</li>
           </ol>
+          
+          <h2>6. Waiver and Complete Agreement</h2>
+          <p>如果<?php echo $settings['sitename_short'] ?>未实施或应用本条款中属于我们的任何权利，并不代表我们放弃追究或者履行的权利。本服务条款是由您本人以及<?php echo $settings['sitename_short'] ?>共同的共识，同时也是您使用我们提供的服务的指南。如果您和<?php echo $settings['sitename_short'] ?>有任何之前的协议，和本服务条款冲突的地方应以本条款为主。</p>
+          
+          <h2>7. 知识产权和用户产生的内容</h2>
+          <ol>
+            <li>我们对您向<?php $settings['sitename_short'] ?>提供的内容并不享有知识产权。您上传的任何内容都归您本人所有。您可以随时申请删除您的帐号以及所有上传的内容。</li>
+            <li>在您上传网店内容的时候，您同意：(a) 允许其他互联网用户查看您上传的内容。 (b) 允许<?php echo $settings['sitename_short'] ?>显示并存储您上传的内容。 (c) <?php echo $settings['sitename_short'] ?>可以在任何时间对您上传的内容进行审查。</li>
+            <li>您对您网店内的内容保有所有权，然而，您的网店是对公众开放的，您同意所有其他的网络用户查看您网店上的内容。你对您网店上的内容的合法性负有责任。</li>
+            <li>我们不会向第三方泄漏您的保密信息，除非是以向您提供服务为前提。保密信息包括您向我们提供的任何不公开的信息。保密信息不包括：(a) 我们接受到信息的时候，信息本身已经是公开的了。 (b) 我们收到您的保密信息后，因非我方的过失而流露给了公众。 (c) 我们从第三方处获得了您的信息，并且第三方和我方都没有违反保密的义务。 (d) 我方被法律要求提供您们的保密信息。</li>
+            <li><?php echo $settings['sitename_short'] ?>对您的昵称，网店名以及网店商标，服务商标，logo以及其他和您的网店有关的形象资产享有推广的使用权。</li>
+          </ol>
+          
+          <h2>7. 取消和终止服务</h2>
+          <ol>
+            <li>您可以在任何时候联系我们取消您的帐号。</li>
+            <li>不论任意一方因何种原因终止服务的时候：
+              <ol>
+                <li><?php echo $settings['sitename_short'] ?>将停止向您提供服务。您将无法登陆您的帐号</li>
+                <li>除非在服务条款中另外申明，您将不会获得任何的退款或者经济补偿</li>
+                <li>您欠<?php echo $settings['sitename_short'] ?>的任何未支付款项需立即支付</li>
+                <li>您的网店将会下线。</li>
+              </ol>
+            </li>
+            <li>如在终止服务的当天你在<?php echo $settings['sitename_short'] ?>有任何未支付款项，您会收到我们发出的账单。账单支付之后，您不会被要求再支付任何款项。</li>
+            <li>我们保留在未通知您的前提下，以任何理由更改，终止或关闭您的帐号的权利。</li>
+            <li>如果我们怀疑您以任何形式从事任何欺诈活动，我们会暂停或者终止您的帐号。</li>
+          </ol>
+          
+          <h2>8. 服务和费用的更改</h2>
+          <ol>
+            <li><?php echo $settings['sitename_short'] ?>保留随时更改收费价格的权利。我们会在网站上登出最新的价格。</li>
+            <li><?php echo $settings['sitename_short'] ?>保留在未给出通知的前提下随时更改服务或终止服务的权利。</li>
+          </ol>
+          
+          <h2>9. 第三方服务条款</h2>
+          <ol>
+            <li>除了本服务条款之外，您同时也同意遵守和我们平台所使用的，或者有合作关系的第三方服务商的服务条款。</li>
+            <li><?php echo $settings['sitename_short'] ?>可能会经常向您推荐，或者使用第三方提供的软件，网络服务接口，网站链接，网络服务等等（统称第三方服务）。这些第三方服务仅您的方便而提供，您在使用这些服务的时候需自己承担风险，您必须实现同意第三方服务的服务条款和隐私条款。<?php echo $settings['sitename_short'] ?>不对任何有使用第三方服务而产生的问题或损失承担责任。</li>
+            <li>我们对第三方提供的服务不承担质量担保。您理解并认可我们对第三方服务不拥有控制权，而且并不对第三方服务负任何责任。我们和第三方服务之间不存在认可关系，授权关系，赞助关系及营销关系。<?php echo $settings['sitename_short'] ?>强烈建议您在使用第三方服务的时候详细了解清楚服务条款，或者找专业人士帮助您理解服务条款。</li>
+          </ol>
         </div>
 			</div>
 		</div>
 
-        <footer>
-            <span>&copy; Grabby.io 2015</span>
-            <ul>
-                <li><a href="/terms">Terms &amp; Conditions</a></li>
-                <li><a href="/privacy">Privacy Policy</a></li>
-                <li><a href="/cookies">Information about Cookies</a></li>
-            </ul>
-        </footer>
+<?php $html->renderOut('site/components/footer') ?>

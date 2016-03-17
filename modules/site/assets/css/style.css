@@ -154,3 +154,49 @@ header #check {
 #final .btn {
   border-radius: 0px;
 }
+
+/** styles for home page youtube embed autoplay modal **/
+ #introVideo .modal-content {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background:transparent;
+    border:none;
+    outline:none;
+}
+#introVideo .modal-content iframe {
+    border:none;
+    padding:0;
+    margin:0;
+}
+#introVideo .close {
+    font-size: 80px;
+    margin:-20px 0 0 0;
+}
+/***** MEDIA QUERIES *****/
+ @media only screen and (max-width: 641px) {
+    /***** MODAL PROPERTIES *****/
+    #introVideo .modal-body {
+        height:100px;
+        padding:0;
+        margin: 0;
+    }
+    #introVideo .modal-content {
+        padding:0;
+        margin: 0;
+    }
+    #introVideo .modal-dialog {
+        position: relative;
+        width: auto;
+        margin: 15px;
+    }
+    #introVideo .close {
+        margin:-12px 0 0 0;
+    }
+}
+@media only screen and (min-width: 768px) {
+    /***** MODAL PROPERTIES *****/
+    #introVideo .close {
+        font-size: 80px;
+        margin:30px -43px -20px 100px;
+    }
+}

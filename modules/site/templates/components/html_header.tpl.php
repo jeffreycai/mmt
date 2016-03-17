@@ -22,7 +22,9 @@
   <link rel="stylesheet" href="<?php echo uri('modules/site/assets/css/original.css', false) ?>" />
   <link rel='stylesheet' href='<?php echo uri('modules/site/assets/css/style.css', false) ?>'>
 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="<?php echo uri('modules/site/assets/js/original.js') ?>"></script>
+  <script src="<?php echo uri('modules/site/assets/js/script.js') ?>"></script>
 </head>
 
 <body class="<?php if (isset($body_class)) {echo $body_class; }?>">
