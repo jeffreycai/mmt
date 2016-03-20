@@ -25,6 +25,11 @@ if ($buynow_pid) {
 } else {
   $items = get_cart_items($user);
 }
+// check if require deliver
+$require_delivery = false;
+foreach ($items as $item) {
+  $require_delivery |= $item->getRequireDelivery();
+}
 
 
 //_debug($_COOKIE['cart']);
@@ -87,11 +92,13 @@ if (isset($_POST['submit'])) {
   $fields = array(
     'name' => '姓名',
     'email' => '邮箱',
-    'state' => '州',
-    'suburb' => 'Suburb / 区',
-    'postcode' => '邮编',
-    'address' => '街道地址'
   );
+  if ($require_delivery) {
+    $fields['state'] = '州';
+    $fields['suburb'] = 'Suburb / 区';
+    $fields['postcode'] = '邮编';
+    $fields['address'] = '街道地址';
+  }
   foreach ($fields as $key => $val) {
     if (empty($$key)) {
       Message::register(new Message(Message::DANGER, '"'.$val.'"不能为空，请填写'));
@@ -104,7 +111,7 @@ if (isset($_POST['submit'])) {
     $error |= true;
   }
   // postcode
-  if (!preg_match('/^\d\d\d\d$/', $postcode)) {
+  if ($require_delivery && !preg_match('/^\d\d\d\d$/', $postcode)) {
     Message::register(new Message(Message::DANGER, '邮编应为4位数字，请检查'));
     $error |= true;
   }
@@ -186,7 +193,8 @@ $html->renderOut('theme_default/components/cart', array(
 ));
 if (!empty($items)) {
   $html->renderOut('theme_default/components/delivery', array(
-    'user' => $user
+    'user' => $user,
+    'require_delivery' => $require_delivery
   ));
   Form::loadSpamToken('#checkout', $checkout_form_spam_token);
 }

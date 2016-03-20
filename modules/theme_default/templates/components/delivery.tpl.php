@@ -2,7 +2,7 @@
   <div class="row section">
 
     <div class="col-xs-12">
-      <h2>订单信息</h2>
+      <h2>订单信&nbsp;&nbsp;&nbsp;<small><span style="color:red">*</span>为必填项目</small></h2>
       
       <?php echo Message::renderMessages(); ?>
       
@@ -27,6 +27,7 @@
         </div>
       </fieldset>
       
+      <?php if (isset($require_delivery) && $require_delivery): ?>
       <br />
       
       <fieldset>
@@ -55,6 +56,9 @@
           <textarea class="form-control" id="address" name="address" placeholder="例如：3/34 Pitt Street Sydney" required=""><?php echo isset($_POST['address']) ? htmlentities($_POST['address']) : (isset($_COOKIE['delivery']['address']) ? htmlentities($_COOKIE['delivery']['address']) : '') ?></textarea>
         </div>
       </fieldset>
+      <?php endif; ?>
+      
+      <br />
       
       <fieldset>
         <legend>其他要求</legend>

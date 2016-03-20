@@ -91,6 +91,19 @@
 </div>
 <div class='hr-line-dashed'></div>
 
+<div class='form-group'>
+  <label class='col-sm-2 control-label'>
+    <?php echo i18n(array(
+        'en' => 'Require delivery',
+        'zh' => '要求客户填写邮寄信息?'
+    )) ?>
+  </label>
+  <div class='col-sm-10'>
+    <input type='checkbox' <?php echo ($object->isNew() ? (isset($_POST['require_delivery']) ? ($_POST['require_delivery'] ? 'checked="checked"' : '') : 'checked="checked"') : ($object->getRequireDelivery() ? "checked='checked'" : "")) ?> id='require_delivery' name='require_delivery' value='1' />
+  </div>
+</div>
+<div class='hr-line-dashed'></div>
+
 
     <div class="form-group">
       <label for="thumbnail" class="col-sm-2 control-label"><?php echo i18n(array(

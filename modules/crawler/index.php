@@ -7,12 +7,12 @@ require_once  __DIR__ . '/../../bootstrap.php';
 $time_table = array();
 
 // yanwo
-$time_table['10:01'] = 'yanwo1_1070892';
-$time_table['17:00'] = 'yanwo2_1071903';
-$time_table['20:21'] = 'yanwo1_1070934';
-$time_table['21:06'] = 'yanwo2_1071906';
-$time_table['21:40'] = 'yanwo1_1070910';
-$time_table['22:20'] = 'yanwo2_1071908';
+//$time_table['10:01'] = 'yanwo1_1070892';
+//$time_table['17:00'] = 'yanwo2_1071903';
+//$time_table['20:21'] = 'yanwo1_1070934';
+//$time_table['21:06'] = 'yanwo2_1071906';
+//$time_table['21:40'] = 'yanwo1_1070910';
+//$time_table['22:20'] = 'yanwo2_1071908';
 // ozboxoffice
 $time_table['17:15'] = 'ozboxoffice_878884';
 $time_table['19:12'] = 'ozboxoffice_843303';

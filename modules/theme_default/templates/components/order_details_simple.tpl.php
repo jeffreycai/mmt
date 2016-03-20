@@ -69,7 +69,7 @@
   </tbody>
 </table>
 
-
+<?php if (!empty($purchase_order->getAddress())): ?>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -82,7 +82,7 @@
     </tr>
   </tbody>
 </table>
-
+<?php endif; ?>
 
 <table class="table table-striped">
   <thead>

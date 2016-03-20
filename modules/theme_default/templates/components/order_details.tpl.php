@@ -75,6 +75,7 @@
     </tbody>
   </table>
 </div>
+<?php if (!empty($purchase_order->getAddress())): ?>
 <div class="col-xs-12">
   <table class="table table-striped">
     <thead>
@@ -89,6 +90,7 @@
     </tbody>
   </table>
 </div>
+<?php endif; ?>
 <div class="col-xs-12">
   <table class="table table-striped">
     <thead>

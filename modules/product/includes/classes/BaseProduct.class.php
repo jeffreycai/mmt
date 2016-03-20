@@ -12,6 +12,7 @@ include_once MODULESROOT . DS . 'core' . DS . 'includes' . DS . 'classes' . DS .
  * - price
  * - original_price
  * - onshelf
+ * - require_delivery
  * - sales
  * - stock
  * - created_at
@@ -89,6 +90,12 @@ class BaseProduct extends DBObject {
    public function getOnshelf() {
      return $this->getDbFieldOnshelf();
    }
+   public function setRequireDelivery($var) {
+     $this->setDbFieldRequire_delivery($var);
+   }
+   public function getRequireDelivery() {
+     return $this->getDbFieldRequire_delivery();
+   }
    public function setSales($var) {
      $this->setDbFieldSales($var);
    }
@@ -136,6 +143,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `price` VARCHAR(10) NOT NULL ,
   `original_price` VARCHAR(10) ,
   `onshelf` TINYINT(1) DEFAULT 1 ,
+  `require_delivery` TINYINT(1) DEFAULT 1 ,
   `sales` INT DEFAULT 0 ,
   `stock` INT DEFAULT 0 ,
   `created_at` INT ,

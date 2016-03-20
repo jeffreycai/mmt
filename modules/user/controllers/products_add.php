@@ -127,6 +127,8 @@ if (isset($_POST['submit'])) {
   }
   // validation for $onshelf
   $onshelf = isset($_POST["onshelf"]) ? 1 : 0;  /// proceed submission
+  // validation for $require_delivery
+  $require_delivery = isset($_POST["require_delivery"]) ? 1 : 0;
   
   /// proceed submission
   
@@ -179,6 +181,9 @@ if (isset($_POST['submit'])) {
   
   // proceed for $onshelf
   $object->setOnshelf($onshelf);
+  
+  // proceed for $require_delivery
+  $object->setRequireDelivery($require_delivery);
   
   // proceed for user_id
   $object->setUserId($user->getId());
