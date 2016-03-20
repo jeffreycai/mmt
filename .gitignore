@@ -3,3 +3,4 @@
 /_rsync/*
 /modules/userexport/*
 /db
+/apc.php
