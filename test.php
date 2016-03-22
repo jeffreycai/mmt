@@ -1,7 +1,6 @@
 <?php
 include 'bootstrap.php';
-
-echo time();
+echo phpinfo();
 echo "\n";
 die();
 

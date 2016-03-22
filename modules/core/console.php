@@ -6,6 +6,9 @@ if ($command == 'cc' && $arg1 == 'all' && ENV == 'prod') {
   echo "*********************************************************************\n";
   echo " !!! This site is now under PROD mode. ARE YOU SURE TO CLEAR ALL !!! \n";
   echo "*********************************************************************\n";
+  
+  exit(0);
+  
   echo "yes/no\n";
   $confirmation  =  trim( fgets( STDIN ) );
   if ( $confirmation !== 'yes' ) {
