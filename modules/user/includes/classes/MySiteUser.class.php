@@ -94,6 +94,8 @@ class MySiteUser extends SiteUser {
       $limit = $settings['member']['PLATINUM']['product_limit'];
     } else if ($this->hasRole('GOLD')) {
       $limit = $settings['member']['GOLD']['product_limit'];
+    } else if ($this->hasRole('SELF')) {
+      $limit = $settings['member']['SELF']['product_limit'];
     } else {
       $limit = $settings['member']['NORMAL']['product_limit'];
     }
